@@ -147,6 +147,7 @@ public class UserController {
                                     .token(token)
                                     .refreshToken(refreshToken2.getToken())
                                     .build()
+                                    
                             );
                 }).orElseThrow(() -> new RefreshTokenException("Refresh token not found"));
     }
