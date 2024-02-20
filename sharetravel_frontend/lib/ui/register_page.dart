@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sharetravel_frontend/bloc/login_bloc/login_bloc.dart';
-import 'package:sharetravel_frontend/repository/auth/auth_repository.dart';
-import 'package:sharetravel_frontend/repository/auth/auth_repository_impl.dart';
-import 'package:sharetravel_frontend/ui/register_page.dart';
+import 'package:sharetravel_frontend/bloc/register_bloc/register_bloc.dart';
+import 'package:sharetravel_frontend/repository/register/register_repository.dart';
+import 'package:sharetravel_frontend/repository/register/register_repository_impl.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final _formLogin = GlobalKey<FormState>();
+class _RegisterPageState extends State<RegisterPage> {
+  final _formRegister = GlobalKey<FormState>();
   final userTextController = TextEditingController();
   final passTextController = TextEditingController();
+  final fullNameTextController = TextEditingController();
 
-  late AuthRepository authRepository;
-  late LoginBloc _loginBloc;
+  late RegisterRepository registerRepository;
+  late RegisterBloc _registerBloc;
 
   @override
   void initState() {
-    authRepository = AuthRepositoryImpl();
-    _loginBloc = LoginBloc(authRepository);
+    registerRepository = RegisterRepositoryImpl();
+    _registerBloc = RegisterBloc(registerRepository);
     super.initState();
   }
 
@@ -31,37 +31,38 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     userTextController.dispose();
     passTextController.dispose();
-    _loginBloc.close();
+    fullNameTextController.dispose();
+    _registerBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _loginBloc,
+      value: _registerBloc,
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 0, 175, 84),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: BlocConsumer<LoginBloc, LoginState>(
+          child: BlocConsumer<RegisterBloc, RegisterState>(
             buildWhen: (context, state) {
-              return state is LoginInitial ||
-                  state is DoLoginSuccess ||
-                  state is DoLoginError ||
-                  state is DoLoginLoading;
+              return state is RegisterInitial ||
+                  state is DoRegisterSuccess ||
+                  state is DoRegisterError ||
+                  state is DoRegisterLoading;
             },
             builder: (context, state) {
-              if (state is DoLoginSuccess) {
+              if (state is DoRegisterSuccess) {
                 return const Text(
-                    'Login success'); //aqui es adonde se redirije cuando se loguea
-              } else if (state is DoLoginError) {
-                return const Text('Login error');
-              } else if (state is DoLoginLoading) {
+                    'Register success'); //aqui es adonde se redirije cuando se loguea
+              } else if (state is DoRegisterError) {
+                return const Text('Register error');
+              } else if (state is DoRegisterLoading) {
                 return const Center(child: CircularProgressIndicator());
               }
               return Center(child: _buildLoginForm());
             },
-            listener: (BuildContext context, LoginState state) {},
+            listener: (BuildContext context, RegisterState state) {},
           ),
         ),
       ),
@@ -70,14 +71,14 @@ class _LoginPageState extends State<LoginPage> {
 
   _buildLoginForm() {
     return Form(
-      key: _formLogin,
+      key: _formRegister,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
-            'assets/sharetravel_logo.png',
+            'assets/sharetravel_logo_text.png',
             height: 300,
           ),
           const SizedBox(
@@ -133,6 +134,31 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(
             height: 40,
           ),
+          TextFormField(
+            controller: fullNameTextController,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                labelText: 'Full name',
+                filled: true,
+                fillColor: Colors.white),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(
+            height: 40,
+          ),
           SizedBox(
             width: double.infinity,
             height: 80,
@@ -144,49 +170,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               child: const Text(
-                'Login',
+                'Sign Up',
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
               onPressed: () {
-                if (_formLogin.currentState!.validate()) {
-                  _loginBloc.add(DoLoginEvent(
-                      userTextController.text, passTextController.text));
+                if (_formRegister.currentState!.validate()) {
+                  _registerBloc.add(DoRegisterEvent(userTextController.text,
+                      passTextController.text, fullNameTextController.text));
                 }
               },
             ),
           ),
           const SizedBox(
             height: 20,
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterPage()),
-              );
-            },
-            child: Center(
-              child: RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Don\'t have an account? ',
-                      style: TextStyle(fontSize: 23, color: Colors.white),
-                    ),
-                    TextSpan(
-                      text: 'Sign up',
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 252, 163, 17),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 23),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ),
         ],
       ),
