@@ -9,15 +9,16 @@ class RegisterRepositoryImpl extends RegisterRepository {
 
   @override
   Future<RegisterResponse> register(RegisterDto registerDto) async {
+    final jsonBody = jsonEncode(registerDto.toJson());
     final response = await _httpClient.post(
       Uri.parse('http://10.0.2.2:8080/auth/register'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
-      body: registerDto.toJson(),
+      body: jsonBody,
     );
-    if (response.statusCode == 200) {
-      return RegisterResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 201) {
+      return RegisterResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to register');
     }

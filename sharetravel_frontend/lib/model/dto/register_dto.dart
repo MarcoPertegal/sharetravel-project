@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class RegisterDto {
   String? username;
   String? password;
@@ -7,27 +5,17 @@ class RegisterDto {
 
   RegisterDto({this.username, this.password, this.fullName});
 
-  factory RegisterDto.fromMap(Map<String, dynamic> data) => RegisterDto(
-        username: data['username'] as String?,
-        password: data['password'] as String?,
-        fullName: data['fullName'] as String?,
-      );
-
-  Map<String, dynamic> toMap() => {
-        'username': username,
-        'password': password,
-        'fullName': fullName,
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [RegisterDto].
-  factory RegisterDto.fromJson(String data) {
-    return RegisterDto.fromMap(json.decode(data) as Map<String, dynamic>);
+  RegisterDto.fromJson(Map<String, dynamic> json) {
+    username = json['username'];
+    password = json['password'];
+    fullName = json['fullName'];
   }
 
-  /// `dart:convert`
-  ///
-  /// Converts [RegisterDto] to a JSON string.
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['password'] = password;
+    data['fullName'] = fullName;
+    return data;
+  }
 }
