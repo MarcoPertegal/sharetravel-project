@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharetravel_frontend/bloc/login_bloc/login_bloc.dart';
 import 'package:sharetravel_frontend/repository/auth/auth_repository.dart';
 import 'package:sharetravel_frontend/repository/auth/auth_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/home_page.dart';
 import 'package:sharetravel_frontend/ui/page/register_page.dart';
-import 'package:sharetravel_frontend/ui/page/trip_filter.dart';
+import 'package:sharetravel_frontend/ui/page/trip_filter_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -41,14 +42,14 @@ class _LoginPageState extends State<LoginPage> {
     return BlocProvider.value(
       value: _loginBloc,
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 0, 175, 84),
+        backgroundColor: Color.fromARGB(255, 0, 175, 84),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
                 if (state is DoLoginSuccess) {
-                  return const TripFilter(); //aqui es adonde se redirije cuando se loguea
+                  return const HomePage(); //aqui es adonde se redirije cuando se loguea
                 } else if (state is DoLoginError) {
                   return const Text('Login error');
                 } else if (state is DoLoginLoading) {
