@@ -16,6 +16,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final userTextController = TextEditingController();
   final passTextController = TextEditingController();
   final fullNameTextController = TextEditingController();
+  final emailTextController = TextEditingController();
+  final phoneNumberTextController = TextEditingController();
+  final personalDescriptionTextController = TextEditingController();
+  final avatarTextController = TextEditingController();
 
   late RegisterRepository registerRepository;
   late RegisterBloc _registerBloc;
@@ -32,6 +36,10 @@ class _RegisterPageState extends State<RegisterPage> {
     userTextController.dispose();
     passTextController.dispose();
     fullNameTextController.dispose();
+    emailTextController.dispose();
+    phoneNumberTextController.dispose();
+    personalDescriptionTextController.dispose();
+    avatarTextController.dispose();
     _registerBloc.close();
     super.dispose();
   }
@@ -158,6 +166,106 @@ class _RegisterPageState extends State<RegisterPage> {
           const SizedBox(
             height: 40,
           ),
+          TextFormField(
+            controller: emailTextController,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                labelText: 'Email',
+                filled: true,
+                fillColor: Colors.white),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          TextFormField(
+            controller: phoneNumberTextController,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                labelText: 'Phone Number',
+                filled: true,
+                fillColor: Colors.white),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          TextFormField(
+            controller: personalDescriptionTextController,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                labelText: 'Personal Description',
+                filled: true,
+                fillColor: Colors.white),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          TextFormField(
+            controller: avatarTextController,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                labelText: 'Avatar',
+                filled: true,
+                fillColor: Colors.white),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(
+            height: 40,
+          ),
           SizedBox(
             width: double.infinity,
             height: 80,
@@ -177,8 +285,14 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               onPressed: () {
                 if (_formRegister.currentState!.validate()) {
-                  _registerBloc.add(DoRegisterEvent(userTextController.text,
-                      passTextController.text, fullNameTextController.text));
+                  _registerBloc.add(DoRegisterEvent(
+                      userTextController.text,
+                      passTextController.text,
+                      fullNameTextController.text,
+                      emailTextController.text,
+                      phoneNumberTextController.text,
+                      personalDescriptionTextController.text,
+                      avatarTextController.text));
                 }
               },
             ),

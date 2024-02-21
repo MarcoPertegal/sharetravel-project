@@ -7,5 +7,10 @@ class DoRegisterEvent extends RegisterEvent {
   final String username;
   final String password;
   final String fullName;
-  DoRegisterEvent(this.username, this.password, this.fullName);
+  final String email;
+  final String phoneNumber;
+  final String personalDescription;
+  final String avatar;
+  DoRegisterEvent(this.username, this.password, this.fullName, this.email,
+      this.phoneNumber, this.personalDescription, this.avatar);
 }
