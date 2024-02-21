@@ -16,5 +16,9 @@ public class CreateUserRequest {
     private String verifyPassword;
     private String avatar;
     private String fullName;
+    private String email;
+    private String phoneNumber;
+    private String personalDescription;
+
 
 }
