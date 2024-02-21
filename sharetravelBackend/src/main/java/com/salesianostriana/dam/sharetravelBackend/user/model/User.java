@@ -55,9 +55,17 @@ public class User implements UserDetails {
 
     private String password;
 
+    private String email;
+
+    private String phoneNumber;
+
+    private String personalDescription;
+
     private String avatar;
 
     private String fullName;
+
+    private String rating;
 
     @Builder.Default
     private boolean accountNonExpired = true;
