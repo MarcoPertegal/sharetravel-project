@@ -36,25 +36,26 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.search),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
+            icon: Icon(Icons.add_box_rounded),
             label: 'Publish',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
+            icon: Icon(Icons.car_crash),
             label: 'Your Trips',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
+            icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Color.fromARGB(255, 0, 175, 84),
         onTap: _onItemTapped,
+        unselectedItemColor: Colors.grey,
       ),
     );
   }

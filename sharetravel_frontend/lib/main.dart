@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sharetravel_frontend/ui/page/login_page.dart';
+import 'package:sharetravel_frontend/ui/page/trip_confirm_reserve_page.dart';
 import 'package:sharetravel_frontend/ui/page/trip_list_page.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 252, 163, 17)),
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      home: const TripConfirmReservePage(),
     );
   }
 }

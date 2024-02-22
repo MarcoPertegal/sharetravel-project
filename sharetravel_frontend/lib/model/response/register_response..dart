@@ -6,14 +6,17 @@ class RegisterResponse {
   dynamic avatar;
   String? fullName;
   String? createdAt;
+  String? token;
+  String? refreshToken;
 
-  RegisterResponse({
-    this.id,
-    this.username,
-    this.avatar,
-    this.fullName,
-    this.createdAt,
-  });
+  RegisterResponse(
+      {this.id,
+      this.username,
+      this.avatar,
+      this.fullName,
+      this.createdAt,
+      this.token,
+      this.refreshToken});
 
   factory RegisterResponse.fromMap(Map<String, dynamic> data) {
     return RegisterResponse(
@@ -22,6 +25,8 @@ class RegisterResponse {
       avatar: data['avatar'] as dynamic,
       fullName: data['fullName'] as String?,
       createdAt: data['createdAt'] as String?,
+      token: data['token'] as String?,
+      refreshToken: data['refreshToken'] as String?,
     );
   }
 
@@ -31,6 +36,8 @@ class RegisterResponse {
         'avatar': avatar,
         'fullName': fullName,
         'createdAt': createdAt,
+        'token': token,
+        'refreshToken': refreshToken,
       };
 
   /// `dart:convert`

@@ -11,6 +11,9 @@ class TripListPage extends StatefulWidget {
 class _TripListPageState extends State<TripListPage> {
   @override
   Widget build(BuildContext context) {
-    return const TripCardWidget();
+    return Container(
+      color: Colors.blue, // Set your desired background color here
+      child: const TripCardWidget(),
+    );
   }
 }

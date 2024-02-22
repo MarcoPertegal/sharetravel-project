@@ -49,7 +49,13 @@ class _LoginPageState extends State<LoginPage> {
             child: BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
                 if (state is DoLoginSuccess) {
-                  return const HomePage(); //aqui es adonde se redirije cuando se loguea
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ),
+                  ); //aqui es adonde se redirije cuando se loguea
+                  return Placeholder();
                 } else if (state is DoLoginError) {
                   return const Text('Login error');
                 } else if (state is DoLoginLoading) {
