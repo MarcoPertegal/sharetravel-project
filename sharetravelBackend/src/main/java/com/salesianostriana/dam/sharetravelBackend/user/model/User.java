@@ -30,22 +30,9 @@ import java.util.stream.Collectors;
 @Builder
 public class User implements UserDetails {
 
-    // Usamos UUID como ID de los usuarios
-    // Se utiliza la estrategia de generación basada en IP y fecha.
-
     @Id
     @GeneratedValue(generator = "UUID")
-    /*@GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator",
-            parameters = {
-                    @Parameter(
-                            name = "uuid_gen_strategy_class",
-                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
-                    )
-            }
-    )*/
-    @UuidGenerator/*(style = UuidGenerator.Style.TIME)*/
+    @UuidGenerator
     @Column(columnDefinition = "uuid")
     private UUID id;
 
@@ -65,7 +52,7 @@ public class User implements UserDetails {
 
     private String fullName;
 
-    private String rating;
+    private double rating;
 
     @Builder.Default
     private boolean accountNonExpired = true;
