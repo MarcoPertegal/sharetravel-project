@@ -5,7 +5,6 @@ import 'package:sharetravel_frontend/repository/auth/auth_repository.dart';
 import 'package:sharetravel_frontend/repository/auth/auth_repository_impl.dart';
 import 'package:sharetravel_frontend/ui/page/home_page.dart';
 import 'package:sharetravel_frontend/ui/page/register_page.dart';
-import 'package:sharetravel_frontend/ui/page/trip_filter_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -49,13 +48,15 @@ class _LoginPageState extends State<LoginPage> {
             child: BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
                 if (state is DoLoginSuccess) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
-                    ),
-                  ); //aqui es adonde se redirije cuando se loguea
-                  return Placeholder();
+                  Future.delayed(Duration.zero, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage(), //aqui es adonde se redirije cuando se loguea
+                      ),
+                    );
+                  });
                 } else if (state is DoLoginError) {
                   return const Text('Login error');
                 } else if (state is DoLoginLoading) {

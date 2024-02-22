@@ -11,9 +11,8 @@ class RegisterRepositoryImpl extends RegisterRepository {
   Future<RegisterResponse> register(RegisterDto registerDto) async {
     final jsonBody = jsonEncode(registerDto.toJson());
     final response = await _httpClient.post(
-      Uri.parse('http://10.0.2.2:8080/auth/register'
-          //'http://localhost:8080/auth/register'
-          ),
+      Uri.parse(//'http://10.0.2.2:8080/auth/register'
+          'http://localhost:8080/auth/register'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },

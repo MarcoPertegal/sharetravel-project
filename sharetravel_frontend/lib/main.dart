@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 252, 163, 17)),
         useMaterial3: true,
       ),
-      home: const TripConfirmReservePage(),
+      home: const LoginPage(),
     );
   }
 }
