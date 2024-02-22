@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharetravel_frontend/bloc/register_bloc/register_bloc.dart';
 import 'package:sharetravel_frontend/repository/register/register_repository.dart';
 import 'package:sharetravel_frontend/repository/register/register_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/home_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -53,17 +54,18 @@ class _RegisterPageState extends State<RegisterPage> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: BlocConsumer<RegisterBloc, RegisterState>(
-              buildWhen: (context, state) {
-                return state is RegisterInitial ||
-                    state is DoRegisterSuccess ||
-                    state is DoRegisterError ||
-                    state is DoRegisterLoading;
-              },
+            child: BlocBuilder<RegisterBloc, RegisterState>(
               builder: (context, state) {
                 if (state is DoRegisterSuccess) {
-                  return const Text(
-                      'Register success'); //aqui es adonde se redirije cuando se loguea
+                  Future.delayed(Duration.zero, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            HomePage(), //aqui es adonde se redirije cuando se loguea
+                      ),
+                    );
+                  }); //aqui es adonde se redirije cuando se loguea
                 } else if (state is DoRegisterError) {
                   return const Text('Register error');
                 } else if (state is DoRegisterLoading) {
@@ -71,7 +73,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 }
                 return Center(child: _buildLoginForm());
               },
-              listener: (BuildContext context, RegisterState state) {},
             ),
           ),
         ),

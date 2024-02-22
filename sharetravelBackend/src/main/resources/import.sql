@@ -1,0 +1,2 @@
+INSERT INTO user_entity (id, username, password, email, phone_number, personal_description, avatar, full_name, rating, account_non_expired, account_non_locked, credentials_non_expired, enabled) VALUES ('09fe7587-487a-49ba-8188-ec1a9ddc7b3f', 'marco', '{bcrypt}$2a$12$XH8wT6/caAydqRgAMb1pn.B44Jby3J8b5Uz82kfqOh2QLmpJbpn1G', 'marco@gmail.com', NULL, NULL, 'Soy estudiante de programacion en Sevilla', NULL, 4.6, true, true, true, true);
+INSERT INTO user_roles (user_id, roles) VALUES ('09fe7587-487a-49ba-8188-ec1a9ddc7b3f', 1);
