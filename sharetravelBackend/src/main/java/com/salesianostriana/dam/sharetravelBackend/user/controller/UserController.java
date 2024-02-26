@@ -64,7 +64,7 @@ public class UserController {
     @Operation(summary = "createUserWithUserRole", description = "Register as user")
     @PostMapping("/auth/register")
     public ResponseEntity<UserResponse> createUserWithUserRole(@RequestBody CreateUserRequest createUserRequest) {
-        User user = userService.createUserWithAdminRole(createUserRequest);
+        User user = userService.createUserWithUserRole(createUserRequest);
         Authentication authentication =
                 authManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
