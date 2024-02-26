@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharetravel_frontend/model/dto/register_dto.dart';
 import 'package:sharetravel_frontend/model/response/register_response..dart';
 import 'package:sharetravel_frontend/repository/register/register_repository.dart';
@@ -19,9 +21,16 @@ class RegisterRepositoryImpl extends RegisterRepository {
       body: jsonBody,
     );
     if (response.statusCode == 201) {
-      return RegisterResponse.fromJson(response.body);
+      final registerResponse = RegisterResponse.fromJson(response.body);
+      await _saveTokenToSharedPreferences(registerResponse.token!);
+      return registerResponse;
     } else {
       throw Exception('Failed to register');
     }
+  }
+
+  Future<void> _saveTokenToSharedPreferences(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
   }
 }

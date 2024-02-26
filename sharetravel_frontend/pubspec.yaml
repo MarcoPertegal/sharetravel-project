@@ -72,6 +72,7 @@ flutter:
       - assets/sharetravel_logo.png
       - assets/sharetravel_logo_text.png
       - assets/ilustration.png
+      - assets/ilustration_filter.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sharetravel_frontend/ui/page/login_page.dart';
 import 'package:sharetravel_frontend/ui/page/trip_confirm_reserve_page.dart';
+import 'package:sharetravel_frontend/ui/page/trip_filter_page.dart';
 import 'package:sharetravel_frontend/ui/page/trip_list_page.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const LoginPage(),
+      //const TripFilterPage(),
     );
   }
 }

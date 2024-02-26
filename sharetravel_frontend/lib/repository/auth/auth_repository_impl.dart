@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:sharetravel_frontend/model/dto/login_dto.dart';
 import 'package:sharetravel_frontend/model/response/login_response.dart';
 import 'package:sharetravel_frontend/repository/auth/auth_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final Client _httpClient = Client();
@@ -20,9 +21,17 @@ class AuthRepositoryImpl extends AuthRepository {
       body: jsonBody,
     );
     if (response.statusCode == 201) {
-      return LoginResponse.fromJson(response.body);
+      final loginResponse = LoginResponse.fromJson(response.body);
+      await _saveTokenToSharedPreferences(loginResponse.token!);
+
+      return loginResponse;
     } else {
       throw Exception('Failed to do login');
     }
+  }
+
+  Future<void> _saveTokenToSharedPreferences(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
   }
 }
