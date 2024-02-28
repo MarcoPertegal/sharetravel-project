@@ -5,7 +5,7 @@ import 'pageable.dart';
 import 'sort.dart';
 
 class FilterTripsResponse {
-  List<Trip>? content;
+  List<Trip>? trips;
   Pageable? pageable;
   bool? last;
   int? totalElements;
@@ -18,7 +18,7 @@ class FilterTripsResponse {
   bool? empty;
 
   FilterTripsResponse({
-    this.content,
+    this.trips,
     this.pageable,
     this.last,
     this.totalElements,
@@ -33,7 +33,7 @@ class FilterTripsResponse {
 
   factory FilterTripsResponse.fromMap(Map<String, dynamic> data) {
     return FilterTripsResponse(
-      content: (data['content'] as List<dynamic>?)
+      trips: (data['content'] as List<dynamic>?)
           ?.map((e) => Trip.fromMap(e as Map<String, dynamic>))
           .toList(),
       pageable: data['pageable'] == null
@@ -54,7 +54,7 @@ class FilterTripsResponse {
   }
 
   Map<String, dynamic> toMap() => {
-        'content': content?.map((e) => e.toMap()).toList(),
+        'content': trips?.map((e) => e.toMap()).toList(),
         'pageable': pageable?.toMap(),
         'last': last,
         'totalElements': totalElements,
