@@ -119,6 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           TextFormField(
             controller: passTextController,
+            obscureText: true,
             decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
@@ -219,19 +220,24 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           TextFormField(
             controller: personalDescriptionTextController,
+            maxLines: 3, // Numero de lineas
+            onChanged: (value) {
+              // Aqui se puede meter validación
+            },
             decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                labelText: 'Personal Description',
-                filled: true,
-                fillColor: Colors.white),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              labelText: 'Personal Description',
+              filled: true,
+              fillColor: Colors.white,
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';

@@ -13,7 +13,7 @@ class FilterTripsRepositoryImpl extends FilterTripsRepository {
     String? token = prefs.getString('token');
     print("El token ostia $token");
     if (token == null) {
-      throw Exception('Token not found');
+      throw Exception('Token not found or something go wrong');
     }
 
     final response = await _httpClient.get(
