@@ -45,7 +45,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
             SingleChildScrollView(
               child: Container(
                 margin: const EdgeInsets.only(
-                  top: 360,
+                  top: 250,
                   right: 20,
                   left: 20,
                 ),
