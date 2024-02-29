@@ -41,4 +41,6 @@ public class CreateUserRequest {
 
     @NotBlank(message = "Personal description cannot be empty")
     private String personalDescription;
+
+
 }

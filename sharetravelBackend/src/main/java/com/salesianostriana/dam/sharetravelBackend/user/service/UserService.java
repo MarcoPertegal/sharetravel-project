@@ -42,7 +42,7 @@ public class UserService {
     }
 
     public User createUserWithUserRole(CreateUserRequest createUserRequest) {
-        return createUser(createUserRequest, EnumSet.of(UserRole.USER));
+        return createUser(createUserRequest, EnumSet.of(UserRole.PASSENGER));
     }
 
     public User createUserWithAdminRole(CreateUserRequest createUserRequest) {

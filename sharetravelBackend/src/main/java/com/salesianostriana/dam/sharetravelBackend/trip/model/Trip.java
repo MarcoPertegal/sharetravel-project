@@ -1,6 +1,9 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
+import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
+import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +13,8 @@ import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -42,6 +47,8 @@ public class Trip {
 
     private String tripDescription;
 
+    @OneToMany(mappedBy = "trip", fetch = FetchType.EAGER)
+    private List<Reserve> reserves = new ArrayList<>();
 
     public void calculateArrivalTime() {
         if (departureTime != null && estimatedDuration > 0) {
