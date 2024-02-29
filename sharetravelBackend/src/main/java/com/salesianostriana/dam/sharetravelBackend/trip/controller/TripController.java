@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.controller;
 
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.service.TripService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -143,7 +144,7 @@ public class TripController {
                     content = @Content),
     })
     @GetMapping("/")
-    public ResponseEntity<Page<GetTripDto>> getAllTrips(@PageableDefault(page = 0, size = 8)Pageable p){
+    public ResponseEntity<Page<GetAllTripsDto>> getAllTrips(@PageableDefault(page = 0, size = 8)Pageable p){
         return ResponseEntity.ok(tripService.getAllTrips(p));
         //FALTARIA EN EL EXAMPLE RESPONSE DE DOCUMENTACION AÑADIR AL DRIVER CUANDO HAGA LAS ASOCIACIONES
     }
@@ -159,25 +160,33 @@ public class TripController {
                                     value = """
                                             {
                                                   "content": [
-                                                      {
-                                                          "id": "5d9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                          "departurePlace": "Seville",
-                                                          "arrivalPlace": "Sanlúcar de Barrameda",
-                                                          "departureTime": "2024-02-22T10:00:00",
-                                                          "estimatedDuration": 120,
-                                                          "arrivalTime": "2024-02-22T12:00:00",
-                                                          "price": 7.99
-                                                      },
-                                                      {
-                                                          "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d4",
-                                                          "departurePlace": "Seville",
-                                                          "arrivalPlace": "Sanlúcar de Barrameda",
-                                                          "departureTime": "2024-02-22T17:15:00",
-                                                          "estimatedDuration": 120,
-                                                          "arrivalTime": "2024-02-22T18:30:00",
-                                                          "price": 8.5
-                                                      }
-                                                  ],
+                                                          {
+                                                              "id": "5d9458e8-7834-4df8-ba48-79aadfaa42d3",
+                                                              "departurePlace": "Seville",
+                                                              "arrivalPlace": "Sanlúcar de Barrameda",
+                                                              "departureTime": "2024-05-01T10:00:00",
+                                                              "estimatedDuration": 120,
+                                                              "arrivalTime": "2024-05-01T12:00:00",
+                                                              "price": 7.99,
+                                                              "driver": {
+                                                                  "avatar": null,
+                                                                  "fullName": "Marco Pertegal Prieto"
+                                                              }
+                                                          },
+                                                          {
+                                                              "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d4",
+                                                              "departurePlace": "Seville",
+                                                              "arrivalPlace": "Sanlúcar de Barrameda",
+                                                              "departureTime": "2024-05-01T17:15:00",
+                                                              "estimatedDuration": 120,
+                                                              "arrivalTime": "2024-05-01T18:30:00",
+                                                              "price": 8.5,
+                                                              "driver": {
+                                                                  "avatar": null,
+                                                                  "fullName": "Miguel Campos González"
+                                                              }
+                                                          }
+                                                      ],
                                                   "pageable": {
                                                       "pageNumber": 0,
                                                       "pageSize": 8,

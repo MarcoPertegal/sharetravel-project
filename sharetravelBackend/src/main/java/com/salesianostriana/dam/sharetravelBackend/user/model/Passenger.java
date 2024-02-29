@@ -15,12 +15,8 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @SuperBuilder
 public class Passenger extends User{
-
-    //Poner la asociacion a LAZY mas adelante?
-    @OneToMany(mappedBy = "passenger", fetch = FetchType.EAGER)
-    private List<Reserve> reservedTrips = new ArrayList<>();
 
 }

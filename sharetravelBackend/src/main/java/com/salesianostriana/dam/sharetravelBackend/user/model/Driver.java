@@ -18,12 +18,14 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @SuperBuilder
 public class Driver extends User{
-
+    /*
     @OneToMany
-    @JoinColumn(name = "driver")
-    private List<Trip> publishedTrips = new ArrayList<>();
+    @JoinColumn(name = "driver_id", nullable = false)
+    private List<Trip> publishedTrips = new ArrayList<>();*/
+    //ver si dejar la asociacion en la clase trips(como está ahora) o descomentar esto y moverla a este lado
+    //¿Qué diferencia hay?
 
 }

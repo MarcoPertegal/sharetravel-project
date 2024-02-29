@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.repository;
 
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 public interface  TripRepository extends JpaRepository<Trip, UUID> {
     @Query("""
-            SELECT new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto(
+            SELECT new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto(
             t.id,
             t.departurePlace,
             t.arrivalPlace,
@@ -24,8 +25,7 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
             )
             FROM Trip t
             """)
-    Page<GetTripDto> findAllTrips(Pageable pageable);
-    //Hacer que devuelva al conductor
+    Page<GetAllTripsDto> findAllTrips(Pageable pageable);
 
     @Query("""
     SELECT new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto(
@@ -35,7 +35,11 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
         t.departureTime,
         t.estimatedDuration,
         t.arrivalTime,
-        t.price
+        t.price,
+            new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetDriverByTripDto(
+                t.driver.avatar,
+                t.driver.fullName
+            )
     )
     FROM Trip t
     WHERE (:departurePlace IS NULL OR t.departurePlace = :departurePlace)

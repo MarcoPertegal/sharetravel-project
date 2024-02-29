@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.service;
 
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import com.salesianostriana.dam.sharetravelBackend.trip.repository.TripRepository;
@@ -17,8 +18,8 @@ public class TripService {
 
     private final TripRepository tripRepository;
 
-    public Page<GetTripDto> getAllTrips(Pageable p){
-        Page<GetTripDto> result = tripRepository.findAllTrips(p);
+    public Page<GetAllTripsDto> getAllTrips(Pageable p){
+        Page<GetAllTripsDto> result = tripRepository.findAllTrips(p);
         if(result.isEmpty()){
             throw new EmptyTripListException("no trips has been found");
         }

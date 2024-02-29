@@ -47,8 +47,8 @@ public class Trip {
 
     private String tripDescription;
 
-    @OneToMany(mappedBy = "trip", fetch = FetchType.EAGER)
-    private List<Reserve> reserves = new ArrayList<>();
+    @ManyToOne
+    private Driver driver;
 
     public void calculateArrivalTime() {
         if (departureTime != null && estimatedDuration > 0) {

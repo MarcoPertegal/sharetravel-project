@@ -54,8 +54,6 @@ public class User implements UserDetails {
 
     private String fullName;
 
-    private double rating;
-
     @Builder.Default
     private boolean accountNonExpired = true;
     @Builder.Default

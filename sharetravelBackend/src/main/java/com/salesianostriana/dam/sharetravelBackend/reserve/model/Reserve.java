@@ -30,10 +30,8 @@ public class Reserve {
     private LocalDateTime reserveDate;
 
     @ManyToOne
-    @JoinColumn(name = "passenger_id")
     private Passenger passenger;
 
     @ManyToOne
-    @JoinColumn(name = "trip_id")
     private Trip trip;
 }
