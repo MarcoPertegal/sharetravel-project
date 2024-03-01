@@ -17,10 +17,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   void _doRegister(DoRegisterEvent event, Emitter<RegisterState> emit) async {
-    //emit(DoRegisterLoading());
-    //final SharedPreferences prefs = await _prefs;
-    //final String requestToken = prefs.getString('request_token') ?? '';
-
     try {
       final RegisterDto registerDto = RegisterDto(
           username: event.username,
