@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'driver.dart';
+
 class Trip {
   String? id;
   String? departurePlace;
@@ -8,6 +10,7 @@ class Trip {
   int? estimatedDuration;
   String? arrivalTime;
   double? price;
+  Driver? driver;
 
   Trip({
     this.id,
@@ -17,6 +20,7 @@ class Trip {
     this.estimatedDuration,
     this.arrivalTime,
     this.price,
+    this.driver,
   });
 
   factory Trip.fromMap(Map<String, dynamic> data) => Trip(
@@ -27,6 +31,9 @@ class Trip {
         estimatedDuration: data['estimatedDuration'] as int?,
         arrivalTime: data['arrivalTime'] as String?,
         price: (data['price'] as num?)?.toDouble(),
+        driver: data['driver'] == null
+            ? null
+            : Driver.fromMap(data['driver'] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toMap() => {
@@ -37,6 +44,7 @@ class Trip {
         'estimatedDuration': estimatedDuration,
         'arrivalTime': arrivalTime,
         'price': price,
+        'driver': driver?.toMap(),
       };
 
   /// `dart:convert`

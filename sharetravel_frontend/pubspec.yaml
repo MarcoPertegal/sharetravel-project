@@ -74,6 +74,7 @@ flutter:
       - assets/ilustration.png
       - assets/ilustration_filter.png
       - assets/fonts/Nunito-Black.ttf
+      - assets/green_arrow.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

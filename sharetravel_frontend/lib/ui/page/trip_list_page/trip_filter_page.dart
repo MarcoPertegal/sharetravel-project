@@ -25,6 +25,8 @@ class _TripFilterPageState extends State<TripFilterPage> {
   void initState() {
     filterTripsRepository = FilterTripsRepositoryImpl();
     _filterTripsBloc = FilterTripsBloc(filterTripsRepository);
+    departurePlaceTextController.text = 'Seville';
+    arrivalPlaceTextController.text = 'Sanlúcar de Barrameda';
     super.initState();
   }
 
@@ -68,8 +70,12 @@ class _TripFilterPageState extends State<TripFilterPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                TripListPage(), //aqui es adonde se redirije
+                            builder: (context) => TripListPage(
+                              trips: state.filterTripsResponse.trip ?? [],
+                              departurePlace: departurePlaceTextController.text,
+                              arrivalPlace: arrivalPlaceTextController.text,
+                              departureDate: departureDateTextController.text,
+                            ), //aqui es adonde se redirije
                           ),
                         );
                       });
