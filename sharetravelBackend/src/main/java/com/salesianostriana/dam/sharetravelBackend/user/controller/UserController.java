@@ -41,7 +41,7 @@ public class UserController {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
 
-
+    /*
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Register as user", content = {
                     @Content(mediaType = "application/json",
@@ -80,7 +80,7 @@ public class UserController {
 
 
         return ResponseEntity.status(HttpStatus.CREATED).body(JwtUserResponse.of(user, token, refreshToken.getToken()));
-    }
+    }*/
 
 
     @PostMapping("/auth/register/admin")
