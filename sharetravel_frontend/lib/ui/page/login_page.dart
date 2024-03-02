@@ -4,7 +4,7 @@ import 'package:sharetravel_frontend/bloc/login_bloc/login_bloc.dart';
 import 'package:sharetravel_frontend/repository/auth/auth_repository.dart';
 import 'package:sharetravel_frontend/repository/auth/auth_repository_impl.dart';
 import 'package:sharetravel_frontend/ui/page/home_page.dart';
-import 'package:sharetravel_frontend/ui/page/register_page.dart';
+import 'package:sharetravel_frontend/ui/page/register_page/register_choice_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => RegisterPage()),
+                MaterialPageRoute(builder: (context) => RegisterChoicePage()),
               );
             },
             child: Center(

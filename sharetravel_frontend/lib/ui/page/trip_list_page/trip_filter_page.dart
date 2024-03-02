@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharetravel_frontend/bloc/filter_trips_bloc/filter_trips_bloc.dart';
 import 'package:sharetravel_frontend/repository/filter/filter_trips_repository.dart';
 import 'package:sharetravel_frontend/repository/filter/filter_trips_repository_impl.dart';
-import 'package:sharetravel_frontend/ui/page/trip_list_page.dart';
+import 'package:sharetravel_frontend/ui/page/trip_list_page/trip_list_page.dart';
 
 class TripFilterPage extends StatefulWidget {
   const TripFilterPage({super.key});
