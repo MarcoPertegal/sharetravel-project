@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sharetravel_frontend/model/response/filter_trips_response/filter_trips_response.dart';
+import 'package:sharetravel_frontend/model/response/filter_trips_list_response/filter_trips_list_response.dart';
 import 'package:sharetravel_frontend/repository/filter/filter_trips_repository.dart';
 
 part 'filter_trips_event.dart';

@@ -4,8 +4,8 @@ import 'trip.dart';
 import 'pageable.dart';
 import 'sort.dart';
 
-class FilterTripsResponse {
-  List<Trip>? trips;
+class FilterTripsListResponse {
+  List<Trip>? trip;
   Pageable? pageable;
   bool? last;
   int? totalElements;
@@ -17,8 +17,8 @@ class FilterTripsResponse {
   int? numberOfElements;
   bool? empty;
 
-  FilterTripsResponse({
-    this.trips,
+  FilterTripsListResponse({
+    this.trip,
     this.pageable,
     this.last,
     this.totalElements,
@@ -31,9 +31,9 @@ class FilterTripsResponse {
     this.empty,
   });
 
-  factory FilterTripsResponse.fromMap(Map<String, dynamic> data) {
-    return FilterTripsResponse(
-      trips: (data['content'] as List<dynamic>?)
+  factory FilterTripsListResponse.fromMap(Map<String, dynamic> data) {
+    return FilterTripsListResponse(
+      trip: (data['content'] as List<dynamic>?)
           ?.map((e) => Trip.fromMap(e as Map<String, dynamic>))
           .toList(),
       pageable: data['pageable'] == null
@@ -54,7 +54,7 @@ class FilterTripsResponse {
   }
 
   Map<String, dynamic> toMap() => {
-        'content': trips?.map((e) => e.toMap()).toList(),
+        'content': trip?.map((e) => e.toMap()).toList(),
         'pageable': pageable?.toMap(),
         'last': last,
         'totalElements': totalElements,
@@ -69,14 +69,14 @@ class FilterTripsResponse {
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [FilterTripsResponse].
-  factory FilterTripsResponse.fromJson(String data) {
-    return FilterTripsResponse.fromMap(
+  /// Parses the string and returns the resulting Json object as [FilterTripsListResponse].
+  factory FilterTripsListResponse.fromJson(String data) {
+    return FilterTripsListResponse.fromMap(
         json.decode(data) as Map<String, dynamic>);
   }
 
   /// `dart:convert`
   ///
-  /// Converts [FilterTripsResponse] to a JSON string.
+  /// Converts [FilterTripsListResponse] to a JSON string.
   String toJson() => json.encode(toMap());
 }

@@ -8,7 +8,7 @@ final class FilterTripsInitial extends FilterTripsState {}
 final class DoFilterTripsLoading extends FilterTripsState {}
 
 final class DoFilterTripsSuccess extends FilterTripsState {
-  final FilterTripsResponse filterTripsResponse;
+  final FilterTripsListResponse filterTripsResponse;
   DoFilterTripsSuccess(this.filterTripsResponse);
 }
 
