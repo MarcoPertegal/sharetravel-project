@@ -76,7 +76,7 @@ public class SecurityConfig {
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers(antMatcher("/note/**")).hasRole("USER")
+                        .requestMatchers(antMatcher("/trip/**")).hasAnyRole("PASSENGER", "DRIVER")
                         .requestMatchers(antMatcher("/auth/register/admin")).hasRole("ADMIN")
                         .anyRequest().authenticated());
 
@@ -96,7 +96,8 @@ public class SecurityConfig {
         return (web -> web.ignoring()
                 .requestMatchers(
                         antMatcher("/h2-console/**"),
-                        antMatcher("/auth/register"),
+                        antMatcher("/docs"),
+                        antMatcher("/auth/register/**"),
                         antMatcher("/auth/login"),
                         antMatcher("/error"),
                         antMatcher("/refreshtoken")

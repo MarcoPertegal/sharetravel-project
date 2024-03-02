@@ -1,9 +1,9 @@
-part of 'register_bloc.dart';
+part of 'register_driver_bloc.dart';
 
 @immutable
-sealed class RegisterEvent {}
+sealed class RegisterDriverEvent {}
 
-class DoRegisterEvent extends RegisterEvent {
+class DoRegisterDriverEvent extends RegisterDriverEvent {
   final String username;
   final String password;
   final String fullName;
@@ -11,6 +11,6 @@ class DoRegisterEvent extends RegisterEvent {
   final String phoneNumber;
   final String personalDescription;
   final String avatar;
-  DoRegisterEvent(this.username, this.password, this.fullName, this.email,
+  DoRegisterDriverEvent(this.username, this.password, this.fullName, this.email,
       this.phoneNumber, this.personalDescription, this.avatar);
 }

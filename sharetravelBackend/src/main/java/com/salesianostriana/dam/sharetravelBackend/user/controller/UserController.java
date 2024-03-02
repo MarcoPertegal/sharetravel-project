@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,7 +41,7 @@ public class UserController {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
 
-
+    /*
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Register as user", content = {
                     @Content(mediaType = "application/json",
@@ -63,8 +64,8 @@ public class UserController {
     })
     @Operation(summary = "createUserWithUserRole", description = "Register as user")
     @PostMapping("/auth/register")
-    public ResponseEntity<UserResponse> createUserWithUserRole(@RequestBody CreateUserRequest createUserRequest) {
-        User user = userService.createUserWithAdminRole(createUserRequest);
+    public ResponseEntity<UserResponse> createUserWithUserRole(@Valid @RequestBody CreateUserRequest createUserRequest) {
+        User user = userService.createUserWithUserRole(createUserRequest);
         Authentication authentication =
                 authManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
@@ -79,7 +80,7 @@ public class UserController {
 
 
         return ResponseEntity.status(HttpStatus.CREATED).body(JwtUserResponse.of(user, token, refreshToken.getToken()));
-    }
+    }*/
 
 
     @PostMapping("/auth/register/admin")

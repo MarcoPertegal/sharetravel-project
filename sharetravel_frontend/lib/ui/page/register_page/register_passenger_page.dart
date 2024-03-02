@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sharetravel_frontend/bloc/register_bloc/register_bloc.dart';
-import 'package:sharetravel_frontend/repository/register/register_repository.dart';
-import 'package:sharetravel_frontend/repository/register/register_repository_impl.dart';
+import 'package:sharetravel_frontend/bloc/register_passenger_bloc/register_passenger_bloc.dart';
+import 'package:sharetravel_frontend/repository/register/register_passenger/register_passenger_repository.dart';
+import 'package:sharetravel_frontend/repository/register/register_passenger/register_passenger_repository_impl.dart';
 import 'package:sharetravel_frontend/ui/page/home_page.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class RegisterPassengerPage extends StatefulWidget {
+  const RegisterPassengerPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegisterPassengerPage> createState() => _RegisterPassengerPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
-  final _formRegister = GlobalKey<FormState>();
+class _RegisterPassengerPageState extends State<RegisterPassengerPage> {
+  final _formPassengerRegister = GlobalKey<FormState>();
   final userTextController = TextEditingController();
   final passTextController = TextEditingController();
   final fullNameTextController = TextEditingController();
@@ -22,13 +22,13 @@ class _RegisterPageState extends State<RegisterPage> {
   final personalDescriptionTextController = TextEditingController();
   final avatarTextController = TextEditingController();
 
-  late RegisterRepository registerRepository;
-  late RegisterBloc _registerBloc;
+  late RegisterPassengerRepository registerPassengerRepository;
+  late RegisterPassengerBloc _registerPassengerBloc;
 
   @override
   void initState() {
-    registerRepository = RegisterRepositoryImpl();
-    _registerBloc = RegisterBloc(registerRepository);
+    registerPassengerRepository = RegisterPassengerRepositoryImpl();
+    _registerPassengerBloc = RegisterPassengerBloc(registerPassengerRepository);
     super.initState();
   }
 
@@ -41,22 +41,22 @@ class _RegisterPageState extends State<RegisterPage> {
     phoneNumberTextController.dispose();
     personalDescriptionTextController.dispose();
     avatarTextController.dispose();
-    _registerBloc.close();
+    _registerPassengerBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _registerBloc,
+      value: _registerPassengerBloc,
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 0, 175, 84),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: BlocBuilder<RegisterBloc, RegisterState>(
+            child: BlocBuilder<RegisterPassengerBloc, RegisterPassengerState>(
               builder: (context, state) {
-                if (state is DoRegisterSuccess) {
+                if (state is DoRegisterPassengerSuccess) {
                   Future.delayed(Duration.zero, () {
                     Navigator.push(
                       context,
@@ -66,12 +66,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     );
                   }); //aqui es adonde se redirije cuando se loguea
-                } else if (state is DoRegisterError) {
+                } else if (state is DoRegisterPassengerError) {
                   return const Text('Register error');
-                } else if (state is DoRegisterLoading) {
+                } else if (state is DoRegisterPassengerLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                return Center(child: _buildLoginForm());
+                return Center(child: _buildRegisterPassangerForm());
               },
             ),
           ),
@@ -80,9 +80,9 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  _buildLoginForm() {
+  _buildRegisterPassangerForm() {
     return Form(
-      key: _formRegister,
+      key: _formPassengerRegister,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -119,6 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           TextFormField(
             controller: passTextController,
+            obscureText: true,
             decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
@@ -219,19 +220,24 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           TextFormField(
             controller: personalDescriptionTextController,
+            maxLines: 3, // Numero de lineas
+            onChanged: (value) {
+              // Aqui se puede meter validación
+            },
             decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                labelText: 'Personal Description',
-                filled: true,
-                fillColor: Colors.white),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              labelText: 'Personal Description',
+              filled: true,
+              fillColor: Colors.white,
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -285,8 +291,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     color: Colors.white),
               ),
               onPressed: () {
-                if (_formRegister.currentState!.validate()) {
-                  _registerBloc.add(DoRegisterEvent(
+                if (_formPassengerRegister.currentState!.validate()) {
+                  _registerPassengerBloc.add(DoRegisterPassengerEvent(
                       userTextController.text,
                       passTextController.text,
                       fullNameTextController.text,
