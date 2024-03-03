@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.controller;
 
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.service.TripService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -223,6 +224,10 @@ public class TripController {
     @GetMapping("/filter")
     public ResponseEntity<Page<GetTripDto>> findTripsByDeparturePlaceArrivalPlaceAndDepartureTime(@PageableDefault(page = 0, size = 8)Pageable p, @RequestParam String departurePlace, @RequestParam String arrivalPlace, @RequestParam LocalDate departureDate){
         return ResponseEntity.ok(tripService.getTripsByDeparturePlaceArrivalPlaceAndDepartureTime(p, departurePlace, arrivalPlace, departureDate));
-        //FALTARIA EN EL EXAMPLE RESPONSE DE DOCUMENTACION AÑADIR AL DRIVER CUANDO HAGA LAS ASOCIACIONES
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetTripDetailsDto> findTripById(@PathVariable String id){
+        return ResponseEntity.ok(tripService.getTripById(UUID.fromString(id)));
     }
 }

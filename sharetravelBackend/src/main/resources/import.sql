@@ -6,11 +6,11 @@ INSERT INTO user_entity (id, username, password, email, phone_number, personal_d
 INSERT INTO driver (id) VALUES ('d85d42e8-5950-4b7a-9a1d-06716fa8ef47');
 INSERT INTO user_roles (user_id, roles) VALUES ('d85d42e8-5950-4b7a-9a1d-06716fa8ef47', 1);
 
-INSERT INTO user_entity (id, username, password, email, phone_number, personal_description, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled) VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'fran', '{bcrypt}$2a$12$XH8wT6/caAydqRgAMb1pn.B44Jby3J8b5Uz82kfqOh2QLmpJbpn1G', 'miguel@gmail.com', '604234567', 'Me gusta viajar', NULL, 'Fran Ruíz Prieto', true, true, true, true);
+INSERT INTO user_entity (id, username, password, email, phone_number, personal_description, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled) VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'fran', '{bcrypt}$2a$12$XH8wT6/caAydqRgAMb1pn.B44Jby3J8b5Uz82kfqOh2QLmpJbpn1G', 'miguel@gmail.com', '604234567', 'Me gusta viajar', 'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png', 'Fran Ruíz Prieto', true, true, true, true);
 INSERT INTO passenger (id) VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d479');
 INSERT INTO user_roles (user_id, roles) VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 2);
 
-INSERT INTO user_entity (id, username, password, email, phone_number, personal_description, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled) VALUES ('ef9458e8-7834-4df8-ba48-79aadfaa42d3', 'fernando', '{bcrypt}$2a$12$XH8wT6/caAydqRgAMb1pn.B44Jby3J8b5Uz82kfqOh2QLmpJbpn1G', 'fernando@gmail.com', '606040205', 'Trabajo en Sevilla en formato hibrido por lo que viajo esporadicamente', NULL, 'Fernando Pérez Gil', true, true, true, true);
+INSERT INTO user_entity (id, username, password, email, phone_number, personal_description, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled) VALUES ('ef9458e8-7834-4df8-ba48-79aadfaa42d3', 'fernando', '{bcrypt}$2a$12$XH8wT6/caAydqRgAMb1pn.B44Jby3J8b5Uz82kfqOh2QLmpJbpn1G', 'fernando@gmail.com', '606040205', 'Trabajo en Sevilla en formato hibrido por lo que viajo esporadicamente', 'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png', 'Fernando Pérez Gil', true, true, true, true);
 INSERT INTO passenger (id) VALUES ('ef9458e8-7834-4df8-ba48-79aadfaa42d3');
 INSERT INTO user_roles (user_id, roles) VALUES ('ef9458e8-7834-4df8-ba48-79aadfaa42d3', 2);
 

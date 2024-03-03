@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.repository;
 
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface  TripRepository extends JpaRepository<Trip, UUID> {
@@ -36,7 +38,7 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
         t.estimatedDuration,
         t.arrivalTime,
         t.price,
-            new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetDriverByTripDto(
+            new com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto(
                 t.driver.avatar,
                 t.driver.fullName
             )
@@ -52,5 +54,23 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
             String arrivalPlace,
             LocalDate departureTime
     );
+
+    /*
+    @Query("""
+            SELECT new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto(
+                t.departurePlace,
+                t.arrivalPlace,
+                t.departureTime,
+                t.estimatedDuration,
+                t.arrivalTime,
+                t.price,
+                t.tripDescription,
+                new com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto(d.avatar, d.fullName),
+            )
+            FROM Trip t
+            JOIN t.driver d
+            WHERE t.id = :id
+            """)
+    Optional<GetTripDetailsDto> findTripDetailsById(UUID id);*/
 }
 
