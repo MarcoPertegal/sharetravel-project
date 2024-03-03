@@ -182,7 +182,6 @@ class _TripFilterPageState extends State<TripFilterPage> {
                   },
                 );
                 if (selectedDate != null) {
-                  // Mormatear la fexa seleccionada y actualizar el field
                   departureDateTextController.text =
                       "${selectedDate.year}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')}";
                 }

@@ -25,15 +25,13 @@ class _TripListPageState extends State<TripListPage> {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              child: ListView.builder(
-                padding: EdgeInsets.only(top: 100),
-                itemCount: widget.trips.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return TripCardWidget(trip: widget.trips[index]);
-                },
-              ),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: ListView.builder(
+              padding: const EdgeInsets.only(top: 100),
+              itemCount: widget.trips.length,
+              itemBuilder: (BuildContext context, int index) {
+                return TripCardWidget(trip: widget.trips[index]);
+              },
             ),
           ),
           Positioned(
@@ -41,10 +39,10 @@ class _TripListPageState extends State<TripListPage> {
             left: 20,
             right: 20,
             child: Container(
-              padding: EdgeInsets.only(right: 30),
+              padding: const EdgeInsets.only(right: 30),
               height: 80,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 229, 255, 229),
+                color: const Color.fromARGB(255, 229, 255, 229),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Column(
@@ -54,41 +52,41 @@ class _TripListPageState extends State<TripListPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back_ios_new),
+                        icon: const Icon(Icons.arrow_back_ios_new),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       Expanded(
                         child: Text(
-                          '${widget.departurePlace}',
-                          style: TextStyle(
+                          widget.departurePlace,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Color.fromARGB(255, 101, 101, 101),
                           ),
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 1, // Limita a una línea
+                          maxLines: 1,
                         ),
                       ),
-                      Icon(Icons.arrow_right_alt),
+                      const Icon(Icons.arrow_right_alt),
                       Expanded(
                         child: Text(
-                          '${widget.arrivalPlace}',
-                          style: TextStyle(
+                          widget.arrivalPlace,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Color.fromARGB(255, 100, 100, 100),
                           ),
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 1, // Limita a una línea
+                          maxLines: 1,
                         ),
                       ),
                     ],
                   ),
                   Text(
-                    '${widget.departureDate}',
-                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    widget.departureDate,
+                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                 ],
               ),
