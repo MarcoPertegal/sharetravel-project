@@ -17,6 +17,11 @@ class _TripCardWidgetState extends State<TripCardWidget> {
   late TripDetailsRepository tripDetailsRepository;
   late TripDetailsBloc _tripDetailsBloc;
 
+  final TextStyle commonTextStyle = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
   @override
   void initState() {
     tripDetailsRepository = TripDetailsRepositoryImpl();
@@ -66,16 +71,29 @@ class _TripCardWidgetState extends State<TripCardWidget> {
             child: Column(
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
                       children: [
-                        Text(widget.trip.departureTime!
-                            .split("T")[1]
-                            .substring(0, 5)),
+                        Text(
+                          widget.trip.departureTime!
+                              .split("T")[1]
+                              .substring(0, 5),
+                          style: commonTextStyle,
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
                         Text("${widget.trip.estimatedDuration!}min"),
-                        Text(widget.trip.arrivalTime!
-                            .split("T")[1]
-                            .substring(0, 5))
+                        SizedBox(
+                          height: 6,
+                        ),
+                        Text(
+                          widget.trip.arrivalTime!
+                              .split("T")[1]
+                              .substring(0, 5),
+                          style: commonTextStyle,
+                        )
                       ],
                     ),
                     Column(
@@ -83,26 +101,42 @@ class _TripCardWidgetState extends State<TripCardWidget> {
                         Image.asset(
                           'assets/green_arrow.png',
                           width: 50,
-                          height: 50,
+                          height: 80,
                         )
                       ],
                     ),
-                    Column(
-                      children: [
-                        Text(widget.trip.departurePlace!),
-                        Text(widget.trip.arrivalPlace!)
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.trip.departurePlace!,
+                              style: commonTextStyle,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Text(widget.trip.arrivalPlace!,
+                              style: commonTextStyle,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1)
+                        ],
+                      ),
                     ),
-                    Column(children: [Text("${widget.trip.price}€")])
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${widget.trip.price}€", style: commonTextStyle)
+                        ])
                   ],
                 ),
                 Row(
                   children: [
                     Container(
-                      margin: const EdgeInsets.all(8.0),
+                      margin: const EdgeInsets.only(top: 25.0),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.green,
+                          color: Color.fromARGB(255, 0, 175, 84),
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(28.0),
@@ -113,7 +147,10 @@ class _TripCardWidgetState extends State<TripCardWidget> {
                             NetworkImage(widget.trip.driver!.avatar!),
                       ),
                     ),
-                    Text(widget.trip.driver!.fullName!)
+                    SizedBox(width: 15),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 25.0),
+                        child: Text(widget.trip.driver!.fullName!))
                   ],
                 )
               ],

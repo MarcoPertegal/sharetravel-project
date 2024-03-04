@@ -41,7 +41,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
             Image.asset(
               'assets/ilustration_filter.png',
               width: double.infinity,
-              height: 500,
+              height: 400,
               fit: BoxFit.cover,
             ),
             SingleChildScrollView(
@@ -52,7 +52,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
                   left: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 218, 255, 232),
+                  color: Color.fromARGB(255, 218, 255, 232),
                   borderRadius: BorderRadius.circular(15.0),
                   boxShadow: [
                     BoxShadow(

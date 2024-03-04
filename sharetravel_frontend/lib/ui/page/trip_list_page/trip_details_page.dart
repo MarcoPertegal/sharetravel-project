@@ -40,14 +40,17 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 150,
-              child: Center(
-                child: Text(
-                  formattedDepartureDate,
-                  style: const TextStyle(
-                    fontSize: 34,
-                    fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: SizedBox(
+                height: 50,
+                child: Center(
+                  child: Text(
+                    formattedDepartureDate,
+                    style: const TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -78,21 +81,23 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       children: [
                         Image.asset(
                           'assets/green_arrow.png',
-                          width: 80,
+                          width: 50,
                           height: 80,
                         )
                       ],
                     ),
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment
-                            .start, // Alinea el texto a la izquierda
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             widget.tripDetails.departurePlace!,
                             style: commonTextStyle,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
+                          ),
+                          const SizedBox(
+                            height: 25,
                           ),
                           Text(
                             widget.tripDetails.arrivalPlace!,
@@ -108,7 +113,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
               ),
             ),
             Container(
-              height: 100,
+              height: 90,
               decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(
@@ -130,66 +135,98 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
               ),
             ),
             Container(
-              height: 200,
-              color: Colors.blue,
-              child: Row(
-                children: [
-                  Text(widget.tripDetails.driver!.fullName!,
-                      style: commonTextStyle),
-                  CircleAvatar(
-                    radius: 24,
-                    backgroundImage:
-                        NetworkImage(widget.tripDetails.driver!.avatar!),
+                height: 100,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: Color.fromARGB(255, 229, 255, 229),
+                      width: 7.0,
+                    ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              height: 200,
-              color: Colors.green,
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(widget.tripDetails.driver!.fullName!,
+                            style: commonTextStyle),
+                        CircleAvatar(
+                          radius: 24,
+                          backgroundImage:
+                              NetworkImage(widget.tripDetails.driver!.avatar!),
+                        ),
+                      ],
+                    ))),
+            SizedBox(
+                child: Padding(
+              padding:
+                  const EdgeInsets.only(right: 22.0, left: 22.0, bottom: 22),
               child: Center(
                 child: Text(widget.tripDetails.tripDescription!),
               ),
-            ),
+            )),
             Container(
-              height: 200,
-              color: Colors.blue,
-              child: Column(
-                children: [
-                  Text('Passengers', style: commonTextStyle),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: ListView.builder(
+              height: widget.tripDetails.reserves!.length == 1
+                  ? 140.0
+                  : widget.tripDetails.reserves!.length * 60.0 + 70.0,
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Color.fromARGB(255, 229, 255, 229),
+                    width: 7.0,
+                  ),
+                ),
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(right: 22.0, left: 20.0, top: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Passengers', style: commonTextStyle),
+                    const SizedBox(height: 10),
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       itemCount: widget.tripDetails.reserves!.length,
                       itemBuilder: (BuildContext context, int index) {
                         return PassengerListWidget(
-                            reserve: widget.tripDetails.reserves![index]);
+                          reserve: widget.tripDetails.reserves![index],
+                        );
                       },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             SizedBox(
               width: double.infinity,
               height: 80,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 17, 252, 83),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(right: 22.0, left: 20.0, top: 15),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 0, 175, 84),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
                   ),
+                  child: const Text(
+                    'Reserve',
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  onPressed: () {},
                 ),
-                child: const Text(
-                  'Reserve',
-                  style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                onPressed: () {},
               ),
             ),
+            const SizedBox(
+              height: 20,
+            )
           ],
         ),
       ),

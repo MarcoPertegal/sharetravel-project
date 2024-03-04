@@ -12,15 +12,18 @@ class PassengerListWidget extends StatefulWidget {
 class _PassengerListWidgetState extends State<PassengerListWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(widget.reserve.passenger!.fullName!),
-        const SizedBox(width: 10),
-        CircleAvatar(
-          radius: 20,
-          backgroundImage: NetworkImage(widget.reserve.passenger!.avatar!),
-        ),
-      ],
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(widget.reserve.passenger!.fullName!),
+          CircleAvatar(
+            radius: 20,
+            backgroundImage: NetworkImage(widget.reserve.passenger!.avatar!),
+          ),
+        ],
+      ),
     );
   }
 }
