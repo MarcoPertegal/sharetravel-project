@@ -18,6 +18,7 @@ import java.util.List;
 //@AllArgsConstructor
 @SuperBuilder
 public class Driver extends User{
+
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "driver_id")
