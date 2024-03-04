@@ -50,6 +50,9 @@ public class Trip {
     @ManyToOne
     private Driver driver;
 
+    @OneToMany(mappedBy = "trip")
+    private List<Reserve> reserves;
+
     public void calculateArrivalTime() {
         if (departureTime != null && estimatedDuration > 0) {
             this.arrivalTime = departureTime.plusMinutes(estimatedDuration);

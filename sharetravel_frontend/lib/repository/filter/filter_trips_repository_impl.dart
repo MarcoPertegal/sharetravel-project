@@ -11,15 +11,15 @@ class FilterTripsRepositoryImpl extends FilterTripsRepository {
       String departurePlace, String arrivalPlace, String departureDate) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    print("El token ostia $token");
+
     if (token == null) {
       throw Exception('Token not found or something go wrong');
     }
 
     final response = await _httpClient.get(
       Uri.parse(
-          //'http://10.0.2.2:8080/trip/filter?departurePlace=$departurePlace&arrivalPlace=$arrivalPlace&departureDate=$departureDate'),
-          'http://localhost:8080/trip/filter?departurePlace=$departurePlace&arrivalPlace=$arrivalPlace&departureDate=$departureDate'),
+          'http://10.0.2.2:8080/trip/filter?departurePlace=$departurePlace&arrivalPlace=$arrivalPlace&departureDate=$departureDate'),
+      //'http://localhost:8080/trip/filter?departurePlace=$departurePlace&arrivalPlace=$arrivalPlace&departureDate=$departureDate'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
