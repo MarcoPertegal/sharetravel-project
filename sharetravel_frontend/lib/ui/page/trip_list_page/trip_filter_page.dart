@@ -79,8 +79,8 @@ class _TripFilterPageState extends State<TripFilterPage> {
                           ),
                         );
                       });
-                    } else if (state is DoFilterTripsError) {
-                      return const Text('Filter error');
+                    } else if (state is DoFilterTripsNotFound) {
+                      return const Text('Trips filter not found');
                     } else if (state is DoFilterTripsLoading) {
                       return const Center(child: CircularProgressIndicator());
                     }

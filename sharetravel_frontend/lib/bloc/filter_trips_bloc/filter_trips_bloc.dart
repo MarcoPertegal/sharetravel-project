@@ -25,7 +25,7 @@ class FilterTripsBloc extends Bloc<FilterTripsEvent, FilterTripsState> {
       emit(DoFilterTripsSuccess(response));
       return;
     } on Exception catch (e) {
-      emit(DoFilterTripsError(e.toString()));
+      emit(DoFilterTripsNotFound(e.toString()));
     }
   }
 }

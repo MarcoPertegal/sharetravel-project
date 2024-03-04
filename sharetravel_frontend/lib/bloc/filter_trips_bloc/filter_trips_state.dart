@@ -12,7 +12,7 @@ final class DoFilterTripsSuccess extends FilterTripsState {
   DoFilterTripsSuccess(this.filterTripsResponse);
 }
 
-final class DoFilterTripsError extends FilterTripsState {
+final class DoFilterTripsNotFound extends FilterTripsState {
   final String errorMessage;
-  DoFilterTripsError(this.errorMessage);
+  DoFilterTripsNotFound(this.errorMessage);
 }
