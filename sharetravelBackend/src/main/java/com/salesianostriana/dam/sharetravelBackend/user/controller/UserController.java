@@ -186,6 +186,33 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Get logged user details")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode ="200",
+                    description = "Get logged user details",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetUserDetailsDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "id": "744ae11c-3332-42ec-bb45-f2839eb06e21",
+                                                "name": "Maria",
+                                                "lastName": "Rodriguez",
+                                                "birthDate": "1985-08-22",
+                                                "dni": "987654321",
+                                                "email": "maria@gmail.com"
+                                            }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "the user has not been found",
+                    content = @Content),
+    })
+    @GetMapping("user/details")
+    public ResponseEntity<GetUserDetailsDto> getLoggedUserDetails(@AuthenticationPrincipal User loggedUser) {
+        return ResponseEntity.ok(userService.findLoggedById(loggedUser));
+    }
 
 
 
