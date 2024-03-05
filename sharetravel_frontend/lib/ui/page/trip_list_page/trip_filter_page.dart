@@ -79,8 +79,9 @@ class _TripFilterPageState extends State<TripFilterPage> {
                           ),
                         );
                       });
-                    } else if (state is DoFilterTripsError) {
-                      return const Text('Filter error');
+                    } else if (state is DoFilterTripsNotFound) {
+                      return const Text(
+                          'Actualemente solo hay viajes para el 1 de mayo');
                     } else if (state is DoFilterTripsLoading) {
                       return const Center(child: CircularProgressIndicator());
                     }
@@ -225,7 +226,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
               child: const Text(
                 'Search',
                 style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

@@ -230,4 +230,7 @@ public class TripController {
     public ResponseEntity<GetTripDetailsDto> findTripById(@PathVariable String id){
         return ResponseEntity.ok(tripService.getTripById(UUID.fromString(id)));
     }
+
+    //CUANDO HAGA EL CREATE TRIP EL ARRIVALDATE NO LO INTRODUCE EL USUARIO SINO QUE SE LE SUMA A DEPARTURE TIME
+    //eL ESTIMATED DURATION
 }

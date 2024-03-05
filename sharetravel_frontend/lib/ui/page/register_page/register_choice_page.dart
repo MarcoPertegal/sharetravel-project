@@ -45,7 +45,7 @@ class RegisterChoicePage extends StatelessWidget {
                     child: const Text(
                       'As driver',
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -76,7 +76,7 @@ class RegisterChoicePage extends StatelessWidget {
                     child: const Text(
                       'As passenger',
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),

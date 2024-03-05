@@ -220,7 +220,7 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
           ),
           TextFormField(
             controller: personalDescriptionTextController,
-            maxLines: 3, // Numero de lineas
+            maxLines: 3,
             onChanged: (value) {
               // Aqui se puede meter validación
             },
@@ -286,7 +286,7 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
               child: const Text(
                 'Sign Up',
                 style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

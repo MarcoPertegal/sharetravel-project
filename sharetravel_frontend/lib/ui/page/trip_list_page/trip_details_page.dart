@@ -216,7 +216,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                   child: const Text(
                     'Reserve',
                     style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),

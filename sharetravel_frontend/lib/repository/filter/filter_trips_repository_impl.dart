@@ -29,8 +29,10 @@ class FilterTripsRepositoryImpl extends FilterTripsRepository {
     if (response.statusCode == 200) {
       print(response.body);
       return FilterTripsListResponse.fromJson(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('No trips found');
     } else {
-      throw Exception('Failed to do the filter');
+      throw Exception("Failed to do the filter");
     }
   }
 }
