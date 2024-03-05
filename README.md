@@ -11,8 +11,9 @@
 - Tecnologías Utilizadas
 - Personas Desarrolladoras del Proyecto
 - Licencia
-![portada](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/b142cae7-8e4a-4c5b-b028-86a1b5387b9d)
 
+
+![portada](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/b142cae7-8e4a-4c5b-b028-86a1b5387b9d)
 ## Descripción del Proyecto
 SHARETRAVEL es una aplicación móvil que conecta a personas que quieren realizar el mismo trayecto en coche para ahorrar costes y reducir emisiones.
 La aplicación constará de tres roles:
