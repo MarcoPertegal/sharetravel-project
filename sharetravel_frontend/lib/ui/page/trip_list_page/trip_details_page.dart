@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sharetravel_frontend/model/response/trip_details_response/trip_details_response.dart';
+import 'package:sharetravel_frontend/ui/page/trip_list_page/map_page.dart';
 import 'package:sharetravel_frontend/ui/widget/pasenger_list_widget.dart';
 
 class TripDetailsPage extends StatefulWidget {
@@ -69,7 +70,11 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                 .split("T")[1]
                                 .substring(0, 5),
                             style: commonTextStyle),
-                        Text("${widget.tripDetails.estimatedDuration!}min"),
+                        Text(
+                          (widget.tripDetails.estimatedDuration! < 60)
+                              ? "${widget.tripDetails.estimatedDuration!}min"
+                              : "${(widget.tripDetails.estimatedDuration! ~/ 60)}h ${(widget.tripDetails.estimatedDuration! % 60)}",
+                        ),
                         Text(
                             widget.tripDetails.arrivalTime!
                                 .split("T")[1]
@@ -90,20 +95,50 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            widget.tripDetails.departurePlace!,
-                            style: commonTextStyle,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MapPage(
+                                        cityName:
+                                            widget.tripDetails.departurePlace!,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      widget.tripDetails.departurePlace!,
+                                      style: commonTextStyle,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                    const Icon(Icons.arrow_forward_ios_rounded),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 25,
                           ),
-                          Text(
-                            widget.tripDetails.arrivalPlace!,
-                            style: commonTextStyle,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                widget.tripDetails.arrivalPlace!,
+                                style: commonTextStyle,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                              const Icon(Icons.arrow_forward_ios_rounded),
+                            ],
                           )
                         ],
                       ),

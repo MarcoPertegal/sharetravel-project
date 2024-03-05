@@ -81,11 +81,15 @@ class _TripCardWidgetState extends State<TripCardWidget> {
                               .substring(0, 5),
                           style: commonTextStyle,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
-                        Text("${widget.trip.estimatedDuration!}min"),
-                        SizedBox(
+                        Text(
+                          (widget.trip.estimatedDuration! < 60)
+                              ? "${widget.trip.estimatedDuration}min"
+                              : "${(widget.trip.estimatedDuration! ~/ 60)}h ${(widget.trip.estimatedDuration! % 60)}",
+                        ),
+                        const SizedBox(
                           height: 6,
                         ),
                         Text(
@@ -113,7 +117,7 @@ class _TripCardWidgetState extends State<TripCardWidget> {
                               style: commonTextStyle,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           Text(widget.trip.arrivalPlace!,
@@ -147,7 +151,7 @@ class _TripCardWidgetState extends State<TripCardWidget> {
                             NetworkImage(widget.trip.driver!.avatar!),
                       ),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     Padding(
                         padding: const EdgeInsets.only(top: 25.0),
                         child: Text(widget.trip.driver!.fullName!))
