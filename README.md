@@ -2,12 +2,15 @@
 
 
 # SHARETRAVEL
-Usuario Pasajero: 
+
+Usuario conductor: 
 - user: marco123
 - contraseña: 1
+  
 Usuario pasajero:
 - user: fran123
 - contraseña: 1
+  
 ## Índice:
 - Descripción del Proyecto
 - Estado del Proyecto
