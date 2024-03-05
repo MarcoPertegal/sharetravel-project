@@ -1,6 +1,8 @@
+![image](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/2e790499-7ac7-4528-aa4a-ff922471be5f)
+
+
 # SHARETRAVEL
 
-![logotipo](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/5d4c5839-cc9d-41a3-97e9-265dc26e72ea)
 ![portada](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/b142cae7-8e4a-4c5b-b028-86a1b5387b9d)
 
 ## Índice:
