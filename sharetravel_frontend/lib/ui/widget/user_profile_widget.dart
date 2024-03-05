@@ -11,14 +11,19 @@ class UserProfileWidget extends StatefulWidget {
 }
 
 class _UserProfileWidgetState extends State<UserProfileWidget> {
+  final TextStyle commonTextStyle = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 32.0),
+      padding: const EdgeInsets.only(top: 42.0),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Row(
               children: [
                 Expanded(
@@ -28,7 +33,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                         Text(
                           widget.userDetails.fullName!,
                           style: const TextStyle(
-                            fontSize: 28,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -37,21 +42,21 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                         Text(widget.userDetails.email!)
                       ]),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 CircleAvatar(
-                  radius: 54,
+                  radius: 50,
                   backgroundImage: NetworkImage(widget.userDetails.avatar!),
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: 10,
+          const SizedBox(
+            height: 15,
           ),
           Container(
-            height: 100,
+            height: 90,
             decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(
@@ -61,20 +66,44 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              padding: const EdgeInsets.only(top: 18.0, right: 24, left: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Phone"),
+                      Text(
+                        "Phone",
+                        style: commonTextStyle,
+                      ),
                       Text(widget.userDetails.phoneNumber!)
                     ],
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text("Rating"),
-                      Text(widget.userDetails.averageRating!)
+                      Text(
+                        "Rating",
+                        style: commonTextStyle,
+                      ),
+                      if (double.tryParse(widget.userDetails.averageRating!)! <
+                          0)
+                        const Text("passengers have no ratings")
+                      else if (double.tryParse(
+                              widget.userDetails.averageRating!) ==
+                          0)
+                        const Text("you don't have ratings")
+                      else
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Color.fromARGB(255, 252, 163, 17),
+                            ),
+                            Text(widget.userDetails.averageRating!)
+                          ],
+                        )
                     ],
                   )
                 ],
@@ -82,7 +111,6 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
             ),
           ),
           Container(
-            height: 100,
             decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(
@@ -92,16 +120,27 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+              padding: const EdgeInsets.only(top: 18.0, right: 24, left: 24),
+              child: Row(
                 children: [
-                  Text("Personal Description"),
-                  Text(widget.userDetails.personalDescription!)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Personal Description",
+                          style: commonTextStyle,
+                        ),
+                        Text(
+                          widget.userDetails.personalDescription!,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -16,8 +16,8 @@ class TripDetailsRepositoryImpl extends TripDetailsRepository {
     }
 
     final response = await _httpClient.get(
-      Uri.parse(//'http://10.0.2.2:8080/trip/$id'),
-          'http://localhost:8080/trip/$id'),
+      Uri.parse('http://10.0.2.2:8080/trip/$id'),
+      //'http://localhost:8080/trip/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sharetravel proyect',
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 252, 163, 17)),
-        useMaterial3: true,
-      ),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: Color.fromARGB(255, 252, 163, 17)),
+          useMaterial3: true,
+          fontFamily: 'Nunito'),
       home: const LoginPage(),
     );
   }

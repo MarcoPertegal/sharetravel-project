@@ -286,7 +286,7 @@ class _RegisterPassengerPageState extends State<RegisterPassengerPage> {
               child: const Text(
                 'Sign Up',
                 style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

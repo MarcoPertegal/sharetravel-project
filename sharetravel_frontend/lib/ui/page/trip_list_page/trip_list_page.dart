@@ -46,6 +46,7 @@ class _TripListPageState extends State<TripListPage> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -55,7 +56,7 @@ class _TripListPageState extends State<TripListPage> {
                           Navigator.of(context).pop();
                         },
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
                         widget.departurePlace,
                         style: const TextStyle(
@@ -66,9 +67,9 @@ class _TripListPageState extends State<TripListPage> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       const Icon(Icons.arrow_right_alt),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           widget.arrivalPlace,
@@ -83,11 +84,14 @@ class _TripListPageState extends State<TripListPage> {
                       ),
                     ],
                   ),
-                  Text(
-                    widget.departureDate,
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 97, 97, 97),
-                      fontSize: 12,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 57),
+                    child: Text(
+                      widget.departureDate,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 97, 97, 97),
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
