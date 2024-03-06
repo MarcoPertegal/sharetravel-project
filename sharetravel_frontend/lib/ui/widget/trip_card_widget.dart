@@ -81,12 +81,16 @@ class _TripCardWidgetState extends State<TripCardWidget> {
                               .substring(0, 5),
                           style: commonTextStyle,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
-                        Text("${widget.trip.estimatedDuration!}min"),
-                        SizedBox(
-                          height: 6,
+                        Text(
+                          (widget.trip.estimatedDuration! < 60)
+                              ? "${widget.trip.estimatedDuration!}min"
+                              : "${(widget.trip.estimatedDuration! ~/ 60)}h ${(widget.trip.estimatedDuration! % 60)}",
+                        ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         Text(
                           widget.trip.arrivalTime!

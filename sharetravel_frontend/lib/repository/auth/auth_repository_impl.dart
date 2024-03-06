@@ -14,7 +14,6 @@ class AuthRepositoryImpl extends AuthRepository {
     final jsonBody = jsonEncode(loginDto.toJson());
     final response = await _httpClient.post(
       Uri.parse('http://10.0.2.2:8080/auth/login'),
-      //'http://localhost:8080/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
