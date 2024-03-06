@@ -1,0 +1,509 @@
+{
+	"info": {
+		"_postman_id": "a3741641-ad73-4069-a632-4233ca9bbe64",
+		"name": "Sharetravel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30052610"
+	},
+	"item": [
+		{
+			"name": "Trip",
+			"item": [
+				{
+					"name": "GET Todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/trip/"
+					},
+					"response": []
+				},
+				{
+					"name": "GET byId Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/trip/6f9458e8-7834-4df8-ba48-79aadfaa42d4"
+					},
+					"response": []
+				},
+				{
+					"name": "GET ByPlaceAndDate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/trip/filter?departurePlace=Seville&arrivalPlace=Sanlúcar de Barrameda&departureDate=2024-05-01",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trip",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "departurePlace",
+									"value": "Seville"
+								},
+								{
+									"key": "arrivalPlace",
+									"value": "Sanlúcar de Barrameda"
+								},
+								{
+									"key": "departureDate",
+									"value": "2024-05-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST ejemplo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"First note\",\n    \"content\": \"Lorem Ipsum Dolor Sit Amet....\",\n    \"important\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/note/"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT ejemplo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Bello Gallico\",\n    \"content\": \"Gallia est omnis divisa in partes tres...\",\n    \"important\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/note/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE ejemplo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/note/1"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "POST Nuevo pasajero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"passenger2\",\r\n    \"password\": \"2\",\r\n    \"fullName\": \"passenger passenger\",\r\n    \"email\": \"passenger2@gmail.com\",\r\n    \"phoneNumber\": \"606 09 56 49\",\r\n    \"personalDescription\": \"viajo por motivos de trabajo si hola\",\r\n    \"avatar\": \"https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/register/passenger"
+					},
+					"response": []
+				},
+				{
+					"name": "POST  Nuevo conductor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"driver2\",\r\n    \"password\": \"2\",\r\n    \"fullName\": \"driver driver\",\r\n    \"email\": \"driver@gmail.com\",\r\n    \"phoneNumber\": \"606 09 56 49\",\r\n    \"personalDescription\": \"viajo por motivos de trabajo si hola\",\r\n    \"avatar\": \"https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/register/driver"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Modificar contraseña",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"12345678\",\n    \"newPassword\": \"asdfg\",\n    \"verifyPassword\": \"asdfg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/user/changePassword"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logged user details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/user/details"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "POST Nuevo Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"12345678\",\n    \"fullName\": \"Admin admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/register/admin"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "reserve",
+			"item": []
+		},
+		{
+			"name": "POST Login conductor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();",
+							"pm.collectionVariables.set(\"token\", json.token);",
+							"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"marco123\",\n    \"password\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Login pasajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();",
+							"pm.collectionVariables.set(\"token\", json.token);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"fran123\",\n    \"password\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Login nuevo conductor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();",
+							"pm.collectionVariables.set(\"token\", json.token);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"driver2\",\n    \"password\": \"2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Login nuevo pasajero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();",
+							"pm.collectionVariables.set(\"token\", json.token);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"passenger2\",\n    \"password\": \"2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "POST refreshtoken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();",
+							"pm.collectionVariables.set(\"token\", json.token);",
+							"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refreshToken\": \"{{refresh_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/refreshtoken"
+			},
+			"response": []
+		},
+		{
+			"name": "POST bad refreshtoken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();",
+							"pm.collectionVariables.set(\"token\", json.token);",
+							"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"refreshToken\": \"1a75e095-4491-4ad9-ab51-d24c9f869dfa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/refreshtoken"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		}
+	]
+}
