@@ -19,7 +19,6 @@ class FilterTripsRepositoryImpl extends FilterTripsRepository {
     final response = await _httpClient.get(
       Uri.parse(
           'http://10.0.2.2:8080/trip/filter?departurePlace=$departurePlace&arrivalPlace=$arrivalPlace&departureDate=$departureDate'),
-      //'http://localhost:8080/trip/filter?departurePlace=$departurePlace&arrivalPlace=$arrivalPlace&departureDate=$departureDate'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

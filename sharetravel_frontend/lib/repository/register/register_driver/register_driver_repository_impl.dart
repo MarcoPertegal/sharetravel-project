@@ -14,7 +14,6 @@ class RegisterDriverRepositoryImpl extends RegisterDriverRepository {
     final jsonBody = jsonEncode(registerDto.toJson());
     final response = await _httpClient.post(
       Uri.parse('http://10.0.2.2:8080/auth/register/driver'),
-      //'http://localhost:8080/auth/register/driver'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
