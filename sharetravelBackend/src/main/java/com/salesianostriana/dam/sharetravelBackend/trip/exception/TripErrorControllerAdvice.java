@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class TripErrorControllerAdvice {
 
-    @ExceptionHandler({EmptyTripListException.class})
-    public ResponseEntity<?> handleTripNotFoundException(EmptyTripListException ex, HttpServletRequest request){
+    @ExceptionHandler({TripNotFoundException.class, EmptyTripListException.class})
+    public ResponseEntity<?> handleTripExceptions(Exception ex, HttpServletRequest request){
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ExceptionMessage.of(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI()));
     }

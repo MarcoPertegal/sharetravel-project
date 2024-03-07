@@ -48,6 +48,7 @@ public class TripService {
         Trip trip = result.orElseThrow(() -> new EmptyTripListException("no trip match this id"));
 
         return GetTripDetailsDto.builder()
+                .id(trip.getId())
                 .departurePlace(trip.getDeparturePlace())
                 .arrivalPlace(trip.getArrivalPlace())
                 .departureTime(trip.getDepartureTime())

@@ -1,9 +1,9 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.service;
 
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
+import com.salesianostriana.dam.sharetravelBackend.reserve.exception.DuplicateReserveException;
 import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
 import com.salesianostriana.dam.sharetravelBackend.reserve.repository.ReserveRepository;
-import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.trip.repository.TripRepository;
@@ -19,31 +19,36 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class RepositoryService {
+public class ReserveService {
 
     private final ReserveRepository reserveRepository;
     private final PassengerRepository passengerRepository;
     private final TripRepository tripRepository;
 
-    public CreateReserveDto createReserve (String passagerId, String tripId){
-        Optional<Passenger> optionalPassenger = passengerRepository.findById(UUID.fromString(passagerId));
-        Passenger passenger = optionalPassenger.orElseThrow(() -> new UserNotFoundException("no user match this id"+ passagerId));
+    public CreateReserveDto createReserve (UUID passengerId, String tripId){
+        Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
+        Passenger passenger = optionalPassenger.orElseThrow(() -> new UserNotFoundException("no user match this id"+ passengerId));
 
         Optional<Trip> optionalTrip = tripRepository.findById(UUID.fromString(tripId));
         Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ tripId));
+
+        boolean hasReserved = reserveRepository.existsByPassengerAndTrip(passenger, trip);
+        if (hasReserved) {
+            throw new DuplicateReserveException("A passenger cannot reserve the same trip twice.");
+        }
 
         Reserve newReserve = Reserve.builder()
                 .reserveDate(LocalDateTime.now())
                 .passenger(passenger)
                 .trip(trip)
                 .build();
-
         Reserve savedReserve = reserveRepository.save(newReserve);
 
         return CreateReserveDto.builder()
+                .id(savedReserve.getId())
                 .reserveDate(savedReserve.getReserveDate())
-                .passenger(savedReserve.getPassenger())
-                .trip(savedReserve.getTrip())
+                .passengerId(savedReserve.getPassenger().getId())
+                .tripId(savedReserve.getTrip().getId())
                 .build();
     }
 }

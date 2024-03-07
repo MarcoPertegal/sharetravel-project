@@ -78,7 +78,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(antMatcher("user/details")).hasAnyRole("PASSENGER", "DRIVER")
                         .requestMatchers(antMatcher("/trip/**")).hasAnyRole("PASSENGER", "DRIVER")
-
+                        .requestMatchers(antMatcher("/reserve/**")).hasRole("PASSENGER")
                         .requestMatchers(antMatcher("/auth/register/admin")).hasRole("ADMIN")
                         .anyRequest().authenticated());
 

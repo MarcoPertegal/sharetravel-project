@@ -1,10 +1,10 @@
-package com.salesianostriana.dam.sharetravelBackend.trip.exception;
+package com.salesianostriana.dam.sharetravelBackend.reserve.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 
-public class TripNotFoundException extends EntityNotFoundException {
+public class DuplicateReserveException extends EntityNotFoundException {
 
-    public TripNotFoundException(String message) {
+    public DuplicateReserveException(String message) {
         super(message);
     }
 }
