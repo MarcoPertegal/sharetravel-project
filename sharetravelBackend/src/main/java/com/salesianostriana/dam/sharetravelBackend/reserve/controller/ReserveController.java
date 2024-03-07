@@ -19,9 +19,9 @@ public class ReserveController {
 
     private final ReserveService reserveService;
 
-    @PostMapping("/new/{tripId}")
-    public ResponseEntity<CreateReserveDto> createReserve (@AuthenticationPrincipal User loggedPassenger, @PathVariable String tripId){
-        return ResponseEntity.status(HttpStatus.CREATED).body(reserveService.createReserve(loggedPassenger.getId(), tripId));
+    @PostMapping("/new/{id}")
+    public ResponseEntity<CreateReserveDto> createReserve (@AuthenticationPrincipal User loggedPassenger, @PathVariable String id){
+        return ResponseEntity.status(HttpStatus.CREATED).body(reserveService.createReserve(loggedPassenger.getId(), id));
     }
     //parece que peta el controller?
 }
