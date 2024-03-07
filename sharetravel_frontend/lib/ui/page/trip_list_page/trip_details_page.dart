@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:sharetravel_frontend/model/response/trip_details_response/trip_details_response.dart';
+import 'package:sharetravel_frontend/model/trip_details_response/trip_details_response.dart';
 import 'package:sharetravel_frontend/ui/page/trip_list_page/map_page.dart';
 import 'package:sharetravel_frontend/ui/widget/pasenger_list_widget.dart';
 

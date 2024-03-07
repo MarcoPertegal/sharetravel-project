@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sharetravel_frontend/model/response/trip_details_response/reserve.dart';
+import 'package:sharetravel_frontend/model/trip_details_response/reserve.dart';
 
 class PassengerListWidget extends StatefulWidget {
   final Reserve reserve;

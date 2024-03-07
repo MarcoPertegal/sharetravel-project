@@ -16,7 +16,7 @@ class UserDetailsRepositoryImpl extends UserDetailsRepository {
     }
 
     final response = await _httpClient.get(
-      Uri.parse('http://10.0.2.2:8080/user/details'),
+      Uri.parse('http://localhost:8080/user/details'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

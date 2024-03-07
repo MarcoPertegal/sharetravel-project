@@ -4,6 +4,7 @@ import 'driver.dart';
 import 'reserve.dart';
 
 class TripDetailsResponse {
+  String? id;
   String? departurePlace;
   String? arrivalPlace;
   String? departureTime;
@@ -15,6 +16,7 @@ class TripDetailsResponse {
   List<Reserve>? reserves;
 
   TripDetailsResponse({
+    this.id,
     this.departurePlace,
     this.arrivalPlace,
     this.departureTime,
@@ -28,6 +30,7 @@ class TripDetailsResponse {
 
   factory TripDetailsResponse.fromMap(Map<String, dynamic> data) {
     return TripDetailsResponse(
+      id: data['id'] as String?,
       departurePlace: data['departurePlace'] as String?,
       arrivalPlace: data['arrivalPlace'] as String?,
       departureTime: data['departureTime'] as String?,
@@ -45,6 +48,7 @@ class TripDetailsResponse {
   }
 
   Map<String, dynamic> toMap() => {
+        'id': id,
         'departurePlace': departurePlace,
         'arrivalPlace': arrivalPlace,
         'departureTime': departureTime,
