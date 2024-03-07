@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:sharetravel_frontend/model/trip_details_response/trip_details_response.dart';
+import 'package:sharetravel_frontend/bloc/create_reserve/create_reserve_bloc.dart';
+import 'package:sharetravel_frontend/model/response/trip_details_response/trip_details_response.dart';
+import 'package:sharetravel_frontend/repository/create_reserve/create_reserve_repository.dart';
+import 'package:sharetravel_frontend/repository/create_reserve/create_reserve_repository_impl.dart';
 import 'package:sharetravel_frontend/ui/page/trip_list_page/map_page.dart';
 import 'package:sharetravel_frontend/ui/widget/pasenger_list_widget.dart';
 
@@ -19,6 +22,16 @@ class TripDetailsPage extends StatefulWidget {
 }
 
 class _TripDetailsPageState extends State<TripDetailsPage> {
+  late CreateReserveRepository createReserveRepository;
+  late CreateReserveBloc _createReserveBloc;
+
+  @override
+  void initState() {
+    createReserveRepository = CreateReserveRepositoryImpl();
+    _createReserveBloc = CreateReserveBloc(createReserveRepository);
+    super.initState();
+  }
+
   final TextStyle commonTextStyle = const TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
@@ -271,7 +284,10 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _createReserveBloc
+                        .add(DoCreateReserveEvent(widget.tripDetails.id!));
+                  },
                 ),
               ),
             ),

@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sharetravel_frontend/model/trip_details_response/trip_details_response.dart';
+import 'package:sharetravel_frontend/model/response/trip_details_response/trip_details_response.dart';
 import 'package:sharetravel_frontend/repository/trip/trip_details_repository.dart';
 
 class TripDetailsRepositoryImpl extends TripDetailsRepository {
