@@ -25,11 +25,11 @@ public class ReserveService {
     private final PassengerRepository passengerRepository;
     private final TripRepository tripRepository;
 
-    public CreateReserveDto createReserve (UUID passengerId, String tripId){
+    public CreateReserveDto createReserve (UUID passengerId, UUID tripId){
         Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
         Passenger passenger = optionalPassenger.orElseThrow(() -> new UserNotFoundException("no user match this id"+ passengerId));
 
-        Optional<Trip> optionalTrip = tripRepository.findById(UUID.fromString(tripId));
+        Optional<Trip> optionalTrip = tripRepository.findById(tripId);
         Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ tripId));
 
         boolean hasReserved = reserveRepository.existsByPassengerAndTrip(passenger, trip);
