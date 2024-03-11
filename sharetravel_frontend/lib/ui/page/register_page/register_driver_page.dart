@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharetravel_frontend/bloc/register_driver_bloc/register_driver_bloc.dart';
 import 'package:sharetravel_frontend/repository/register/register_driver/register_driver_repository.dart';
 import 'package:sharetravel_frontend/repository/register/register_driver/register_driver_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/error_page.dart';
 import 'package:sharetravel_frontend/ui/page/home_page.dart';
 
 class RegisterDriverPage extends StatefulWidget {
@@ -50,6 +51,18 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
     return BlocProvider.value(
       value: _registerDriverBloc,
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 0, 175, 84),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         backgroundColor: const Color.fromARGB(255, 0, 175, 84),
         body: SingleChildScrollView(
           child: Padding(
@@ -65,9 +78,18 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
                             HomePage(), //aqui es adonde se redirije cuando se loguea
                       ),
                     );
-                  }); //aqui es adonde se redirije cuando se loguea
+                  });
                 } else if (state is DoRegisterDriverError) {
-                  return const Text('Register error');
+                  final errorMessage =
+                      state.errorMessage.replaceFirst('Exception: ', '');
+                  Future.delayed(Duration.zero, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ErrorPage(errorMessage: errorMessage)),
+                    );
+                  });
                 } else if (state is DoRegisterDriverLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }

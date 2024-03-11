@@ -29,12 +29,20 @@ class CreateReserveRepositoryImpl extends CreateReserveRepository {
       },
       body: jsonBody,
     );
-
     if (response.statusCode == 201) {
       print(response.body);
       return CreateReserveResponse.fromJson(response.body);
     } else {
-      throw Exception('Failed to create reserve');
+      final jsonResponse = json.decode(response.body);
+      final errorMessage =
+          jsonResponse['message'] as String? ?? "Unknown error";
+      if (response.statusCode == 409) {
+        throw Exception("You have already booked this trip.");
+      } else if (response.statusCode == 403) {
+        throw Exception("As a driver, you cannot book trips");
+      } else {
+        throw Exception("Failed to create reserve: $errorMessage");
+      }
     }
   }
 }

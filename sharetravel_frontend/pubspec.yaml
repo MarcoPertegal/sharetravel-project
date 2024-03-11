@@ -38,6 +38,7 @@ flutter:
     - assets/ilustration_filter.png
     - assets/green_arrow.png
     - assets/fonts/Nunito-Regular.ttf
+    - assets/error_ilustration.png
   fonts:
     - family: Nunito
       fonts:

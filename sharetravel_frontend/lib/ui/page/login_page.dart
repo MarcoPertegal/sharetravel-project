@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharetravel_frontend/bloc/login_bloc/login_bloc.dart';
 import 'package:sharetravel_frontend/repository/auth/auth_repository.dart';
 import 'package:sharetravel_frontend/repository/auth/auth_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/error_page.dart';
 import 'package:sharetravel_frontend/ui/page/home_page.dart';
 import 'package:sharetravel_frontend/ui/page/register_page/register_choice_page.dart';
 
@@ -58,7 +59,16 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   });
                 } else if (state is DoLoginError) {
-                  return const Text('Login error');
+                  final errorMessage =
+                      state.errorMessage.replaceFirst('Exception: ', '');
+                  Future.delayed(Duration.zero, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ErrorPage(errorMessage: errorMessage)),
+                    );
+                  });
                 } else if (state is DoLoginLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }

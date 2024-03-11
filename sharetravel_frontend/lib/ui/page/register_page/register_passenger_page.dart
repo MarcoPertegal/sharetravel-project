@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharetravel_frontend/bloc/register_passenger_bloc/register_passenger_bloc.dart';
 import 'package:sharetravel_frontend/repository/register/register_passenger/register_passenger_repository.dart';
 import 'package:sharetravel_frontend/repository/register/register_passenger/register_passenger_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/error_page.dart';
 import 'package:sharetravel_frontend/ui/page/home_page.dart';
 
 class RegisterPassengerPage extends StatefulWidget {
@@ -50,10 +51,23 @@ class _RegisterPassengerPageState extends State<RegisterPassengerPage> {
     return BlocProvider.value(
       value: _registerPassengerBloc,
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 0, 175, 84),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         backgroundColor: const Color.fromARGB(255, 0, 175, 84),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding:
+                const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
             child: BlocBuilder<RegisterPassengerBloc, RegisterPassengerState>(
               builder: (context, state) {
                 if (state is DoRegisterPassengerSuccess) {
@@ -61,13 +75,21 @@ class _RegisterPassengerPageState extends State<RegisterPassengerPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            HomePage(), //aqui es adonde se redirije cuando se loguea
+                        builder: (context) => HomePage(),
                       ),
                     );
-                  }); //aqui es adonde se redirije cuando se loguea
+                  });
                 } else if (state is DoRegisterPassengerError) {
-                  return const Text('Register error');
+                  final errorMessage =
+                      state.errorMessage.replaceFirst('Exception: ', '');
+                  Future.delayed(Duration.zero, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ErrorPage(errorMessage: errorMessage)),
+                    );
+                  });
                 } else if (state is DoRegisterPassengerLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }

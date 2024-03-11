@@ -24,7 +24,7 @@ class RegisterDriverRepositoryImpl extends RegisterDriverRepository {
       await _saveTokenToSharedPreferences(registerDriverResponse.token!);
       return registerDriverResponse;
     } else {
-      throw Exception('Failed to register driver');
+      throw Exception('The username already exists');
     }
   }
 

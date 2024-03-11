@@ -25,7 +25,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
       return loginResponse;
     } else {
-      throw Exception('Failed to do login');
+      throw Exception('Wrong user or password');
     }
   }
 

@@ -258,7 +258,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       Text('Passengers', style: commonTextStyle),
                       const SizedBox(height: 10),
                       ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: widget.tripDetails.reserves!.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -292,9 +292,27 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       } else if (state is DoCreateReserveLoading) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (state is DoCreateReserveError) {
-                        return Text(
-                            //ESTE MENSAJE ES EL QUE HAY QUE GESTIONAR
-                            'Error al crear la reserva: ${state.errorMessage}');
+                        final errorMessage =
+                            state.errorMessage.replaceFirst('Exception: ', '');
+                        Future.delayed(Duration.zero, () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content:
+                                    Text(errorMessage, style: commonTextStyle),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        });
                       }
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
