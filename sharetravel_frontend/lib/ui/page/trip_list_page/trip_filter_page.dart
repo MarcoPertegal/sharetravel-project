@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharetravel_frontend/bloc/filter_trips_bloc/filter_trips_bloc.dart';
 import 'package:sharetravel_frontend/repository/filter/filter_trips_repository.dart';
 import 'package:sharetravel_frontend/repository/filter/filter_trips_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/error_page.dart';
 import 'package:sharetravel_frontend/ui/page/trip_list_page/trip_list_page.dart';
 
 class TripFilterPage extends StatefulWidget {
@@ -80,8 +81,17 @@ class _TripFilterPageState extends State<TripFilterPage> {
                         );
                       });
                     } else if (state is DoFilterTripsNotFound) {
-                      return const Text(
-                          'Actualemente solo hay viajes para el 1 de mayo');
+                      final errorMessage =
+                          state.errorMessage.replaceFirst('Exception: ', '');
+                      Future.delayed(Duration.zero, () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ErrorPage(
+                                  errorMessage: errorMessage +
+                                      "solo hay viajes para el 1 de mayo")),
+                        );
+                      });
                     } else if (state is DoFilterTripsLoading) {
                       return const Center(child: CircularProgressIndicator());
                     }

@@ -13,7 +13,7 @@ class RegisterPassengerRepositoryImpl extends RegisterPassengerRepository {
   Future<RegisterResponse> registerPassenger(RegisterDto registerDto) async {
     final jsonBody = jsonEncode(registerDto.toJson());
     final response = await _httpClient.post(
-      Uri.parse('http://10.0.2.2:8080/auth/register/passenger'),
+      Uri.parse('http://localhost:8080/auth/register/passenger'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -24,7 +24,7 @@ class RegisterPassengerRepositoryImpl extends RegisterPassengerRepository {
       await _saveTokenToSharedPreferences(registerDriverResponse.token!);
       return registerDriverResponse;
     } else {
-      throw Exception('Failed to register driver');
+      throw Exception('The username already exists');
     }
   }
 
