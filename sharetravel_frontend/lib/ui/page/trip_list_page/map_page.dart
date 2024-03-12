@@ -35,7 +35,7 @@ class _MapPageState extends State<MapPage> {
               markers: cityCoordinates != null
                   ? {
                       Marker(
-                        markerId: MarkerId('CityMarker'),
+                        markerId: const MarkerId('CityMarker'),
                         position: cityCoordinates!,
                         infoWindow: InfoWindow(title: widget.cityName),
                       ),

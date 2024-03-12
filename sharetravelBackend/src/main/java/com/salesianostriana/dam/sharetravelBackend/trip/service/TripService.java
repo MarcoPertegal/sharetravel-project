@@ -86,7 +86,6 @@ public class TripService {
                 .build();
         newTrip.calculateArrivalTime();
         Trip savedTrip = tripRepository.save(newTrip);
-        System.out.println("Viaje guardado"+savedTrip);
 
         return GetTripDetailsDto.builder()
                 .id(savedTrip.getId())
