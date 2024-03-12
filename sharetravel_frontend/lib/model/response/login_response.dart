@@ -3,16 +3,18 @@ import 'dart:convert';
 class LoginResponse {
   String? id;
   String? username;
+  String? avatar;
   String? fullName;
-  String? createdAt;
+  String? userRol;
   String? token;
   String? refreshToken;
 
   LoginResponse({
     this.id,
     this.username,
+    this.avatar,
     this.fullName,
-    this.createdAt,
+    this.userRol,
     this.token,
     this.refreshToken,
   });
@@ -20,8 +22,9 @@ class LoginResponse {
   factory LoginResponse.fromMap(Map<String, dynamic> data) => LoginResponse(
         id: data['id'] as String?,
         username: data['username'] as String?,
+        avatar: data['avatar'] as String?,
         fullName: data['fullName'] as String?,
-        createdAt: data['createdAt'] as String?,
+        userRol: data['userRol'] as String?,
         token: data['token'] as String?,
         refreshToken: data['refreshToken'] as String?,
       );
@@ -29,8 +32,9 @@ class LoginResponse {
   Map<String, dynamic> toMap() => {
         'id': id,
         'username': username,
+        'avatar': avatar,
         'fullName': fullName,
-        'createdAt': createdAt,
+        'userRol': userRol,
         'token': token,
         'refreshToken': refreshToken,
       };

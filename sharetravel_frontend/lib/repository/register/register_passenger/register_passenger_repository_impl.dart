@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharetravel_frontend/model/dto/register_dto.dart';
-import 'package:sharetravel_frontend/model/response/register_response..dart';
+import 'package:sharetravel_frontend/model/response/register_response.dart';
 import 'package:sharetravel_frontend/repository/register/register_passenger/register_passenger_repository.dart';
 
 class RegisterPassengerRepositoryImpl extends RegisterPassengerRepository {
