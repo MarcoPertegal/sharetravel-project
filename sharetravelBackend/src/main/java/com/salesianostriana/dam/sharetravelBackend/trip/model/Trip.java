@@ -34,7 +34,7 @@ public class Trip {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime departureTime;
 
-    private int estimatedDuration;//en minutos
+    private int estimatedDuration;//EN MINUTOS
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime arrivalTime;
