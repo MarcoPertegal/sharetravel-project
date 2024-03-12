@@ -22,6 +22,7 @@ class RegisterDriverRepositoryImpl extends RegisterDriverRepository {
     if (response.statusCode == 201) {
       final registerDriverResponse = RegisterResponse.fromJson(response.body);
       await _saveTokenToSharedPreferences(registerDriverResponse.token!);
+      await _saveUserRolToSharedPreferences(registerDriverResponse.userRol!);
       return registerDriverResponse;
     } else {
       throw Exception('The username already exists');
@@ -31,5 +32,10 @@ class RegisterDriverRepositoryImpl extends RegisterDriverRepository {
   Future<void> _saveTokenToSharedPreferences(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
+  }
+
+  Future<void> _saveUserRolToSharedPreferences(String userRol) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userRol', userRol);
   }
 }

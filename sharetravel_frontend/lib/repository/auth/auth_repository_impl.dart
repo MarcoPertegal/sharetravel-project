@@ -22,6 +22,7 @@ class AuthRepositoryImpl extends AuthRepository {
     if (response.statusCode == 201) {
       final loginResponse = LoginResponse.fromJson(response.body);
       await _saveTokenToSharedPreferences(loginResponse.token!);
+      await _saveUserRolToSharedPreferences(loginResponse.userRol!);
 
       return loginResponse;
     } else {
@@ -32,5 +33,10 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<void> _saveTokenToSharedPreferences(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
+  }
+
+  Future<void> _saveUserRolToSharedPreferences(String userRol) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userRol', userRol);
   }
 }
