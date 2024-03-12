@@ -147,7 +147,6 @@ public class TripController {
     @GetMapping("/")
     public ResponseEntity<Page<GetAllTripsDto>> getAllTrips(@PageableDefault(page = 0, size = 8)Pageable p){
         return ResponseEntity.ok(tripService.getAllTrips(p));
-        //FALTARIA EN EL EXAMPLE RESPONSE DE DOCUMENTACION AÑADIR AL DRIVER CUANDO HAGA LAS ASOCIACIONES
     }
 
 
@@ -226,6 +225,51 @@ public class TripController {
         return ResponseEntity.ok(tripService.getTripsByDeparturePlaceArrivalPlaceAndDepartureTime(p, departurePlace, arrivalPlace, departureDate));
     }
 
+    @Operation(summary = "Get trip by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Trip has been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetTripDetailsDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d4",
+                                                    "departurePlace": "Seville",
+                                                    "arrivalPlace": "Sanlúcar de Barrameda",
+                                                    "departureTime": "2024-05-01T17:15:00",
+                                                    "estimatedDuration": 110,
+                                                    "arrivalTime": "2024-05-01T18:30:00",
+                                                    "price": 8.99,
+                                                    "tripDescription": "I can drop off in nearby places in Sanlúcar, two passengers with hand luggage only",
+                                                    "driver": {
+                                                        "avatar": "https://www.redaccionmedica.com/images/destacados/las-personas-con-un-riesgo-genetico-bajo-de-tdah-son-mas-afortunadas--2868.jpg",
+                                                        "fullName": "Miguel Campos González"
+                                                    },
+                                                    "reserves": [
+                                                        {
+                                                            "reserveDate": "2024-05-01T17:19:00",
+                                                            "passenger": {
+                                                                "avatar": "https://f.rpp-noticias.io/2019/02/15/753300descarga-11jpg.jpg",
+                                                                "fullName": "Fran Ruíz Prieto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "reserveDate": "2024-04-29T10:30:00",
+                                                            "passenger": {
+                                                                "avatar": "https://www.laguiadelvaron.com/wp-content/uploads/2018/12/ai-image-generation-fake-faces-people-nvidia-5c18b20b472c2__700.jpg",
+                                                                "fullName": "Fernando Pérez Gil"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "Trip hasn't been found",
+                    content = @Content)
+    })
     @GetMapping("/{id}")
     public ResponseEntity<GetTripDetailsDto> findTripById(@PathVariable String id){
         return ResponseEntity.ok(tripService.getTripById(UUID.fromString(id)));

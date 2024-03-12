@@ -42,14 +42,15 @@ public class PassengerController {
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                "id": "cd5c0c8f-7f0a-4116-b988-df9848a94642",
+                                                "id": "bbd04afb-5159-40e0-bae3-f6d647ddb0d7",
                                                 "username": "passenger2",
                                                 "avatar": "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
                                                 "fullName": "passenger passenger",
-                                                "createdAt": "02/03/2024 15:30:25",
-                                                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjZDVjMGM4Zi03ZjBhLTQxMTYtYjk4OC1kZjk4NDhhOTQ2NDIiLCJpYXQiOjE3MDkzODk4MjUsImV4cCI6MTcwOTM5MDQyNX0.8EUKgvxczCC83M2yDK9JB3MMGAW5RncglD3NMuQcwztjTSrPbga7k5WsmcoptXmk4NBIkxPbUyRURTPCFS4ZEQ",
-                                                "refreshToken": "ac10b000-bf33-4aef-8d3e-2c01de5e2d21"
-                                            }                                  
+                                                "userRol": "[PASSENGER]",
+                                                "createdAt": "12/03/2024 00:48:44",
+                                                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmQwNGFmYi01MTU5LTQwZTAtYmFlMy1mNmQ2NDdkZGIwZDciLCJpYXQiOjE3MTAyMDA5MjUsImV4cCI6MTcxMDIwNjkyNX0.k_4VwZsWxfuFbpioBg2sn-MU1JyY5nSFdJkovDrwykuCV-DX5Z1E6k0P-YZeVBIZcj-9jBik7__fVv5-de9m-w",
+                                                "refreshToken": "89b6ff15-014c-4e4a-8052-976e1f95e836"
+                                            }                                 
                                             """
                             )}
                     )}),
