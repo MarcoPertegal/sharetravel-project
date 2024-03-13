@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sharetravel_frontend/bloc/trip_details_bloc/trip_details_bloc.dart';
 import 'package:sharetravel_frontend/model/response/filter_trips_list_response/trip.dart';
-import 'package:sharetravel_frontend/repository/trip/trip_details_repository.dart';
-import 'package:sharetravel_frontend/repository/trip/trip_details_repository_impl.dart';
+import 'package:sharetravel_frontend/repository/trip_details/trip_details_repository.dart';
+import 'package:sharetravel_frontend/repository/trip_details/trip_details_repository_impl.dart';
 import 'package:sharetravel_frontend/ui/page/trip_list_page/trip_details_page.dart';
 
 class TripCardWidget extends StatefulWidget {

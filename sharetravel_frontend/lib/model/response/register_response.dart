@@ -3,27 +3,31 @@ import 'dart:convert';
 class RegisterResponse {
   String? id;
   String? username;
-  dynamic avatar;
+  String? avatar;
   String? fullName;
+  String? userRol;
   String? createdAt;
   String? token;
   String? refreshToken;
 
-  RegisterResponse(
-      {this.id,
-      this.username,
-      this.avatar,
-      this.fullName,
-      this.createdAt,
-      this.token,
-      this.refreshToken});
+  RegisterResponse({
+    this.id,
+    this.username,
+    this.avatar,
+    this.fullName,
+    this.userRol,
+    this.createdAt,
+    this.token,
+    this.refreshToken,
+  });
 
   factory RegisterResponse.fromMap(Map<String, dynamic> data) {
     return RegisterResponse(
       id: data['id'] as String?,
       username: data['username'] as String?,
-      avatar: data['avatar'] as dynamic,
+      avatar: data['avatar'] as String?,
       fullName: data['fullName'] as String?,
+      userRol: data['userRol'] as String?,
       createdAt: data['createdAt'] as String?,
       token: data['token'] as String?,
       refreshToken: data['refreshToken'] as String?,
@@ -35,6 +39,7 @@ class RegisterResponse {
         'username': username,
         'avatar': avatar,
         'fullName': fullName,
+        'userRol': userRol,
         'createdAt': createdAt,
         'token': token,
         'refreshToken': refreshToken,

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:sharetravel_frontend/model/dto/register_dto.dart';
-import 'package:sharetravel_frontend/model/response/register_response..dart';
+import 'package:sharetravel_frontend/model/response/register_response.dart';
 import 'package:sharetravel_frontend/repository/register/register_passenger/register_passenger_repository.dart';
 
 part 'register_passenger_event.dart';

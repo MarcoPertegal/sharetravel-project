@@ -41,47 +41,6 @@ public class UserController {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
 
-    /*
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Register as user", content = {
-                    @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = UserResponse.class)),
-                            examples = {@ExampleObject(
-                                    value = """
-                                            {
-                                                "id": "2901482f-de20-4259-986f-8c48cbc37c96",
-                                                "username": "user1",
-                                                "avatar": "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-                                                "fullName": "user user",
-                                                "createdAt": "22/02/2024 09:19:05",
-                                                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyOTAxNDgyZi1kZTIwLTQyNTktOTg2Zi04YzQ4Y2JjMzdjOTYiLCJpYXQiOjE3MDg1ODk5NDUsImV4cCI6MTcwODU5MDAwNX0._3SxZe-6FtHBTOcgyCWpkMFGWCLZrQByeRum96ArWXEisTxenETU2J17j2gSx_D09ZkD58aqjVDn9hgIJdzEUQ",
-                                                "refreshToken": "1c4d734a-f52e-4a6e-9de2-67cb604c105f"
-                                            }                                  
-                                            """
-                            )}
-                    )}),
-            @ApiResponse(responseCode = "400", description = "Introduced data not valid", content = @Content)
-    })
-    @Operation(summary = "createUserWithUserRole", description = "Register as user")
-    @PostMapping("/auth/register")
-    public ResponseEntity<UserResponse> createUserWithUserRole(@Valid @RequestBody CreateUserRequest createUserRequest) {
-        User user = userService.createUserWithUserRole(createUserRequest);
-        Authentication authentication =
-                authManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                createUserRequest.getUsername(),
-                                createUserRequest.getPassword()
-                        )
-                );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtProvider.generateToken(authentication);
-        refreshTokenService.deleteByUser(user);
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
-
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(JwtUserResponse.of(user, token, refreshToken.getToken()));
-    }*/
-
 
     @PostMapping("/auth/register/admin")
     public ResponseEntity<UserResponse> createUserWithAdminRole(@RequestBody CreateUserRequest createUserRequest) {

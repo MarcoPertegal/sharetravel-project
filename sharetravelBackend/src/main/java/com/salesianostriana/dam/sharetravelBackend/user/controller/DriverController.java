@@ -44,14 +44,15 @@ public class DriverController {
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                "id": "aa22bf2f-eaa3-454f-8d7e-8bb478a16cb7",
+                                                "id": "ac3a7991-0c5f-4f5c-9fb1-aa2434d8236b",
                                                 "username": "driver2",
                                                 "avatar": "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
                                                 "fullName": "driver driver",
-                                                "createdAt": "02/03/2024 15:28:53",
-                                                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYTIyYmYyZi1lYWEzLTQ1NGYtOGQ3ZS04YmI0NzhhMTZjYjciLCJpYXQiOjE3MDkzODk3MzMsImV4cCI6MTcwOTM5MDMzM30.zJ44O5zNgZ-0QlZmh3wDtSOMK3h-r8xWZy5w_kj0zQHgIvXJR5z4lG0sz2oGMpxaBJ-n_veUV3SYT1suKBFP5g",
-                                                "refreshToken": "b5063ee9-a1dd-46f8-9b42-0aed77614aec"
-                                            }                                  
+                                                "userRol": "[DRIVER]",
+                                                "createdAt": "12/03/2024 00:48:49",
+                                                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYzNhNzk5MS0wYzVmLTRmNWMtOWZiMS1hYTI0MzRkODIzNmIiLCJpYXQiOjE3MTAyMDA5MzAsImV4cCI6MTcxMDIwNjkzMH0.oFDrcZoeDvzzcavL-Dr1mtGkw465uc0u4ZgfFaMHtcaMpBTZBz1GFaYdT0VYISWGbrOBJo1ivb37cTtE1l_rKw",
+                                                "refreshToken": "99aac849-be46-47b0-aef0-9323ee468f83"
+                                            }                                
                                             """
                             )}
                     )}),

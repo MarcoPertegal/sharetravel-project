@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharetravel_frontend/model/dto/register_dto.dart';
-import 'package:sharetravel_frontend/model/response/register_response..dart';
+import 'package:sharetravel_frontend/model/response/register_response.dart';
 import 'package:sharetravel_frontend/repository/register/register_passenger/register_passenger_repository.dart';
 
 class RegisterPassengerRepositoryImpl extends RegisterPassengerRepository {
@@ -22,6 +22,7 @@ class RegisterPassengerRepositoryImpl extends RegisterPassengerRepository {
     if (response.statusCode == 201) {
       final registerDriverResponse = RegisterResponse.fromJson(response.body);
       await _saveTokenToSharedPreferences(registerDriverResponse.token!);
+      await _saveUserRolToSharedPreferences(registerDriverResponse.userRol!);
       return registerDriverResponse;
     } else {
       throw Exception('The username already exists');
@@ -31,5 +32,10 @@ class RegisterPassengerRepositoryImpl extends RegisterPassengerRepository {
   Future<void> _saveTokenToSharedPreferences(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
+  }
+
+  Future<void> _saveUserRolToSharedPreferences(String userRol) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userRol', userRol);
   }
 }

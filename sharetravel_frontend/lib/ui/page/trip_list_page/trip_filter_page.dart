@@ -118,7 +118,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                        color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                        color: Color.fromARGB(255, 0, 175, 84), width: 2.0),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -144,7 +144,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                        color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                        color: Color.fromARGB(255, 0, 175, 84), width: 2.0),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -173,14 +173,13 @@ class _TripFilterPageState extends State<TripFilterPage> {
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime.now(),
-                  lastDate: DateTime(DateTime.now().year +
-                      1), //fecha maxima que se puede selecionar
+                  lastDate: DateTime(DateTime.now().year + 1),
                   builder: (BuildContext context, Widget? child) {
                     return Theme(
                       data: ThemeData.light().copyWith(
-                        primaryColor: const Color.fromARGB(255, 252, 163, 17),
+                        primaryColor: const Color.fromARGB(255, 0, 175, 84),
                         colorScheme: const ColorScheme.light(
-                          primary: Color.fromARGB(255, 252, 163, 17),
+                          primary: Color.fromARGB(255, 0, 175, 84),
                           onPrimary: Colors.white,
                           surface: Colors.white,
                           onSurface: Color.fromARGB(255, 1, 1, 1),
@@ -200,7 +199,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                        color: Color.fromARGB(255, 252, 163, 17), width: 2.0),
+                        color: Color.fromARGB(255, 0, 175, 84), width: 2.0),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -225,7 +224,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.zero,
-                backgroundColor: Color.fromARGB(255, 252, 163, 17),
+                backgroundColor: const Color.fromARGB(255, 0, 175, 84),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(15.0),

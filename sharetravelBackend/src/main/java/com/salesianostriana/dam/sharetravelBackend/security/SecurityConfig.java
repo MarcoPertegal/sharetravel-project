@@ -77,6 +77,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(antMatcher("user/details")).hasAnyRole("PASSENGER", "DRIVER")
+                        .requestMatchers(antMatcher("/trip/new")).hasRole("DRIVER")
                         .requestMatchers(antMatcher("/trip/**")).hasAnyRole("PASSENGER", "DRIVER")
                         .requestMatchers(antMatcher("/reserve/**")).hasRole("PASSENGER")
                         .requestMatchers(antMatcher("/auth/register/admin")).hasRole("ADMIN")

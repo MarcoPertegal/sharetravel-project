@@ -1,9 +1,13 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.controller;
 
+import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
+import com.salesianostriana.dam.sharetravelBackend.reserve.dto.NewReserveDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.service.TripService;
+import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,7 +19,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -147,7 +153,6 @@ public class TripController {
     @GetMapping("/")
     public ResponseEntity<Page<GetAllTripsDto>> getAllTrips(@PageableDefault(page = 0, size = 8)Pageable p){
         return ResponseEntity.ok(tripService.getAllTrips(p));
-        //FALTARIA EN EL EXAMPLE RESPONSE DE DOCUMENTACION AÑADIR AL DRIVER CUANDO HAGA LAS ASOCIACIONES
     }
 
 
@@ -226,11 +231,87 @@ public class TripController {
         return ResponseEntity.ok(tripService.getTripsByDeparturePlaceArrivalPlaceAndDepartureTime(p, departurePlace, arrivalPlace, departureDate));
     }
 
+    @Operation(summary = "Get trip by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Trip has been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetTripDetailsDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d4",
+                                                    "departurePlace": "Seville",
+                                                    "arrivalPlace": "Sanlúcar de Barrameda",
+                                                    "departureTime": "2024-05-01T17:15:00",
+                                                    "estimatedDuration": 110,
+                                                    "arrivalTime": "2024-05-01T18:30:00",
+                                                    "price": 8.99,
+                                                    "tripDescription": "I can drop off in nearby places in Sanlúcar, two passengers with hand luggage only",
+                                                    "driver": {
+                                                        "avatar": "https://www.redaccionmedica.com/images/destacados/las-personas-con-un-riesgo-genetico-bajo-de-tdah-son-mas-afortunadas--2868.jpg",
+                                                        "fullName": "Miguel Campos González"
+                                                    },
+                                                    "reserves": [
+                                                        {
+                                                            "reserveDate": "2024-05-01T17:19:00",
+                                                            "passenger": {
+                                                                "avatar": "https://f.rpp-noticias.io/2019/02/15/753300descarga-11jpg.jpg",
+                                                                "fullName": "Fran Ruíz Prieto"
+                                                            }
+                                                        },
+                                                        {
+                                                            "reserveDate": "2024-04-29T10:30:00",
+                                                            "passenger": {
+                                                                "avatar": "https://www.laguiadelvaron.com/wp-content/uploads/2018/12/ai-image-generation-fake-faces-people-nvidia-5c18b20b472c2__700.jpg",
+                                                                "fullName": "Fernando Pérez Gil"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "Trip hasn't been found",
+                    content = @Content)
+    })
     @GetMapping("/{id}")
     public ResponseEntity<GetTripDetailsDto> findTripById(@PathVariable String id){
         return ResponseEntity.ok(tripService.getTripById(UUID.fromString(id)));
     }
 
-    //CUANDO HAGA EL CREATE TRIP EL ARRIVALDATE NO LO INTRODUCE EL USUARIO SINO QUE SE LE SUMA A DEPARTURE TIME
-    //eL ESTIMATED DURATION
+    @Operation(summary = "Create new trip")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Trip has been created",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = CreateTripDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": "c300ae8e-777f-4c5d-af20-61a0e90e2026",
+                                                    "departurePlace": "Cádiz",
+                                                    "arrivalPlace": "Jeréz",
+                                                    "departureTime": "2022-03-15T10:30:00",
+                                                    "estimatedDuration": 10,
+                                                    "arrivalTime": "2022-03-15T10:40:00",
+                                                    "price": 8.99,
+                                                    "tripDescription": "El coche es un Seat León Azul, tengo flexibilidad en el lugar de recogida",
+                                                    "driver": {
+                                                        "avatar": "https://previews.123rf.com/images/rawpixel/rawpixel1704/rawpixel170441704/76561515-retrato-de-personas-estudio-disparar-con-expresi%C3%B3n-de-cara-sonriente.jpg",
+                                                        "fullName": "Marco Pertegal Prieto"
+                                                    },
+                                                    "reserves": null
+                                                }
+                                            """
+                            )}
+                    )})
+    })
+    @PostMapping("/new")
+    public ResponseEntity<GetTripDetailsDto> createtrip (@AuthenticationPrincipal User loggedDriver, @RequestBody CreateTripDto createTripDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(tripService.createtrip(loggedDriver.getId(), createTripDto));
+    }
+
+
 }

@@ -7,8 +7,8 @@ import 'package:sharetravel_frontend/bloc/create_reserve/create_reserve_bloc.dar
 import 'package:sharetravel_frontend/model/response/trip_details_response/trip_details_response.dart';
 import 'package:sharetravel_frontend/repository/create_reserve/create_reserve_repository.dart';
 import 'package:sharetravel_frontend/repository/create_reserve/create_reserve_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/confirmation_page.dart';
 import 'package:sharetravel_frontend/ui/page/trip_list_page/map_page.dart';
-import 'package:sharetravel_frontend/ui/page/trip_list_page/trip_confirm_reserve_page.dart';
 import 'package:sharetravel_frontend/ui/widget/pasenger_list_widget.dart';
 
 class TripDetailsPage extends StatefulWidget {
@@ -284,8 +284,9 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const TripConfirmReservePage(),
+                              builder: (context) => const ConfirmationPage(
+                                  confirmationMessage:
+                                      'Trip booked succesfully'),
                             ),
                           );
                         });
@@ -316,7 +317,8 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       }
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 0, 175, 84),
+                          backgroundColor:
+                              const Color.fromARGB(255, 0, 175, 84),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
