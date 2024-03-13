@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:sharetravel_frontend/bloc/create_trip_bloc/create_trip_bloc.dart';
 import 'package:sharetravel_frontend/repository/create_trip/create_trip_repository.dart';
 import 'package:sharetravel_frontend/repository/create_trip/create_trip_repository_impl.dart';
@@ -159,19 +160,67 @@ class _TripPublishPageState extends State<TripPublishPage> {
           ),
           TextFormField(
             controller: departureTimeTextController,
+            readOnly: true,
+            onTap: () async {
+              DateTime? selectedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime(DateTime.now().year + 1),
+                builder: (BuildContext context, Widget? child) {
+                  return Theme(
+                    data: ThemeData.light().copyWith(
+                      primaryColor: const Color.fromARGB(255, 0, 175, 84),
+                      colorScheme: const ColorScheme.light(
+                        primary: Color.fromARGB(255, 0, 175, 84),
+                        onPrimary: Colors.white,
+                        surface: Colors.white,
+                        onSurface: Color.fromARGB(255, 1, 1, 1),
+                      ),
+                      buttonTheme: const ButtonThemeData(
+                          textTheme: ButtonTextTheme.primary),
+                    ),
+                    child: child!,
+                  );
+                },
+              );
+
+              if (selectedDate != null) {
+                TimeOfDay? selectedTime = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
+
+                if (selectedTime != null) {
+                  DateTime combinedDateTime = DateTime(
+                    selectedDate.year,
+                    selectedDate.month,
+                    selectedDate.day,
+                    selectedTime.hour,
+                    selectedTime.minute,
+                  );
+
+                  String formattedDateTime = DateFormat('yyyy-MM-ddTHH:mm:ss')
+                      .format(combinedDateTime);
+
+                  departureTimeTextController.text = formattedDateTime;
+                }
+              }
+            },
             decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 0, 175, 84), width: 2.0),
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                labelText: 'Departure time',
-                filled: true,
-                fillColor: const Color.fromARGB(255, 218, 255, 232)),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 0, 175, 84), width: 2.0),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              labelText: 'Departure Date and Time',
+              filled: true,
+              fillColor: const Color.fromARGB(255, 218, 255, 232),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
@@ -200,7 +249,7 @@ class _TripPublishPageState extends State<TripPublishPage> {
                 borderSide: const BorderSide(color: Colors.white, width: 2.0),
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              labelText: 'Estimated duration',
+              labelText: 'Estimated duration (in minutes)',
               filled: true,
               fillColor: const Color.fromARGB(255, 218, 255, 232),
             ),
@@ -208,6 +257,12 @@ class _TripPublishPageState extends State<TripPublishPage> {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
               }
+
+              int? duration = int.tryParse(value);
+              if (duration == null || duration <= 0 || duration > 500) {
+                return 'Please enter a valid duration between 1 and 500 minutes';
+              }
+
               return null;
             },
           ),
@@ -216,9 +271,11 @@ class _TripPublishPageState extends State<TripPublishPage> {
           ),
           TextFormField(
             controller: priceTextController,
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
             inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
+              FilteringTextInputFormatter.allow(
+                RegExp(r'^\d+\.?\d{0,2}$'),
+              ),
             ],
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
@@ -240,6 +297,12 @@ class _TripPublishPageState extends State<TripPublishPage> {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
               }
+
+              double? price = double.tryParse(value);
+              if (price == null || price < 3.00 || price > 40.00) {
+                return 'Please enter a valid price between 3.00€ and 40.00€';
+              }
+
               return null;
             },
           ),
