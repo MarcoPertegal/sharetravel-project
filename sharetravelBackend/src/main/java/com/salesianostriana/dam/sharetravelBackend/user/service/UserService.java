@@ -1,13 +1,8 @@
 package com.salesianostriana.dam.sharetravelBackend.user.service;
 
-import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByTripDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
-import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.CreateUserRequest;
-import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetUserDetailsDto;
-import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
@@ -16,13 +11,11 @@ import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverReposit
 import com.salesianostriana.dam.sharetravelBackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

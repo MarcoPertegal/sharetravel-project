@@ -2,7 +2,6 @@ package com.salesianostriana.dam.sharetravelBackend.user.service;
 
 import com.salesianostriana.dam.sharetravelBackend.user.dto.CreateUserRequest;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
-import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.model.UserRole;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.PassengerRepository;

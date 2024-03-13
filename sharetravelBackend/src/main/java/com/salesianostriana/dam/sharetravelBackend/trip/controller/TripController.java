@@ -1,7 +1,5 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.controller;
 
-import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
-import com.salesianostriana.dam.sharetravelBackend.reserve.dto.NewReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
@@ -309,7 +307,7 @@ public class TripController {
                     )})
     })
     @PostMapping("/new")
-    public ResponseEntity<GetTripDetailsDto> createtrip (@AuthenticationPrincipal User loggedDriver, @RequestBody CreateTripDto createTripDto){
+    public ResponseEntity<GetTripDetailsDto> createTrip (@AuthenticationPrincipal User loggedDriver, @RequestBody CreateTripDto createTripDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(tripService.createtrip(loggedDriver.getId(), createTripDto));
     }
 

@@ -2,7 +2,6 @@ package com.salesianostriana.dam.sharetravelBackend.user.dto;
 
 import lombok.Builder;
 
-import java.util.List;
 
 @Builder
 public record GetUserDetailsDto(

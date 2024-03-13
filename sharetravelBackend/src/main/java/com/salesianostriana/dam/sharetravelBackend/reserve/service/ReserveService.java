@@ -1,7 +1,9 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.service;
 
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
+import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.exception.DuplicateReserveException;
+import com.salesianostriana.dam.sharetravelBackend.reserve.exception.ReserveNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
 import com.salesianostriana.dam.sharetravelBackend.reserve.repository.ReserveRepository;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
@@ -9,8 +11,11 @@ import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.trip.repository.TripRepository;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
+import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.PassengerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -50,5 +55,13 @@ public class ReserveService {
                 .passengerId(savedReserve.getPassenger().getId())
                 .tripId(savedReserve.getTrip().getId())
                 .build();
+    }
+
+    public Page<GetReserveByPassengerIdDto> getReservesByPassengerId(Pageable p, User user){
+        Page<GetReserveByPassengerIdDto> result = reserveRepository.findReservesWithTripByPassengerId(user.getId(), p);
+        if (result.isEmpty()){
+            throw new ReserveNotFoundException("This passenger doesnt have any reserves");
+        }
+        return result;
     }
 }
