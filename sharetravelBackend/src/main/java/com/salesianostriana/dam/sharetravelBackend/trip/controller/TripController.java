@@ -1,9 +1,6 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.controller;
 
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.trip.service.TripService;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
@@ -309,6 +306,27 @@ public class TripController {
     @PostMapping("/new")
     public ResponseEntity<GetTripDetailsDto> createTrip (@AuthenticationPrincipal User loggedDriver, @RequestBody CreateTripDto createTripDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(tripService.createtrip(loggedDriver.getId(), createTripDto));
+    }
+
+    @Operation(summary = "Get trips by driver id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Reserves has been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetTripDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No trips have been found",
+                    content = @Content)
+    })
+    @GetMapping("/driver")
+    public ResponseEntity<Page<GetTripDto>> findTripByDriverId(@PageableDefault(page = 0, size = 8) Pageable p, @AuthenticationPrincipal User user){
+        return ResponseEntity.ok(tripService.getTripsByDriverId(p, user));
     }
 
 

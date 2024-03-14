@@ -1,16 +1,14 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.service;
 
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByTripDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.trip.repository.TripRepository;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
+import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -100,5 +98,13 @@ public class TripService {
                         ? GetDriverByTripDto.of(savedTrip.getDriver())
                         : null)
                 .build();
+    }
+
+    public Page<GetTripDto> getTripsByDriverId(Pageable p, User user){
+        Page<GetTripDto> result = tripRepository.findTripsByDriverId(user.getId(), p);
+        if (result.isEmpty()){
+            throw new EmptyTripListException("This driver doesnt have any published trips");
+        }
+        return result;
     }
 }
