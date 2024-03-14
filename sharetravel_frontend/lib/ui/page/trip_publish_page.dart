@@ -98,15 +98,8 @@ class _TripPublishPageState extends State<TripPublishPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Publish new trip',
-            style: TextStyle(
-                fontSize: 38,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 36, 38, 46)),
-          ),
           const SizedBox(
-            height: 40,
+            height: 30,
           ),
           TextFormField(
             controller: departurePlaceTextController,

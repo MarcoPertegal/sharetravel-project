@@ -10,7 +10,7 @@ class TripCardWidget extends StatefulWidget {
   const TripCardWidget({Key? key, required this.trip}) : super(key: key);
 
   @override
-  _TripCardWidgetState createState() => _TripCardWidgetState();
+  State<TripCardWidget> createState() => _TripCardWidgetState();
 }
 
 class _TripCardWidgetState extends State<TripCardWidget> {
