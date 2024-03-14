@@ -1,7 +1,5 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.dto;
 
-import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
-import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

@@ -1,13 +1,10 @@
 package com.salesianostriana.dam.sharetravelBackend.user.model;
 
-import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
-import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,7 +12,6 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
 @SuperBuilder
 public class Driver extends User{
 

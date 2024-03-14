@@ -1,7 +1,6 @@
 package com.salesianostriana.dam.sharetravelBackend.user.repository;
 
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
-import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

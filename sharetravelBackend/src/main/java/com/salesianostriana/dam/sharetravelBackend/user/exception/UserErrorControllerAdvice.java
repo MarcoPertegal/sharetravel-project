@@ -1,7 +1,6 @@
 package com.salesianostriana.dam.sharetravelBackend.user.exception;
 
 import com.salesianostriana.dam.sharetravelBackend.exception.ExceptionMessage;
-import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

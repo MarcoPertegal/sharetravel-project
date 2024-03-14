@@ -32,7 +32,7 @@ class ErrorPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Color.fromARGB(255, 67, 67, 67),
-                  fontSize: 42,
+                  fontSize: 34,
                   fontWeight: FontWeight.bold,
                 ),
               ),

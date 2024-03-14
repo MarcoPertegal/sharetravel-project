@@ -1,9 +1,7 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.dto;
 
 import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
-import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetPassengerByTripDto;
-import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 
 import java.time.LocalDateTime;
 
