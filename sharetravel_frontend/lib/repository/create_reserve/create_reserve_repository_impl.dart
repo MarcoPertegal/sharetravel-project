@@ -22,7 +22,7 @@ class CreateReserveRepositoryImpl extends CreateReserveRepository {
     final jsonBody = jsonEncode(newReserveDto.toJson());
 
     final response = await _httpClient.post(
-      Uri.parse('http://localhost:8080/reserve/new'),
+      Uri.parse('http://10.0.2.2:8080/reserve/new'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

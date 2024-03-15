@@ -13,7 +13,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<LoginResponse> login(LoginDto loginDto) async {
     final jsonBody = jsonEncode(loginDto.toJson());
     final response = await _httpClient.post(
-      Uri.parse('http://localhost:8080/auth/login'),
+      Uri.parse('http://10.0.2.2:8080/auth/login'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },

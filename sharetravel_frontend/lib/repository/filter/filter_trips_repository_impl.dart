@@ -18,7 +18,7 @@ class FilterTripsRepositoryImpl extends FilterTripsRepository {
 
     final response = await _httpClient.get(
       Uri.parse(
-          'http://localhost:8080/trip/filter?departurePlace=$departurePlace&arrivalPlace=$arrivalPlace&departureDate=$departureDate'),
+          'http://10.0.2.2:8080/trip/filter?departurePlace=$departurePlace&arrivalPlace=$arrivalPlace&departureDate=$departureDate'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -29,7 +29,7 @@ class FilterTripsRepositoryImpl extends FilterTripsRepository {
       print(response.body);
       return FilterTripsListResponse.fromJson(response.body);
     } else if (response.statusCode == 404) {
-      throw Exception('No trips found');
+      throw Exception('No trips were found');
     } else {
       throw Exception("Failed to do the filter");
     }
