@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -52,5 +53,24 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
             LocalDate departureTime
     );
 
+    @Query("""
+    SELECT new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto(
+        t.id,
+        t.departurePlace,
+        t.arrivalPlace,
+        t.departureTime,
+        t.estimatedDuration,
+        t.arrivalTime,
+        t.price,
+        new com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto(
+            t.driver.avatar,
+            t.driver.fullName
+        )
+    )
+    FROM Trip t
+    LEFT JOIN t.driver d
+    WHERE d.id = :id
+    """)
+    Page<GetTripDto> findTripsByDriverId(@Param("id") UUID id, Pageable pageable);
 }
 

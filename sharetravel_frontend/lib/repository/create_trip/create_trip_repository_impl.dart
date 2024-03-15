@@ -21,7 +21,7 @@ class CreateTripRepositoryImpl extends CreateTripRepository {
     final jsonBody = jsonEncode(newTripDto.toJson());
 
     final response = await _httpClient.post(
-      Uri.parse('http://localhost:8080/trip/new'),
+      Uri.parse('http://10.0.2.2:8080/trip/new'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
