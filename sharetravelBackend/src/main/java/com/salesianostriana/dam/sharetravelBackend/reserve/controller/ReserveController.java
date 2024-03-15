@@ -4,7 +4,6 @@ import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.NewReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.service.ReserveService;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -64,7 +63,7 @@ public class ReserveController {
             @ApiResponse(responseCode = "200",
                     description = "Reserves has been found",
                     content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetTripDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = GetReserveByPassengerIdDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                                 {

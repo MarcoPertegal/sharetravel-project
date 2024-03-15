@@ -15,4 +15,10 @@ public class UserErrorControllerAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ExceptionMessage.of(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI()));
     }
+
+    @ExceptionHandler({UserNotAllowedException.class})
+    public ResponseEntity<?> handleUserNotAllowedException(UserNotAllowedException ex, HttpServletRequest request){
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(ExceptionMessage.of(HttpStatus.FORBIDDEN, ex.getMessage(), request.getRequestURI()));
+    }
 }

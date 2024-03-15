@@ -34,7 +34,7 @@ public class TripController {
             @ApiResponse(responseCode = "200",
                     description = "Trips have been found",
                     content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetTripDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = GetAllTripsDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
@@ -316,7 +316,61 @@ public class TripController {
                             array = @ArraySchema(schema = @Schema(implementation = GetTripDto.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                                
+                                            {
+                                                "content": [
+                                                    {
+                                                        "id": "5d9458e8-7834-4df8-ba48-79aadfaa42d3",
+                                                        "departurePlace": "Seville",
+                                                        "arrivalPlace": "Sanlúcar de Barrameda",
+                                                        "departureTime": "2024-05-01T10:00:00",
+                                                        "estimatedDuration": 120,
+                                                        "arrivalTime": "2024-05-01T12:00:00",
+                                                        "price": 7.99,
+                                                        "driver": {
+                                                            "avatar": "https://previews.123rf.com/images/rawpixel/rawpixel1704/rawpixel170441704/76561515-retrato-de-personas-estudio-disparar-con-expresi%C3%B3n-de-cara-sonriente.jpg",
+                                                            "fullName": "Marco Pertegal Prieto"
+                                                        }
+                                                    },
+                                                    {
+                                                        "id": "df9458e8-7834-4df8-ba48-79aadfaa42d6",
+                                                        "departurePlace": "Seville",
+                                                        "arrivalPlace": "Sanlúcar de Barrameda",
+                                                        "departureTime": "2024-05-01T15:00:00",
+                                                        "estimatedDuration": 90,
+                                                        "arrivalTime": "2024-05-01T16:15:00",
+                                                        "price": 5.99,
+                                                        "driver": {
+                                                            "avatar": "https://previews.123rf.com/images/rawpixel/rawpixel1704/rawpixel170441704/76561515-retrato-de-personas-estudio-disparar-con-expresi%C3%B3n-de-cara-sonriente.jpg",
+                                                            "fullName": "Marco Pertegal Prieto"
+                                                        }
+                                                    }
+                                                ],
+                                                "pageable": {
+                                                    "pageNumber": 0,
+                                                    "pageSize": 8,
+                                                    "sort": {
+                                                        "empty": true,
+                                                        "sorted": false,
+                                                        "unsorted": true
+                                                    },
+                                                    "offset": 0,
+                                                    "paged": true,
+                                                    "unpaged": false
+                                                },
+                                                "last": true,
+                                                "totalPages": 1,
+                                                "totalElements": 2,
+                                                "size": 8,
+                                                "number": 0,
+                                                "sort": {
+                                                    "empty": true,
+                                                    "sorted": false,
+                                                    "unsorted": true
+                                                },
+                                                "first": true,
+                                                "numberOfElements": 2,
+                                                "empty": false
+                                            }  
                                             """
                             )}
                     )}),
@@ -327,6 +381,41 @@ public class TripController {
     @GetMapping("/driver")
     public ResponseEntity<Page<GetTripDto>> findTripByDriverId(@PageableDefault(page = 0, size = 8) Pageable p, @AuthenticationPrincipal User user){
         return ResponseEntity.ok(tripService.getTripsByDriverId(p, user));
+    }
+
+
+  @Operation(summary = "Edit trip by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode ="201",
+                    description = "Trips has been edited",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = CreateTripDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d4",
+                                                "departurePlace": "Madrid",
+                                                "arrivalPlace": "Barcelona",
+                                                "departureTime": "2024-04-03T18:30:00",
+                                                "estimatedDuration": 100,
+                                                "arrivalTime": "2024-04-03T20:10:00",
+                                                "price": 9.0,
+                                                "tripDescription": "El coche es un Seat León Azul, tengo flexibilidad en el lugar de recogida",
+                                                "driver": {
+                                                    "avatar": "https://www.redaccionmedica.com/images/destacados/las-personas-con-un-riesgo-genetico-bajo-de-tdah-son-mas-afortunadas--2868.jpg",
+                                                    "fullName": "Miguel Campos González"
+                                                }
+                                            }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "Trip not found",
+                    content = @Content),
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<GetTripDto> editTrip(@AuthenticationPrincipal User user, @PathVariable String id, @RequestBody CreateTripDto createTripDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(tripService.editTrip(user,UUID.fromString(id), createTripDto));
     }
 
 
