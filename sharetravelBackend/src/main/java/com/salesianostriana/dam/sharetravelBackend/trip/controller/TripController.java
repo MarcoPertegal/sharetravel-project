@@ -413,6 +413,7 @@ public class TripController {
                     description = "Trip not found",
                     content = @Content),
     })
+    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<GetTripDto> editTrip(@AuthenticationPrincipal User user, @PathVariable String id, @RequestBody CreateTripDto createTripDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(tripService.editTrip(user,UUID.fromString(id), createTripDto));
