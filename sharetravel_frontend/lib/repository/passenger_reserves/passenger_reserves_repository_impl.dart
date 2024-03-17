@@ -16,7 +16,7 @@ class PassengerReservesRepositoryImpl extends PassengerReservesRepository {
     }
 
     final response = await _httpClient.get(
-      Uri.parse('http://10.0.2.2:8080/reserve/passenger'),
+      Uri.parse('http://localhost:8080/reserve/passenger'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

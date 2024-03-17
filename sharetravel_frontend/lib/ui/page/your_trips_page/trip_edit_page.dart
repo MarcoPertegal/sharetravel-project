@@ -1,23 +1,37 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sharetravel_frontend/bloc/create_trip_bloc/create_trip_bloc.dart';
-import 'package:sharetravel_frontend/repository/create_trip/create_trip_repository.dart';
-import 'package:sharetravel_frontend/repository/create_trip/create_trip_repository_impl.dart';
+import 'package:sharetravel_frontend/bloc/edit_trip_bloc/edit_trip_bloc.dart';
+import 'package:sharetravel_frontend/repository/edit_trip/edit_trip_repository.dart';
+import 'package:sharetravel_frontend/repository/edit_trip/edit_trip_repository_impl.dart';
 import 'package:sharetravel_frontend/ui/page/confirmation_page.dart';
 import 'package:sharetravel_frontend/ui/page/error_page.dart';
 
-class TripPublishPage extends StatefulWidget {
-  const TripPublishPage({super.key});
+class TripEditPage extends StatefulWidget {
+  final String tripId,
+      departurePlace,
+      arrivalPlace,
+      departureTime,
+      tripDescription;
+  final int estimatedDuration;
+  final double price;
+  const TripEditPage(
+      {super.key,
+      required this.tripId,
+      required this.departurePlace,
+      required this.arrivalPlace,
+      required this.departureTime,
+      required this.estimatedDuration,
+      required this.price,
+      required this.tripDescription});
 
   @override
-  State<TripPublishPage> createState() => _TripPublishPageState();
+  State<TripEditPage> createState() => _TripEditPageState();
 }
 
-class _TripPublishPageState extends State<TripPublishPage> {
-  final _formNewTrip = GlobalKey<FormState>();
+class _TripEditPageState extends State<TripEditPage> {
+  final _formEditTrip = GlobalKey<FormState>();
   final departurePlaceTextController = TextEditingController();
   final arrivalPlaceTextController = TextEditingController();
   final departureTimeTextController = TextEditingController();
@@ -25,13 +39,19 @@ class _TripPublishPageState extends State<TripPublishPage> {
   final priceTextController = TextEditingController();
   final tripDescriptionTextController = TextEditingController();
 
-  late CreateTripRepository createTripRepository;
-  late CreateTripBloc _createTripBloc;
+  late EditTripRepository editTripRepository;
+  late EditTripBloc _editTripBloc;
 
   @override
   void initState() {
-    createTripRepository = CreateTripRepositoryImpl();
-    _createTripBloc = CreateTripBloc(createTripRepository);
+    editTripRepository = EditTripRepositoryImpl();
+    _editTripBloc = EditTripBloc(editTripRepository);
+    departurePlaceTextController.text = widget.departurePlace;
+    arrivalPlaceTextController.text = widget.arrivalPlace;
+    departureTimeTextController.text = widget.departureTime;
+    estimatedDurationTextController.text = widget.estimatedDuration.toString();
+    priceTextController.text = widget.price.toString();
+    tripDescriptionTextController.text = widget.tripDescription;
     super.initState();
   }
 
@@ -43,31 +63,31 @@ class _TripPublishPageState extends State<TripPublishPage> {
     estimatedDurationTextController.dispose();
     priceTextController.dispose();
     tripDescriptionTextController.dispose();
-    _createTripBloc.close();
+    _editTripBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _createTripBloc,
+      value: _editTripBloc,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: BlocBuilder<CreateTripBloc, CreateTripState>(
+            child: BlocBuilder<EditTripBloc, EditTripState>(
               builder: (context, state) {
-                if (state is DoCreateTripSuccess) {
+                if (state is DoEditTripSuccess) {
                   Future.delayed(Duration.zero, () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const ConfirmationPage(
-                            confirmationMessage: 'Trip published successfully'),
+                            confirmationMessage: 'Trip Edited successfully'),
                       ),
                     );
                   });
-                } else if (state is DoCreateTripError) {
+                } else if (state is DoEditTripError) {
                   final errorMessage =
                       state.errorMessage.replaceFirst('Exception: ', '');
                   Future.delayed(Duration.zero, () {
@@ -78,10 +98,10 @@ class _TripPublishPageState extends State<TripPublishPage> {
                               ErrorPage(errorMessage: errorMessage)),
                     );
                   });
-                } else if (state is DoCreateTripLoading) {
+                } else if (state is DoEditTripLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                return Center(child: _buildCreateTripForm());
+                return Center(child: _buildEditTripForm());
               },
             ),
           ),
@@ -90,9 +110,9 @@ class _TripPublishPageState extends State<TripPublishPage> {
     );
   }
 
-  _buildCreateTripForm() {
+  _buildEditTripForm() {
     return Form(
-      key: _formNewTrip,
+      key: _formEditTrip,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -341,15 +361,16 @@ class _TripPublishPageState extends State<TripPublishPage> {
                 ),
               ),
               child: const Text(
-                'Publish',
+                'Edit',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
               onPressed: () {
-                if (_formNewTrip.currentState!.validate()) {
-                  _createTripBloc.add(DoCreateTripEvent(
+                if (_formEditTrip.currentState!.validate()) {
+                  _editTripBloc.add(DoEditTripEvent(
+                    widget.tripId,
                     departurePlaceTextController.text,
                     arrivalPlaceTextController.text,
                     departureTimeTextController.text,

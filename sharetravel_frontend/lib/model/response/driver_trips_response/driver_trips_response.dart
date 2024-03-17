@@ -11,10 +11,10 @@ class DriverTripsResponse {
   bool? last;
   int? totalPages;
   int? totalElements;
-  bool? first;
   int? size;
   int? number;
   Sort? sort;
+  bool? first;
   int? numberOfElements;
   bool? empty;
 
@@ -24,10 +24,10 @@ class DriverTripsResponse {
     this.last,
     this.totalPages,
     this.totalElements,
-    this.first,
     this.size,
     this.number,
     this.sort,
+    this.first,
     this.numberOfElements,
     this.empty,
   });
@@ -43,12 +43,12 @@ class DriverTripsResponse {
       last: data['last'] as bool?,
       totalPages: data['totalPages'] as int?,
       totalElements: data['totalElements'] as int?,
-      first: data['first'] as bool?,
       size: data['size'] as int?,
       number: data['number'] as int?,
       sort: data['sort'] == null
           ? null
           : Sort.fromMap(data['sort'] as Map<String, dynamic>),
+      first: data['first'] as bool?,
       numberOfElements: data['numberOfElements'] as int?,
       empty: data['empty'] as bool?,
     );
@@ -60,10 +60,10 @@ class DriverTripsResponse {
         'last': last,
         'totalPages': totalPages,
         'totalElements': totalElements,
-        'first': first,
         'size': size,
         'number': number,
         'sort': sort?.toMap(),
+        'first': first,
         'numberOfElements': numberOfElements,
         'empty': empty,
       };

@@ -7,16 +7,16 @@ class Pageable {
   int? pageSize;
   Sort? sort;
   int? offset;
-  bool? paged;
   bool? unpaged;
+  bool? paged;
 
   Pageable({
     this.pageNumber,
     this.pageSize,
     this.sort,
     this.offset,
-    this.paged,
     this.unpaged,
+    this.paged,
   });
 
   factory Pageable.fromMap(Map<String, dynamic> data) => Pageable(
@@ -26,8 +26,8 @@ class Pageable {
             ? null
             : Sort.fromMap(data['sort'] as Map<String, dynamic>),
         offset: data['offset'] as int?,
-        paged: data['paged'] as bool?,
         unpaged: data['unpaged'] as bool?,
+        paged: data['paged'] as bool?,
       );
 
   Map<String, dynamic> toMap() => {
@@ -35,8 +35,8 @@ class Pageable {
         'pageSize': pageSize,
         'sort': sort?.toMap(),
         'offset': offset,
-        'paged': paged,
         'unpaged': unpaged,
+        'paged': paged,
       };
 
   /// `dart:convert`

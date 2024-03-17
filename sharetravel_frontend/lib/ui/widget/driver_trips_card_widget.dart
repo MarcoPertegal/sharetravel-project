@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sharetravel_frontend/model/response/driver_trips_response/trip.dart';
+import 'package:sharetravel_frontend/ui/page/your_trips_page/trip_edit_page.dart';
 
 class DriverTripsCardWidget extends StatefulWidget {
   final Trip trip;
@@ -120,9 +121,37 @@ class _DriverTripsCardWidgetState extends State<DriverTripsCardWidget> {
                     ),
                   ),
                   const SizedBox(width: 15),
+                  const Padding(
+                      padding: EdgeInsets.only(top: 25.0), child: Text("You")),
+                  Spacer(),
                   Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
-                      child: Text(widget.trip.driver!.fullName!))
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.edit_square,
+                        color: Color.fromARGB(255, 0, 175, 84),
+                      ),
+                      onPressed: () {
+                        Future.delayed(Duration.zero, () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TripEditPage(
+                                tripId: widget.trip.id!,
+                                departurePlace: widget.trip.departurePlace!,
+                                arrivalPlace: widget.trip.arrivalPlace!,
+                                departureTime: widget.trip.departureTime!,
+                                estimatedDuration:
+                                    widget.trip.estimatedDuration!,
+                                price: widget.trip.price!,
+                                tripDescription: widget.trip.tripDescription!,
+                              ),
+                            ),
+                          );
+                        });
+                      },
+                    ),
+                  )
                 ],
               )
             ],

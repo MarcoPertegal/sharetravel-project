@@ -10,6 +10,7 @@ class Trip {
   int? estimatedDuration;
   String? arrivalTime;
   double? price;
+  String? tripDescription;
   Driver? driver;
 
   Trip({
@@ -20,6 +21,7 @@ class Trip {
     this.estimatedDuration,
     this.arrivalTime,
     this.price,
+    this.tripDescription,
     this.driver,
   });
 
@@ -31,6 +33,7 @@ class Trip {
         estimatedDuration: data['estimatedDuration'] as int?,
         arrivalTime: data['arrivalTime'] as String?,
         price: (data['price'] as num?)?.toDouble(),
+        tripDescription: data['tripDescription'] as String?,
         driver: data['driver'] == null
             ? null
             : Driver.fromMap(data['driver'] as Map<String, dynamic>),
@@ -44,6 +47,7 @@ class Trip {
         'estimatedDuration': estimatedDuration,
         'arrivalTime': arrivalTime,
         'price': price,
+        'tripDescription': tripDescription,
         'driver': driver?.toMap(),
       };
 

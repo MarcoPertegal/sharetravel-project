@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharetravel_frontend/model/dto/new_trip_dto.dart';
-import 'package:sharetravel_frontend/model/response/create_trip_response/create_trip_response.dart';
-import 'package:sharetravel_frontend/repository/create_trip/create_trip_repository.dart';
+import 'package:sharetravel_frontend/model/response/edit_trip_response/edit_trip_response.dart';
+import 'package:sharetravel_frontend/repository/edit_trip/edit_trip_repository.dart';
 
-class CreateTripRepositoryImpl extends CreateTripRepository {
+class EditTripRepositoryImpl extends EditTripRepository {
   final Client _httpClient = Client();
 
   @override
-  Future<CreateTripResponse> createTrip(NewTripDto newTripDto) async {
+  Future<EditTripResponse> editTrip(String id, NewTripDto editTripDto) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
@@ -18,10 +18,10 @@ class CreateTripRepositoryImpl extends CreateTripRepository {
       throw Exception('Token not found or something go wrong');
     }
 
-    final jsonBody = jsonEncode(newTripDto.toJson());
+    final jsonBody = jsonEncode(editTripDto.toJson());
 
-    final response = await _httpClient.post(
-      Uri.parse('http://localhost:8080/trip/new'),
+    final response = await _httpClient.put(
+      Uri.parse('http://localhost:8080/trip/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -30,9 +30,9 @@ class CreateTripRepositoryImpl extends CreateTripRepository {
     );
     if (response.statusCode == 201) {
       print(response.body);
-      return CreateTripResponse.fromJson(response.body);
+      return EditTripResponse.fromJson(response.body);
     } else {
-      throw Exception('Failed to create a new trip');
+      throw Exception('Failed to edit trip');
     }
   }
 }
