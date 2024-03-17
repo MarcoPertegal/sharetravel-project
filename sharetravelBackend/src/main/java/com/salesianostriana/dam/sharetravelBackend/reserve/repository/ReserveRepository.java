@@ -27,6 +27,7 @@ public interface ReserveRepository extends JpaRepository<Reserve, UUID> {
                     t.estimatedDuration,
                     t.arrivalTime,
                     t.price,
+                    t.tripDescription,
                     new com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto(
                         t.driver.avatar,
                         t.driver.fullName

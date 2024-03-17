@@ -16,7 +16,7 @@ class PassengerReservesRepositoryImpl extends PassengerReservesRepository {
     }
 
     final response = await _httpClient.get(
-      Uri.parse('http://10.0.2.2:8080/reserve/passenger'),
+      Uri.parse('http://localhost:8080/reserve/passenger'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -27,7 +27,7 @@ class PassengerReservesRepositoryImpl extends PassengerReservesRepository {
       print(response.body);
       return PassengerReservesResponse.fromJson(response.body);
     } else if (response.statusCode == 404) {
-      throw Exception('You dont publish any trip');
+      throw Exception('You dont booked any trips yet');
     } else {
       throw Exception('Failed to do driver trips request');
     }

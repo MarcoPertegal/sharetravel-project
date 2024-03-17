@@ -1,7 +1,7 @@
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharetravel_frontend/model/response/driver_trips_response/driver_trips_response.dart';
-import 'package:sharetravel_frontend/repository/driver_reserves/driver_reserves_repository.dart';
+import 'package:sharetravel_frontend/repository/driver_trips/driver_trips_repository.dart';
 
 class DriverTripsRepositoryImpl extends DriverTripsRepository {
   final Client _httpClient = Client();
@@ -16,7 +16,7 @@ class DriverTripsRepositoryImpl extends DriverTripsRepository {
     }
 
     final response = await _httpClient.get(
-      Uri.parse('http://10.0.2.2:8080/trip/driver'),
+      Uri.parse('http://localhost:8080/trip/driver'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -27,7 +27,7 @@ class DriverTripsRepositoryImpl extends DriverTripsRepository {
       print(response.body);
       return DriverTripsResponse.fromJson(response.body);
     } else if (response.statusCode == 404) {
-      throw Exception('You have not booked any trips yet');
+      throw Exception('You have not publish any trip');
     } else {
       throw Exception('Failed to do passenger reserves request');
     }

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:sharetravel_frontend/model/response/driver_trips_response/driver_trips_response.dart';
-import 'package:sharetravel_frontend/repository/driver_reserves/driver_reserves_repository.dart';
+import 'package:sharetravel_frontend/repository/driver_trips/driver_trips_repository.dart';
 
 part 'driver_trips_event.dart';
 part 'driver_trips_state.dart';

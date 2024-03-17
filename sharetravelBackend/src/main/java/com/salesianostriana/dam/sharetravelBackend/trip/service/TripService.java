@@ -3,9 +3,11 @@ package com.salesianostriana.dam.sharetravelBackend.trip.service;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
+import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.trip.repository.TripRepository;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
+import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotAllowedException;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
@@ -106,5 +108,39 @@ public class TripService {
             throw new EmptyTripListException("This driver doesnt have any published trips");
         }
         return result;
+    }
+
+    public GetTripDto editTrip(User user, UUID id, CreateTripDto createTripDto){
+        if (user.getRoles().toString().equals("[PASSENGER]")) {
+            throw new UserNotAllowedException("A passenger cant edit trips");
+        }
+
+
+        Optional<Trip> optionalTrip = tripRepository.findById(id);
+        Trip editTrip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no driver match this id"+ id));
+
+        editTrip.setDeparturePlace(createTripDto.departurePlace());
+        editTrip.setArrivalPlace(createTripDto.arrivalPlace());
+        editTrip.setDepartureTime(createTripDto.departureTime());
+        editTrip.setEstimatedDuration(createTripDto.estimatedDuration());
+        editTrip.setPrice(createTripDto.price());
+        editTrip.setTripDescription(createTripDto.tripDescription());
+        editTrip.calculateArrivalTime();
+        Trip savedTrip = tripRepository.save(editTrip);
+
+        return GetTripDto.builder()
+                .id(savedTrip.getId())
+                .departurePlace(savedTrip.getDeparturePlace())
+                .arrivalPlace(savedTrip.getArrivalPlace())
+                .departureTime(savedTrip.getDepartureTime())
+                .estimatedDuration(savedTrip.getEstimatedDuration())
+                .arrivalTime(savedTrip.getArrivalTime())
+                .price(savedTrip.getPrice())
+                .tripDescription(savedTrip.getTripDescription())
+                .driver(savedTrip.getDriver() != null
+                        ? GetDriverByTripDto.of(savedTrip.getDriver())
+                        : null)
+                .build();
+
     }
 }

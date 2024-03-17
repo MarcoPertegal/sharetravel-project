@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sharetravel_frontend/bloc/driver_trips_bloc/driver_trips_bloc.dart';
 import 'package:sharetravel_frontend/model/response/driver_trips_response/trip.dart';
-import 'package:sharetravel_frontend/repository/driver_reserves/driver_reserves_repository.dart';
-import 'package:sharetravel_frontend/repository/driver_reserves/driver_reserves_repository_impl.dart';
+import 'package:sharetravel_frontend/repository/driver_trips/driver_trips_repository.dart';
+import 'package:sharetravel_frontend/repository/driver_trips/driver_trips_repository_impl.dart';
 import 'package:sharetravel_frontend/ui/page/error_page.dart';
 import 'package:sharetravel_frontend/ui/widget/driver_trips_card_widget.dart';
 
