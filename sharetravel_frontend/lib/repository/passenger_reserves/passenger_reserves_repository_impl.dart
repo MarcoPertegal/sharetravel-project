@@ -27,7 +27,7 @@ class PassengerReservesRepositoryImpl extends PassengerReservesRepository {
       print(response.body);
       return PassengerReservesResponse.fromJson(response.body);
     } else if (response.statusCode == 404) {
-      throw Exception('You dont publish any trip');
+      throw Exception('You dont booked any trips yet');
     } else {
       throw Exception('Failed to do driver trips request');
     }
