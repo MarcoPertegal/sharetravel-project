@@ -419,5 +419,29 @@ public class TripController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tripService.editTrip(user,UUID.fromString(id), createTripDto));
     }
 
+    @Operation(summary = "Delete trip by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Trip delete successfully",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Trip not found",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Passenger cant delete trips",
+                    content = @Content
+            )
+    })
+    @CrossOrigin
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTrip(@AuthenticationPrincipal User user,@PathVariable String id){
+        tripService.deleteByTripId(user, UUID.fromString(id));
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

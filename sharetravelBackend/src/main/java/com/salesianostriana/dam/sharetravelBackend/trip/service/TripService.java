@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.service;
 
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByTripDto;
+import com.salesianostriana.dam.sharetravelBackend.reserve.repository.ReserveRepository;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
@@ -28,6 +29,7 @@ public class TripService {
 
     private final TripRepository tripRepository;
     private final DriverRepository driverRepository;
+    private final ReserveRepository reserveRepository;
 
     public Page<GetAllTripsDto> getAllTrips(Pageable p){
         Page<GetAllTripsDto> result = tripRepository.findAllTrips(p);
@@ -117,7 +119,7 @@ public class TripService {
 
 
         Optional<Trip> optionalTrip = tripRepository.findById(id);
-        Trip editTrip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no driver match this id"+ id));
+        Trip editTrip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ id));
 
         editTrip.setDeparturePlace(createTripDto.departurePlace());
         editTrip.setArrivalPlace(createTripDto.arrivalPlace());
@@ -142,5 +144,17 @@ public class TripService {
                         : null)
                 .build();
 
+    }
+
+    public void deleteByTripId (User user, UUID id){
+        if (user.getRoles().toString().equals("[PASSENGER]")) {
+            throw new UserNotAllowedException("A passenger cant delete trips");
+        }
+        Optional<Trip> optionalTrip = tripRepository.findById(id);
+        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("No se encontró ningún viaje con este ID: " + id));
+
+        trip.getReserves().forEach(reserveRepository::delete);
+
+        tripRepository.delete(trip);
     }
 }
