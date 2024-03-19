@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sharetravel_frontend/bloc/delete_trip/delete_trip_bloc.dart';
 import 'package:sharetravel_frontend/model/response/driver_trips_response/trip.dart';
+import 'package:sharetravel_frontend/repository/delete_trip/delete_trip_repository.dart';
+import 'package:sharetravel_frontend/repository/delete_trip/delete_trip_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/home_page.dart';
 import 'package:sharetravel_frontend/ui/page/your_trips_page/trip_edit_page.dart';
 
 class DriverTripsCardWidget extends StatefulWidget {
@@ -11,6 +15,16 @@ class DriverTripsCardWidget extends StatefulWidget {
 }
 
 class _DriverTripsCardWidgetState extends State<DriverTripsCardWidget> {
+  late DeleteTripRepository deleteTripRepository;
+  late DeleteTripBloc _deleteTripBloc;
+
+  @override
+  void initState() {
+    deleteTripRepository = DeleteTripRepositoryImpl();
+    _deleteTripBloc = DeleteTripBloc(deleteTripRepository);
+    super.initState();
+  }
+
   final TextStyle commonTextStyle = const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
@@ -151,7 +165,49 @@ class _DriverTripsCardWidgetState extends State<DriverTripsCardWidget> {
                         });
                       },
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.delete_forever,
+                        color: Color.fromARGB(255, 0, 175, 84),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: const Text(
+                                  "Sure you want to delete this trip?"),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text("No"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text("Yes"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    _deleteTripBloc.add(
+                                        DoDeleteTripEvent(widget.trip.id!));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              const HomePage()),
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
                 ],
               )
             ],
