@@ -436,6 +436,7 @@ public class TripController {
                     content = @Content
             )
     })
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTrip(@AuthenticationPrincipal User user,@PathVariable String id){
         tripService.deleteByTripId(user, UUID.fromString(id));
