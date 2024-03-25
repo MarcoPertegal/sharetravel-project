@@ -18,6 +18,7 @@ public interface ReserveRepository extends JpaRepository<Reserve, UUID> {
 
     @Query("""
             SELECT new com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto(
+            r.id,
             r.reserveDate,
                 new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto(
                     t.id,

@@ -151,7 +151,7 @@ public class TripService {
             throw new UserNotAllowedException("A passenger cant delete trips");
         }
         Optional<Trip> optionalTrip = tripRepository.findById(id);
-        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("No se encontró ningún viaje con este ID: " + id));
+        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("No trip found with that id"));
 
         trip.getReserves().forEach(reserveRepository::delete);
 
