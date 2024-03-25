@@ -137,7 +137,7 @@ class _DriverTripsCardWidgetState extends State<DriverTripsCardWidget> {
                   const SizedBox(width: 15),
                   const Padding(
                       padding: EdgeInsets.only(top: 25.0), child: Text("You")),
-                  Spacer(),
+                  const Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: IconButton(

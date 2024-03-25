@@ -9,6 +9,7 @@ import com.salesianostriana.dam.sharetravelBackend.reserve.repository.ReserveRep
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.trip.repository.TripRepository;
+import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotAllowedException;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
@@ -63,5 +64,12 @@ public class ReserveService {
             throw new ReserveNotFoundException("This passenger doesnt have any reserves");
         }
         return result;
+    }
+
+    public void deleteByReserveId (UUID id) {
+        if (!reserveRepository.existsById(id)){
+            throw new ReserveNotFoundException("No reserve found with that id");
+        }
+        reserveRepository.deleteById(id);
     }
 }

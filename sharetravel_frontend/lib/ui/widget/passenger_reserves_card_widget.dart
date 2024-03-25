@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sharetravel_frontend/bloc/delete_reserve/delete_reserve_bloc.dart';
 import 'package:sharetravel_frontend/model/response/passenger_reserves_response/reserve.dart';
+import 'package:sharetravel_frontend/repository/delete_reserve/delete_reserve_repository.dart';
+import 'package:sharetravel_frontend/repository/delete_reserve/delete_reserve_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/home_page.dart';
 
 class PassengerReservesCardWidget extends StatefulWidget {
   final Reserve reserve;
@@ -12,6 +16,16 @@ class PassengerReservesCardWidget extends StatefulWidget {
 
 class _PassengerReservesCardWidgetState
     extends State<PassengerReservesCardWidget> {
+  late DeleteReserveRepository deleteReserveRepository;
+  late DeleteReserveBloc _deleteReserveBloc;
+
+  @override
+  void initState() {
+    deleteReserveRepository = DeleteReserveRepositoryImpl();
+    _deleteReserveBloc = DeleteReserveBloc(deleteReserveRepository);
+    super.initState();
+  }
+
   final TextStyle commonTextStyle = const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
@@ -89,7 +103,7 @@ class _PassengerReservesCardWidgetState
                             style: commonTextStyle,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Text(widget.reserve.trip!.arrivalPlace!,
@@ -124,10 +138,53 @@ class _PassengerReservesCardWidgetState
                           NetworkImage(widget.reserve.trip!.driver!.avatar!),
                     ),
                   ),
-                  SizedBox(width: 15),
+                  const SizedBox(width: 15),
                   Padding(
                       padding: const EdgeInsets.only(top: 25.0),
-                      child: Text(widget.reserve.trip!.driver!.fullName!))
+                      child: Text(widget.reserve.trip!.driver!.fullName!)),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.cancel,
+                        color: Color.fromARGB(255, 0, 175, 84),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: const Text(
+                                  "Sure you want to cancel the reserve?"),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text("No"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text("Yes"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    _deleteReserveBloc.add(DoDeleteReserveEvent(
+                                        widget.reserve.id!));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              const HomePage()),
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
                 ],
               )
             ],
