@@ -1,17 +1,20 @@
 import 'dart:convert';
 
 class Driver {
+  String? id;
   String? avatar;
   String? fullName;
 
-  Driver({this.avatar, this.fullName});
+  Driver({this.id, this.avatar, this.fullName});
 
   factory Driver.fromMap(Map<String, dynamic> data) => Driver(
+        id: data['id'] as String?,
         avatar: data['avatar'] as String?,
         fullName: data['fullName'] as String?,
       );
 
   Map<String, dynamic> toMap() => {
+        'id': id,
         'avatar': avatar,
         'fullName': fullName,
       };

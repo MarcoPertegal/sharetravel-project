@@ -142,6 +142,9 @@ class _PassengerReservesCardWidgetState
                   Padding(
                       padding: const EdgeInsets.only(top: 25.0),
                       child: Text(widget.reserve.trip!.driver!.fullName!)),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 25.0),
+                      child: Text(widget.reserve.trip!.driver!.id!)),
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
