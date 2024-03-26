@@ -1,5 +1,7 @@
-package com.salesianostriana.dam.sharetravelBackend.user.model;
+package com.salesianostriana.dam.sharetravelBackend.rating.model;
 
+import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
+import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

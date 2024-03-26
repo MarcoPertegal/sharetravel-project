@@ -4,7 +4,7 @@ import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListE
 import com.salesianostriana.dam.sharetravelBackend.user.dto.CreateUserRequest;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetUserDetailsDto;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
-import com.salesianostriana.dam.sharetravelBackend.user.model.Rating;
+import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.model.UserRole;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
