@@ -3,6 +3,9 @@ package com.salesianostriana.dam.sharetravelBackend.rating.repository;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
+import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
+import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +24,6 @@ public interface RatingRepository extends JpaRepository<Rating, UUID> {
             FROM Rating r
             """)
     Page<GetRatingDto> findAllRatings(Pageable pageable);
+
+    boolean existsByPassengerAndDriver(Passenger passenger, Driver driver);
 }

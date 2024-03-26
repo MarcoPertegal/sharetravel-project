@@ -3,9 +3,11 @@ package com.salesianostriana.dam.sharetravelBackend.rating.service;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.CreateRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.NewRatingDto;
+import com.salesianostriana.dam.sharetravelBackend.rating.exception.DuplicateRatingException;
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.EmptyRatingListException;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.rating.repository.RatingRepository;
+import com.salesianostriana.dam.sharetravelBackend.reserve.exception.DuplicateReserveException;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
@@ -47,6 +49,11 @@ public class RatingService {
 
         Optional<Driver> optionalDriver = driverRepository.findById(newRatingDto.driverId());
         Driver driver = optionalDriver.orElseThrow(() -> new UserNotFoundException("no user match this id"+ newRatingDto.driverId()));
+
+        boolean hasReserved = ratingRepository.existsByPassengerAndDriver(passenger, driver);
+        if (hasReserved) {
+            throw new DuplicateRatingException("You have already rated this driver");
+        }
 
         Rating newRating = Rating.builder()
                 .ratingDate(LocalDateTime.now())

@@ -124,6 +124,9 @@ public class RatingController {
                                             """
                             )}
                     )}),
+            @ApiResponse(responseCode = "409",
+                    description = "You have already rated this driver",
+                    content = @Content),
             @ApiResponse(responseCode = "403",
                     description = "A access denied, driver cannot create a rating",
                     content = @Content)
