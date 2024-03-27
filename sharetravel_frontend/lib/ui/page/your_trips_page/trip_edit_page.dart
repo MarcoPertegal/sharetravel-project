@@ -72,6 +72,14 @@ class _TripEditPageState extends State<TripEditPage> {
     return BlocProvider.value(
       value: _editTripBloc,
       child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
