@@ -1,13 +1,16 @@
 package com.salesianostriana.dam.sharetravelBackend.rating.service;
 
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.CreateRatingDto;
+import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingByDriverIdDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.NewRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.DuplicateRatingException;
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.EmptyRatingListException;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.rating.repository.RatingRepository;
+import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.exception.DuplicateReserveException;
+import com.salesianostriana.dam.sharetravelBackend.reserve.exception.ReserveNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
@@ -15,6 +18,7 @@ import com.salesianostriana.dam.sharetravelBackend.user.dto.GetPassengerByTripDt
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
+import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.PassengerRepository;
 import lombok.RequiredArgsConstructor;
@@ -76,6 +80,14 @@ public class RatingService {
                         ? GetPassengerByTripDto.of(savedRating.getPassenger())
                         : null)
                 .build();
+    }
+
+    public Page<GetRatingByDriverIdDto> getRatingByDriverIdDto(Pageable p, User user){
+        Page<GetRatingByDriverIdDto> result = ratingRepository.findRatingsWithPassengerByDriverId(user.getId(), p);
+        if (result.isEmpty()){
+            throw new EmptyRatingListException("You dont have any ratings yet");
+        }
+        return result;
     }
 
 }

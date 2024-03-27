@@ -1,9 +1,11 @@
 package com.salesianostriana.dam.sharetravelBackend.rating.controller;
 
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.CreateRatingDto;
+import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingByDriverIdDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.NewRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.service.RatingService;
+import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.NewReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
@@ -134,5 +136,72 @@ public class RatingController {
     @PostMapping("/new")
     public ResponseEntity<CreateRatingDto> createRating (@AuthenticationPrincipal User loggedPassenger, @RequestBody NewRatingDto newRatingDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.createRating(loggedPassenger.getId(), newRatingDto));
+    }
+
+    @Operation(summary = "Get rating by driver id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Ratings has been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetReserveByPassengerIdDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                              {
+                                                  "content": [
+                                                      {
+                                                          "id": "d42504ee-dc7f-4025-beff-6ec4af0f567d",
+                                                          "ratingValue": 4.6,
+                                                          "feedback": "An enjoyable and pleasant trip, I recommend it",
+                                                          "passenger": {
+                                                              "avatar": "https://f.rpp-noticias.io/2019/02/15/753300descarga-11jpg.jpg",
+                                                              "fullName": "Fran Ruíz Prieto"
+                                                          }
+                                                      },
+                                                      {
+                                                          "id": "846fb48c-fe49-4e53-bb5a-50cf08691bfc",
+                                                          "ratingValue": 5.0,
+                                                          "feedback": "A very comfortable and enjoyable trip",
+                                                          "passenger": {
+                                                              "avatar": "https://www.laguiadelvaron.com/wp-content/uploads/2018/12/ai-image-generation-fake-faces-people-nvidia-5c18b20b472c2__700.jpg",
+                                                              "fullName": "Fernando Pérez Gil"
+                                                          }
+                                                      }
+                                                  ],
+                                                  "pageable": {
+                                                      "pageNumber": 0,
+                                                      "pageSize": 8,
+                                                      "sort": {
+                                                          "empty": true,
+                                                          "sorted": false,
+                                                          "unsorted": true
+                                                      },
+                                                      "offset": 0,
+                                                      "paged": true,
+                                                      "unpaged": false
+                                                  },
+                                                  "last": true,
+                                                  "totalPages": 1,
+                                                  "totalElements": 2,
+                                                  "size": 8,
+                                                  "number": 0,
+                                                  "sort": {
+                                                      "empty": true,
+                                                      "sorted": false,
+                                                      "unsorted": true
+                                                  },
+                                                  "first": true,
+                                                  "numberOfElements": 2,
+                                                  "empty": false
+                                              }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No ratings have been found",
+                    content = @Content)
+    })
+    @GetMapping("/driver")
+    public ResponseEntity<Page<GetRatingByDriverIdDto>> findReserveByDriverId(@PageableDefault(page = 0, size = 8) Pageable p, @AuthenticationPrincipal User user){
+        return ResponseEntity.ok(ratingService.getRatingByDriverIdDto(p, user));
     }
 }
