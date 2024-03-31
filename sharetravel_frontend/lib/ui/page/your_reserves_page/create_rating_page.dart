@@ -91,8 +91,20 @@ class _CreateRatingPageState extends State<CreateRatingPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 30,
+          const Padding(
+            padding: EdgeInsets.only(bottom: 30.0),
+            child: SizedBox(
+              height: 50,
+              child: Center(
+                child: Text(
+                  "Rate this driver",
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           ),
           RatingBar.builder(
             initialRating: ratingValue,
