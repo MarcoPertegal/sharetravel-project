@@ -121,6 +121,7 @@ public class UserService {
                     .mapToDouble(Rating::getRatingValue)
                     .average()
                     .orElse(0.0);
+            averageRating = Math.round(averageRating * 10.0) / 10.0;
         } else {
             averageRating = -1.0;
         }
