@@ -126,6 +126,13 @@ class _TripEditPageState extends State<TripEditPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            "Modify trip",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 34,
+            ),
+          ),
           const SizedBox(
             height: 30,
           ),

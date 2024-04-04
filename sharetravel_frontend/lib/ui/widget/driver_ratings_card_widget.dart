@@ -19,8 +19,14 @@ class _DriverRatingsCardWidgetState extends State<DriverRatingsCardWidget> {
         SizedBox(
           height: 50,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              CircleAvatar(
+                radius: 24,
+                backgroundImage: NetworkImage(widget.rating.passenger!.avatar!),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
               Text(
                 widget.rating.passenger!.fullName!,
                 style: const TextStyle(
@@ -28,12 +34,11 @@ class _DriverRatingsCardWidgetState extends State<DriverRatingsCardWidget> {
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 84, 84, 84)),
               ),
-              CircleAvatar(
-                radius: 24,
-                backgroundImage: NetworkImage(widget.rating.passenger!.avatar!),
-              ),
             ],
           ),
+        ),
+        const SizedBox(
+          height: 10,
         ),
         SizedBox(
           child: Row(children: [
