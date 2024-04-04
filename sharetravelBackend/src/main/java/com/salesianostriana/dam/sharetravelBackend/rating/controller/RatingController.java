@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -134,7 +135,7 @@ public class RatingController {
                     content = @Content)
     })
     @PostMapping("/new")
-    public ResponseEntity<CreateRatingDto> createRating (@AuthenticationPrincipal User loggedPassenger, @RequestBody NewRatingDto newRatingDto){
+    public ResponseEntity<CreateRatingDto> createRating (@AuthenticationPrincipal User loggedPassenger, @Valid @RequestBody NewRatingDto newRatingDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.createRating(loggedPassenger.getId(), newRatingDto));
     }
 

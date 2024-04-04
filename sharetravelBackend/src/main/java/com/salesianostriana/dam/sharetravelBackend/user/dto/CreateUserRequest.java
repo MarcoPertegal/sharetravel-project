@@ -19,11 +19,11 @@ public class CreateUserRequest {
     private String username;
 
     @NotBlank(message = "Password cannot be empty")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    //@Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
-    @NotBlank(message = "Confirm your password")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    //@NotBlank(message = "Confirm your password")
+    //@Size(min = 8, message = "Password must be at least 8 characters long")
     private String verifyPassword;
 
     private String avatar;

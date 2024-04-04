@@ -54,8 +54,8 @@ public class RatingService {
         Optional<Driver> optionalDriver = driverRepository.findById(newRatingDto.driverId());
         Driver driver = optionalDriver.orElseThrow(() -> new UserNotFoundException("no user match this id"+ newRatingDto.driverId()));
 
-        boolean hasReserved = ratingRepository.existsByPassengerAndDriver(passenger, driver);
-        if (hasReserved) {
+        boolean hasRated = ratingRepository.existsByPassengerAndDriver(passenger, driver);
+        if (hasRated) {
             throw new DuplicateRatingException("You have already rated this driver");
         }
 

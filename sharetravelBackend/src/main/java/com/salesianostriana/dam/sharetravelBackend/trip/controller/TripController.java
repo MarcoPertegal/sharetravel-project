@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -304,7 +305,7 @@ public class TripController {
                     )})
     })
     @PostMapping("/new")
-    public ResponseEntity<GetTripDetailsDto> createTrip (@AuthenticationPrincipal User loggedDriver, @RequestBody CreateTripDto createTripDto){
+    public ResponseEntity<GetTripDetailsDto> createTrip (@AuthenticationPrincipal User loggedDriver, @Valid @RequestBody CreateTripDto createTripDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(tripService.createtrip(loggedDriver.getId(), createTripDto));
     }
 
@@ -415,7 +416,7 @@ public class TripController {
     })
     @CrossOrigin
     @PutMapping("/{id}")
-    public ResponseEntity<GetTripDto> editTrip(@AuthenticationPrincipal User user, @PathVariable String id, @RequestBody CreateTripDto createTripDto) {
+    public ResponseEntity<GetTripDto> editTrip(@AuthenticationPrincipal User user, @PathVariable String id, @Valid @RequestBody CreateTripDto createTripDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(tripService.editTrip(user,UUID.fromString(id), createTripDto));
     }
 

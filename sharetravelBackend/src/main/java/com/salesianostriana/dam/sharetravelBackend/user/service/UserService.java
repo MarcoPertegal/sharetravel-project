@@ -43,10 +43,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User createUserWithUserRole(CreateUserRequest createUserRequest) {
-        return createUser(createUserRequest, EnumSet.of(UserRole.PASSENGER));
-    }
-
     public User createUserWithAdminRole(CreateUserRequest createUserRequest) {
         return createUser(createUserRequest, EnumSet.of(UserRole.ADMIN));
     }
