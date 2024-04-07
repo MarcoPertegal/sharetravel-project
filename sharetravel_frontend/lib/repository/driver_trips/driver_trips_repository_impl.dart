@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharetravel_frontend/model/response/driver_trips_response/driver_trips_response.dart';
@@ -26,10 +28,11 @@ class DriverTripsRepositoryImpl extends DriverTripsRepository {
     if (response.statusCode == 200) {
       print(response.body);
       return DriverTripsResponse.fromJson(response.body);
-    } else if (response.statusCode == 404) {
-      throw Exception('You have not publish any trip');
     } else {
-      throw Exception('Failed to do passenger reserves request');
+      final jsonResponse = json.decode(response.body);
+      final errorMessage =
+          jsonResponse['message'] as String? ?? "Unknown error";
+      throw Exception(errorMessage);
     }
   }
 }

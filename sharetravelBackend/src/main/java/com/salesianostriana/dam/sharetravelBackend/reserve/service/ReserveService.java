@@ -61,7 +61,7 @@ public class ReserveService {
     public Page<GetReserveByPassengerIdDto> getReservesByPassengerId(Pageable p, User user){
         Page<GetReserveByPassengerIdDto> result = reserveRepository.findReservesWithTripByPassengerId(user.getId(), p);
         if (result.isEmpty()){
-            throw new ReserveNotFoundException("This passenger doesnt have any reserves");
+            throw new ReserveNotFoundException("You dont booked any trips yet");
         }
         return result;
     }

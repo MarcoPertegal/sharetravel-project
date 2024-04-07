@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.sharetravelBackend.user.model;
 
+import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

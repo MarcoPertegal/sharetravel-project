@@ -1,0 +1,18 @@
+package com.salesianostriana.dam.sharetravelBackend.rating.dto;
+
+import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
+import com.salesianostriana.dam.sharetravelBackend.user.dto.GetPassengerByTripDto;
+import lombok.Builder;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+@Builder
+public record CreateRatingDto(
+        UUID id,
+        LocalDateTime ratingDate,
+        double ratingValue,
+        String feedback,
+        GetDriverByTripDto driver,
+        GetPassengerByTripDto passenger
+) {
+}

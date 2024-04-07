@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,7 +60,7 @@ public class DriverController {
     })
     @Operation(summary = "createUserWithDriverRole", description = "Register as driver")
     @PostMapping("/auth/register/driver")
-    public ResponseEntity<UserResponse> createUserWithDriverRole(@RequestBody CreateUserRequest createPassengerRequest) {
+    public ResponseEntity<UserResponse> createUserWithDriverRole(@Valid @RequestBody CreateUserRequest createPassengerRequest) {
         Driver driver = driverService.createUserWithDriverRole(createPassengerRequest);
         Authentication authentication =
                 authManager.authenticate(

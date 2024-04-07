@@ -4,6 +4,7 @@ import 'package:sharetravel_frontend/bloc/user_details_bloc/user_details_bloc.da
 import 'package:sharetravel_frontend/model/response/user_details_response.dart';
 import 'package:sharetravel_frontend/repository/user_details/user_details_repository.dart';
 import 'package:sharetravel_frontend/repository/user_details/user_details_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/login_page.dart';
 import 'package:sharetravel_frontend/ui/widget/user_profile_widget.dart';
 
 class ProfilePage extends StatefulWidget {

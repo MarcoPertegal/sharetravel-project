@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharetravel_frontend/ui/page/error_page.dart';
-import 'package:sharetravel_frontend/ui/page/your_reserves_page.dart';
+import 'package:sharetravel_frontend/ui/page/your_reserves_page/your_reserves_page.dart';
 import 'package:sharetravel_frontend/ui/page/your_trips_page/your_trips_page.dart';
 import 'package:sharetravel_frontend/ui/page/profile_page.dart';
 import 'package:sharetravel_frontend/ui/page/trip_list_page/trip_filter_page.dart';

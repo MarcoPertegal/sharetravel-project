@@ -107,7 +107,7 @@ public class TripService {
     public Page<GetTripDto> getTripsByDriverId(Pageable p, User user){
         Page<GetTripDto> result = tripRepository.findTripsByDriverId(user.getId(), p);
         if (result.isEmpty()){
-            throw new EmptyTripListException("This driver doesnt have any published trips");
+            throw new EmptyTripListException("You have not publish any trip");
         }
         return result;
     }

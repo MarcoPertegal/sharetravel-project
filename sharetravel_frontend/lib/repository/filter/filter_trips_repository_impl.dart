@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharetravel_frontend/model/response/filter_trips_list_response/filter_trips_list_response.dart';
 import 'package:sharetravel_frontend/repository/filter/filter_trips_repository.dart';
@@ -28,10 +30,11 @@ class FilterTripsRepositoryImpl extends FilterTripsRepository {
     if (response.statusCode == 200) {
       print(response.body);
       return FilterTripsListResponse.fromJson(response.body);
-    } else if (response.statusCode == 404) {
-      throw Exception('No trips were found');
     } else {
-      throw Exception("Failed to do the filter");
+      final jsonResponse = json.decode(response.body);
+      final errorMessage =
+          jsonResponse['message'] as String? ?? "Unknown error";
+      throw Exception(errorMessage);
     }
   }
 }

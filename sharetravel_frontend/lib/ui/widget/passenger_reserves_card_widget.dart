@@ -3,6 +3,7 @@ import 'package:sharetravel_frontend/bloc/delete_reserve/delete_reserve_bloc.dar
 import 'package:sharetravel_frontend/model/response/passenger_reserves_response/reserve.dart';
 import 'package:sharetravel_frontend/repository/delete_reserve/delete_reserve_repository.dart';
 import 'package:sharetravel_frontend/repository/delete_reserve/delete_reserve_repository_impl.dart';
+import 'package:sharetravel_frontend/ui/page/your_reserves_page/create_rating_page.dart';
 import 'package:sharetravel_frontend/ui/page/home_page.dart';
 
 class PassengerReservesCardWidget extends StatefulWidget {
@@ -143,6 +144,27 @@ class _PassengerReservesCardWidgetState
                       padding: const EdgeInsets.only(top: 25.0),
                       child: Text(widget.reserve.trip!.driver!.fullName!)),
                   const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.star_half_rounded,
+                        color: Color.fromARGB(255, 0, 175, 84),
+                      ),
+                      onPressed: () {
+                        Future.delayed(Duration.zero, () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CreateRatingPage(
+                                driverId: widget.reserve.trip!.driver!.id!,
+                              ),
+                            ),
+                          );
+                        });
+                      },
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: IconButton(

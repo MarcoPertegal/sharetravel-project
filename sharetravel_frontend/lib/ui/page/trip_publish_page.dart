@@ -98,6 +98,13 @@ class _TripPublishPageState extends State<TripPublishPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            "New trip",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 34,
+            ),
+          ),
           const SizedBox(
             height: 30,
           ),

@@ -38,6 +38,7 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
         t.price,
         t.tripDescription,
             new com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto(
+                t.driver.id,
                 t.driver.avatar,
                 t.driver.fullName
             )
@@ -65,6 +66,7 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
         t.price,
         t.tripDescription,
         new com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto(
+            t.driver.id,
             t.driver.avatar,
             t.driver.fullName
         )
