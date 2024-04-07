@@ -25,7 +25,7 @@ class RegisterDriverRepositoryImpl extends RegisterDriverRepository {
       await _saveUserRolToSharedPreferences(registerDriverResponse.userRol!);
       return registerDriverResponse;
     } else {
-      throw Exception('The username already exists');
+      throw Exception('The username already exists or invalid credentials');
     }
   }
 

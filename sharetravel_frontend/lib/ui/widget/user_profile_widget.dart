@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sharetravel_frontend/model/response/user_details_response.dart';
+import 'package:sharetravel_frontend/ui/page/login_page.dart';
 import 'package:sharetravel_frontend/ui/widget/driver_ratings_list_widget.dart';
 
 class UserProfileWidget extends StatefulWidget {
@@ -41,7 +42,18 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
-                          Text(widget.userDetails.email!)
+                          Text(widget.userDetails.email!),
+                          IconButton(
+                            icon: Icon(Icons.logout),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginPage(),
+                                ),
+                              );
+                            },
+                          ),
                         ]),
                   ),
                   const SizedBox(
