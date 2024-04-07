@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +59,7 @@ public class PassengerController {
     })
     @Operation(summary = "createUserWithPassengerRole", description = "Register as passenger")
     @PostMapping("/auth/register/passenger")
-    public ResponseEntity<UserResponse> createUserWithPassengerRole(@RequestBody CreateUserRequest createPassengerRequest) {
+    public ResponseEntity<UserResponse> createUserWithPassengerRole(@Valid @RequestBody CreateUserRequest createPassengerRequest) {
         Passenger passenger = passengerService.createUserWithPassengerRole(createPassengerRequest);
         Authentication authentication =
                 authManager.authenticate(
