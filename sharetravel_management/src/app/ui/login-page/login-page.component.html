@@ -1,0 +1,39 @@
+<div id="login-page" class="row g-0">
+    <div class="col-12 col-md-5">
+        <div class="p-3 p-md-4 p-xl-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-5">
+                        <img class="img-fluid rounded mb-4" loading="lazy" src="../../../assets/img/logo_texto.png"
+                            width="245" height="80" alt="Sharetravel Logo">
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="doLogin" (ngSubmit)="login()">
+                <div class="row gy-3 gy-md-4 overflow-hidden">
+                    <div class="mb-3">
+                        <input type="username" class="form-control" id="username" placeholder="Username"
+                            formControlName="username">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="Password"
+                            formControlName="password">
+                    </div>
+                    <div class="col-12">
+                        <div class="d-grid">
+                            <button class="btn text-light" type="submit">Login</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="col-10 col-xl-8 py-3">
+                <img class="img-fluid rounded mb-4" loading="lazy" src="../../../assets/img/ilustracion_login.png"
+                    width="245" height="80" alt="Sharetravel ilustration">
+            </div>
+        </div>
+    </div>
+</div>
