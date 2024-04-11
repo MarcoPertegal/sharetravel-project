@@ -1,0 +1,23 @@
+#login-page {
+    background-color: #00AF54;
+    height: 100vh;
+}
+
+.btn {
+    background-color: #FCA311;
+    height: 70px;
+    font-size: 24pt;
+}
+
+.btn:hover {
+    background-color: rgb(227, 147, 19);
+}
+
+p {
+    font-size: 10pt;
+}
+
+#login-img {
+    background-color: #DAFFE8;
+    height: 100vh;
+}
