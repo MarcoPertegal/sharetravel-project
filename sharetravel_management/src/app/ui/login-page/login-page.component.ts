@@ -22,7 +22,13 @@ export class LoginPageComponent {
       next: (p) => {
         localStorage.setItem('TOKEN', p.token);
         localStorage.setItem('USER_ID', p.id);
-        this.router.navigate(['/trip-page']);
+        localStorage.setItem('AVATAR', p.avatar);
+        localStorage.setItem('USERNAME', p.username);
+        if (p.userRol === '[ADMIN]') {
+          this.router.navigate(['/trip-page']);
+        } else {
+          this.router.navigate(['/error-page'], { queryParams: { error: 'Access dennied, only admins can access this page' } });
+        }
       },
       error: (error) => {
         const message = error.error.message || 'Error desconocido';

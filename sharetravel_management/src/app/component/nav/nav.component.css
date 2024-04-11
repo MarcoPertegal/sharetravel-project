@@ -1,0 +1,60 @@
+nav {
+    padding: 0px;
+}
+
+.navbar-brand img {
+    width: 60px;
+    padding-top: 3px;
+}
+
+a.navbar-brand {
+    padding: 0px;
+    padding-top: 10px;
+}
+
+nav {
+    background-color: #DAFFE8 !important;
+}
+
+.full-width {
+    width: 100%;
+}
+
+ul li {
+    margin-left: 10%;
+}
+
+.row a:first-child {
+    margin-left: 2%;
+}
+
+.navbar-nav a {
+    text-decoration: none;
+    color: rgb(150, 150, 150);
+}
+
+.navbar-nav a:hover {
+    color: rgb(109, 109, 109);
+}
+
+#user {
+    display: flex;
+    padding-right: 0px;
+}
+
+#user a p {
+    margin-bottom: 0px;
+    padding-top: 8px;
+}
+
+#user img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+}
+
+.nav-item.active a.nav-link {
+    color: #00AF54 !important;
+}
