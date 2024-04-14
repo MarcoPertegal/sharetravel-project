@@ -21,7 +21,8 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
             t.departureTime,
             t.estimatedDuration,
             t.arrivalTime,
-            t.price
+            t.price,
+            t.tripDescription
             )
             FROM Trip t
             """)

@@ -8,11 +8,6 @@ import com.salesianostriana.dam.sharetravelBackend.rating.exception.DuplicateRat
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.EmptyRatingListException;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.rating.repository.RatingRepository;
-import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
-import com.salesianostriana.dam.sharetravelBackend.reserve.exception.DuplicateReserveException;
-import com.salesianostriana.dam.sharetravelBackend.reserve.exception.ReserveNotFoundException;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetPassengerByTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;

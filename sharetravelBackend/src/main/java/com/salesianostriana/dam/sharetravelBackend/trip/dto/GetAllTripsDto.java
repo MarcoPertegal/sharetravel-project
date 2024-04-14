@@ -10,6 +10,7 @@ public record GetAllTripsDto(
         LocalDateTime departureTime,
         int estimatedDuration,
         LocalDateTime arrivalTime,
-        double price
+        double price,
+        String description
 ) {
 }

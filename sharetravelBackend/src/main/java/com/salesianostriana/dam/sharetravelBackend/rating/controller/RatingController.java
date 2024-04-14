@@ -6,8 +6,6 @@ import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.NewRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.service.RatingService;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
-import com.salesianostriana.dam.sharetravelBackend.reserve.dto.NewReserveDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
