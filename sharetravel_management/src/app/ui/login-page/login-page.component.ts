@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../service/login.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class LoginPageComponent {
 
   doLogin = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
 
   constructor(private loginService: LoginService, private router: Router) { };
