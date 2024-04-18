@@ -25,3 +25,8 @@ ngb-pagination ::ng-deep a.page-link {
 .container {
     font-size: 10pt;
 }
+
+.modal-title {
+    color: #00AF54;
+    font-size: 30pt;
+}

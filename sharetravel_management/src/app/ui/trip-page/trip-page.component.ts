@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Trip } from '../../model/get-all-trips-response.interface';
 import { TripService } from '../../service/trip.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { GetTripByIDResponse } from '../../model/get-trip-by-id.interface';
 
 @Component({
   selector: 'app-trip-page',
@@ -11,16 +14,12 @@ export class TripPageComponent {
   tripList: Trip[] = [];
   pageNumber: number = 0;
   count: number = 0;
+  tripId!: string;
 
   constructor(
     private tripService: TripService,
-    //config: NgbOffcanvasConfig, PARA EL MODAL
-    //private offcanvasService: NgbOffcanvas,
-    //private modalService: NgbModal
+    private modalService: NgbModal
   ) {
-    //config.position = 'end';
-    //config.backdropClass = 'bg-dark';
-    //config.keyboard = false;
   }
   ngOnInit(): void {
     this.loadNewPage();
@@ -31,6 +30,68 @@ export class TripPageComponent {
       this.tripList = resp.content;
       this.count = resp.totalElements;
     });
+  }
+
+  ////////////////EDIT TRIP
+
+  //metodo para abrir el modal para abrirlo simplemente hace 
+  //falta el "this.modalService.open(editTrip);" y el "this.tripId = id;" para pasarselo
+  //al metodo que edita el viaje el resto es para poner los datos del viaje en el formulario
+  editModal(editTrip: any, id: any) {
+    this.tripId = id;
+    this.tripService.getTripById(id).subscribe(
+      (tripDetails: GetTripByIDResponse) => {
+        if (tripDetails) {
+          this.modalService.open(editTrip);
+          this.modifyTrip.setValue({
+            departurePlace: tripDetails.departurePlace,
+            arrivalPlace: tripDetails.arrivalPlace,
+            departureTime: tripDetails.departureTime.toString(),
+            estimatedDuration: tripDetails.estimatedDuration.toString(),
+            price: tripDetails.price.toString(),
+            tripDescription: tripDetails.tripDescription
+          });
+        } else {
+          alert('Trip not found!');
+        }
+      },
+      (error) => {
+        console.error('Error retrieving trip details:', error);
+        alert('Failed to retrieve trip details. Please try again later.');
+      }
+    );
+  }
+
+  modifyTrip = new FormGroup({
+    departurePlace: new FormControl('', Validators.required),
+    arrivalPlace: new FormControl('', Validators.required),
+    departureTime: new FormControl('', Validators.required),
+    estimatedDuration: new FormControl('', [Validators.required, Validators.min(3)]),
+    price: new FormControl('', [Validators.required, Validators.min(1)]),
+    tripDescription: new FormControl('', Validators.required),
+  })
+
+  editTr() {
+    this.tripService.editTripById(
+      this.tripId,
+      this.modifyTrip.value.departurePlace!,
+      this.modifyTrip.value.arrivalPlace!,
+      this.modifyTrip.value.departureTime!,
+      Number(this.modifyTrip.value.estimatedDuration!),
+      Number(this.modifyTrip.value.price!),
+      this.modifyTrip.value.tripDescription!
+    ).subscribe(() => {
+      this.closeModal();
+      location.reload();
+    },
+      error => {
+        if (error.status === 400)
+          window.alert('Invalid data or something go wrong!!');
+      }
+    );
+  }
+  closeModal() {
+    this.modalService.dismissAll();
   }
 
 }

@@ -21,7 +21,8 @@
                     </div>
                     <div class="col-12">
                         <div class="d-grid">
-                            <button class="btn text-light fw-bold" type="submit">Login</button>
+                            <button class="btn text-light fw-bold" type="submit"
+                                [disabled]="!doLogin.valid">Login</button>
                         </div>
                     </div>
                     <div class="col-12 mt-3">
