@@ -80,7 +80,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/trip/new")).hasRole("DRIVER")
                         .requestMatchers(antMatcher("/trip/")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/trip/driver")).hasRole("DRIVER")
-                        .requestMatchers(antMatcher("/trip/**")).hasAnyRole("PASSENGER", "DRIVER")
+                        .requestMatchers(antMatcher("/trip/**")).hasAnyRole("PASSENGER", "DRIVER", "ADMIN")
                         .requestMatchers(antMatcher("/reserve/**")).hasRole("PASSENGER")
                         .requestMatchers(antMatcher("/rating/driver")).hasRole("DRIVER")
                         .requestMatchers(antMatcher("/rating/new")).hasRole("PASSENGER")
