@@ -47,8 +47,7 @@
                             </button>
                         </td>
                         <td class="pt-3">
-                            <!-- <button type="button" class="btn" (click)="openOffcanvas(patientDetails, p)"> -->
-                            <button type="button" class="btn">
+                            <button type="button" class="btn" (click)="deleteModal(deleteTrip, t.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
                                     class="bi bi-trash" viewBox="0 0 16 16">
                                     <path
@@ -113,5 +112,21 @@
             </button>
         </form>
 
+    </div>
+</ng-template>
+
+<ng-template #deleteTrip let-modal>
+    <div>
+        <h4 class="modal-title p-3 fw-bold">Delete this trip?</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <button type="submit" class="btn col-md-5 m-3 text-white" (click)="deleteTr()">
+                Yes
+            </button>
+            <button type="submit" class="btn col-md-5 m-3 text-white" (click)="closeModal()">
+                No
+            </button>
+        </div>
     </div>
 </ng-template>

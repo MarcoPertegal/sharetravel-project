@@ -52,4 +52,15 @@ export class TripService {
     );
   }
 
+  deleteTripById(id: string) {
+    return this.http.delete(`${environment.HeadUrl}/trip/${id}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
+        }
+      });
+
+  }
+
 }
