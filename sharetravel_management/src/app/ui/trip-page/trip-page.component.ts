@@ -33,7 +33,6 @@ export class TripPageComponent {
   }
 
   ////////////////EDIT TRIP
-
   //metodo para abrir el modal para abrirlo simplemente hace 
   //falta el "this.modalService.open(editTrip);" y el "this.tripId = id;" para pasarselo
   //al metodo que edita el viaje el resto es para poner los datos del viaje en el formulario
@@ -92,6 +91,26 @@ export class TripPageComponent {
   }
   closeModal() {
     this.modalService.dismissAll();
+  }
+
+  deleteTr() {
+    this.tripService.deleteTripById(this.tripId).subscribe(
+      () => {
+        location.reload();
+      },
+      error => {
+        if (error.status === 404)
+          window.alert('No trip found with that id');
+        if (error.status === 400)
+          window.alert('Unexpected error');
+      }
+    );
+  }
+
+  deleteModal(deleteTrip: any, id: any) {
+    this.tripId = id;
+    this.modalService.open(deleteTrip);
+
   }
 
 }
