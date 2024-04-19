@@ -19,9 +19,20 @@ public interface RatingRepository extends JpaRepository<Rating, UUID> {
             r.id,
             r.ratingDate,
             r.ratingValue,
-            r.feedback
+            r.feedback,
+                new com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto(
+                        d.id,
+                        d.avatar,
+                        d.fullName
+                ),
+                new com.salesianostriana.dam.sharetravelBackend.user.dto.GetPassengerByTripDto(
+                     p.avatar,
+                     p.fullName
+                )
             )
             FROM Rating r
+                JOIN r.passenger p
+                JOIN r.driver d
             """)
     Page<GetRatingDto> findAllRatings(Pageable pageable);
 
