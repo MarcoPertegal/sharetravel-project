@@ -58,19 +58,17 @@ public class UserController {
                         )
                 );
 
-        // Once authentication is successful, obtain the authenticated user
+
         User authenticatedUser = (User) authentication.getPrincipal();
 
-        // Generate the JWT token using the authenticated user
+
         String token = jwtProvider.generateToken(authenticatedUser);
 
-        // Delete any expired access tokens associated with the user
+
         refreshTokenService.deleteByUser(authenticatedUser);
 
-        // Create a new refresh token for the user
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(authenticatedUser.getId());
 
-        // Create and return the response with the generated tokens
         JwtUserResponse jwtUserResponse = JwtUserResponse.of(authenticatedUser, token, refreshToken.getToken());
         return ResponseEntity.status(HttpStatus.CREATED).body(jwtUserResponse);
     }
