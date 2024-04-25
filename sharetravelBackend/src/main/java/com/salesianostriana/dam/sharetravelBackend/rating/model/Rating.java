@@ -33,10 +33,12 @@ public class Rating {
 
     private String feedback;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "passenger_id", nullable = false)
     private Passenger passenger;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id", nullable = false)
     private Driver driver;
 
 }

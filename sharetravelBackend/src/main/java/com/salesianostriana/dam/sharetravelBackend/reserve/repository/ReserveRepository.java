@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ReserveRepository extends JpaRepository<Reserve, UUID> {
@@ -42,4 +43,6 @@ public interface ReserveRepository extends JpaRepository<Reserve, UUID> {
             """)
     Page<GetReserveByPassengerIdDto> findReservesWithTripByPassengerId(@Param("id") UUID id, Pageable pageable);
 
+    @Query("SELECT r FROM Reserve r WHERE r.trip.id = :tripId")
+    List<Reserve> findByTripId(UUID tripId);
 }

@@ -29,9 +29,11 @@ public class Reserve {
 
     private LocalDateTime reserveDate;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "passenger_id", nullable = false)
     private Passenger passenger;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "trip_id")
     private Trip trip;
 }

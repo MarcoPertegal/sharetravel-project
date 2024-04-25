@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.service;
 
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByTripDto;
+import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
 import com.salesianostriana.dam.sharetravelBackend.reserve.repository.ReserveRepository;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
@@ -13,12 +14,15 @@ import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundEx
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -47,10 +51,12 @@ public class TripService {
         }
         return result;
     }
-
+    @Transactional
     public GetTripDetailsDto getTripById(UUID id) {
-        Optional<Trip> result = tripRepository.findById(id);
-        Trip trip = result.orElseThrow(() -> new EmptyTripListException("no trip match this id"));
+        Trip trip = tripRepository.findByIdWithDriverAndReserves(id);
+        if (trip == null) {
+            throw new EmptyTripListException("No trip matches this id");
+        }
 
         return GetTripDetailsDto.builder()
                 .id(trip.getId())
@@ -61,9 +67,7 @@ public class TripService {
                 .arrivalTime(trip.getArrivalTime())
                 .price(trip.getPrice())
                 .tripDescription(trip.getTripDescription())
-                .driver(trip.getDriver() != null
-                        ? GetDriverByTripDto.of(trip.getDriver())
-                        : null)
+                .driver(trip.getDriver() != null ? GetDriverByTripDto.of(trip.getDriver()) : null)
                 .reserves(trip.getReserves().stream()
                         .map(GetReserveByTripDto::of)
                         .collect(Collectors.toList()))
@@ -111,8 +115,9 @@ public class TripService {
         }
         return result;
     }
-
+    @Transactional
     public GetTripDto editTrip(User user, UUID id, CreateTripDto createTripDto){
+
         if (user.getRoles().toString().equals("[PASSENGER]")) {
             throw new UserNotAllowedException("A passenger cant edit trips");
         }
@@ -145,7 +150,7 @@ public class TripService {
                 .build();
 
     }
-
+    @Transactional
     public void deleteByTripId (User user, UUID id){
         if (user.getRoles().toString().equals("[PASSENGER]")) {
             throw new UserNotAllowedException("A passenger cant delete trips");
@@ -153,8 +158,12 @@ public class TripService {
         Optional<Trip> optionalTrip = tripRepository.findById(id);
         Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("No trip found with that id"));
 
-        trip.getReserves().forEach(reserveRepository::delete);
+        List<Reserve> tripReserves = reserveRepository.findByTripId(id);
 
-        tripRepository.delete(trip);
+        tripReserves.forEach(reserveRepository::delete);
+
+        List<Reserve> tripReservesBorradas = reserveRepository.findByTripId(id);
+
+        tripRepository.deleteById(trip.getId());
     }
 }

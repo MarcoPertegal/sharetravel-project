@@ -25,7 +25,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -51,7 +50,6 @@ public class UserController {
 
     @PostMapping("/auth/login")
     public ResponseEntity<JwtUserResponse> login(@RequestBody LoginRequest loginRequest) {
-
         Authentication authentication =
                 authManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
@@ -60,27 +58,21 @@ public class UserController {
                         )
                 );
 
-        // Una vez realizada, la guardamos en el contexto de seguridad
-        //lo almacenamos en e contexto de seguridad
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        // Once authentication is successful, obtain the authenticated user
+        User authenticatedUser = (User) authentication.getPrincipal();
 
-        //generamos el token
-        String token = jwtProvider.generateToken(authentication);
+        // Generate the JWT token using the authenticated user
+        String token = jwtProvider.generateToken(authenticatedUser);
 
-        //obtenemos el usuario del principal
-        User user = (User) authentication.getPrincipal();
+        // Delete any expired access tokens associated with the user
+        refreshTokenService.deleteByUser(authenticatedUser);
 
-        //eliminamos algun toquen de acceso caducado de usuario que se está loggeando si lo tuviese
-        refreshTokenService.deleteByUser(user);
+        // Create a new refresh token for the user
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(authenticatedUser.getId());
 
-        //creamos el refresh token
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
-
-        //añadimos el tokem de refresco como string llamando al atributo token de la clase
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(JwtUserResponse.of(user, token, refreshToken.getToken()));
-
-
+        // Create and return the response with the generated tokens
+        JwtUserResponse jwtUserResponse = JwtUserResponse.of(authenticatedUser, token, refreshToken.getToken());
+        return ResponseEntity.status(HttpStatus.CREATED).body(jwtUserResponse);
     }
 
     @PutMapping("/user/changePassword")
@@ -133,7 +125,7 @@ public class UserController {
                     //vamos a devolver la respuesta de la pareja de token
                     String token = jwtProvider.generateToken(user);
                     refreshTokenService.deleteByUser(user);
-                    RefreshToken refreshToken2 = refreshTokenService.createRefreshToken(user);
+                    RefreshToken refreshToken2 = refreshTokenService.createRefreshToken(user.getId());
                     return ResponseEntity.status(HttpStatus.CREATED)
                             .body(JwtUserResponse.builder()
                                     .token(token)

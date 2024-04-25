@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public interface  TripRepository extends JpaRepository<Trip, UUID> {
@@ -27,6 +28,8 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
             FROM Trip t
             """)
     Page<GetAllTripsDto> findAllTrips(Pageable pageable);
+
+
 
     @Query("""
     SELECT new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto(
@@ -47,7 +50,7 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
     FROM Trip t
     WHERE (:departurePlace IS NULL OR t.departurePlace = :departurePlace)
         AND (:arrivalPlace IS NULL OR t.arrivalPlace = :arrivalPlace)
-        AND (:departureTime IS NULL OR CAST(t.departureTime AS date) = :departureTime)
+        AND (cast(:departureTime as date) IS NULL OR CAST(t.departureTime AS date) = :departureTime)
     """)
     Page<GetTripDto> filterTripsByDeparturePlaceArrivalPlaceAndDepartureTime(
             Pageable pageable,
@@ -55,6 +58,7 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
             String arrivalPlace,
             LocalDate departureTime
     );
+
 
     @Query("""
     SELECT new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto(
@@ -77,5 +81,10 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
     WHERE d.id = :id
     """)
     Page<GetTripDto> findTripsByDriverId(@Param("id") UUID id, Pageable pageable);
+
+    @Query("SELECT t FROM Trip t LEFT JOIN FETCH t.driver LEFT JOIN FETCH t.reserves WHERE t.id = :id")
+    Trip findByIdWithDriverAndReserves(@Param("id") UUID id);
 }
+
+
 

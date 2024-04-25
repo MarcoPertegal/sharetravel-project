@@ -29,19 +29,20 @@ public class Trip {
 
     private String arrivalPlace;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime departureTime;
 
     private int estimatedDuration;//EN MINUTOS
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime arrivalTime;
 
     private double price;
 
     private String tripDescription;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id", nullable = false)
     private Driver driver;
 
     @ToString.Exclude

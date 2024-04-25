@@ -1,6 +1,8 @@
 package com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh;
 
+import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
+import com.salesianostriana.dam.sharetravelBackend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
@@ -18,6 +20,7 @@ public class RefreshTokenService {
     //tambien se crea el token de refresco y se verifica
 
     private final RefreshTokenRepository refreshTokenRepository;
+    private final UserRepository userRepository;
 
     //esto se llama desde el application properties
     @Value("${jwt.refresh.duration}")
@@ -34,17 +37,21 @@ public class RefreshTokenService {
     }
 
     //creamos el token del usuario
-    public RefreshToken createRefreshToken(User user){
-        RefreshToken refreshToken = new RefreshToken();
-        //aqui se crea se setea un uuid aleatorio y un fecha de expiración basandonos en el applicationproperties
-        refreshToken.setUser(user);
-        refreshToken.setToken(UUID.randomUUID().toString());
-        refreshToken.setExpiryDate(Instant.now().plusSeconds(durationInMinutes * 60));
-
-        refreshToken = refreshTokenRepository.save(refreshToken);
-
-        return refreshToken;
+    @Transactional
+    public RefreshToken createRefreshToken(UUID userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            RefreshToken refreshToken = new RefreshToken();
+            refreshToken.setUser(user);
+            refreshToken.setToken(UUID.randomUUID().toString());
+            refreshToken.setExpiryDate(Instant.now().plusSeconds(durationInMinutes * 60));
+            return refreshTokenRepository.save(refreshToken);
+        } else {
+            throw new UserNotFoundException("User not found with ID: " + userId);
+        }
     }
+
 
     //verificar el token
     public RefreshToken verify(RefreshToken refreshToken){
