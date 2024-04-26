@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class RatingErrorControllerAdvice {
-    @ExceptionHandler({EmptyRatingListException.class})
+    @ExceptionHandler({EmptyRatingListException.class, RatingNotFoundException.class})
     public ResponseEntity<?> handleRatingNotFoundExceptions(Exception ex, HttpServletRequest request){
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ExceptionMessage.of(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI()));
