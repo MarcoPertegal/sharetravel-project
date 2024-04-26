@@ -71,7 +71,7 @@ public class PassengerController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
         refreshTokenService.deleteByUser(passenger);
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(passenger);
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(passenger.getId());
 
 
         return ResponseEntity.status(HttpStatus.CREATED).body(JwtUserResponse.of(passenger, token, refreshToken.getToken()));

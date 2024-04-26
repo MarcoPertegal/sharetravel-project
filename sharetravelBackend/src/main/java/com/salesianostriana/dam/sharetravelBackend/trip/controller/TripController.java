@@ -443,6 +443,4 @@ public class TripController {
         tripService.deleteByTripId(user, UUID.fromString(id));
         return ResponseEntity.noContent().build();
     }
-
-
 }
