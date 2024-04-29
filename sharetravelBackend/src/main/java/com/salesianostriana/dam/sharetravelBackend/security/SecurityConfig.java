@@ -104,11 +104,12 @@ public class SecurityConfig {
         return (web -> web.ignoring()
                 .requestMatchers(
                         antMatcher("/h2-console/**"),
-                        antMatcher("/docs"),
+                        antMatcher("/api-docs"),
                         antMatcher("/auth/register/**"),
                         antMatcher("/auth/login"),
                         antMatcher("/error"),
-                        antMatcher("/refreshtoken")
+                        antMatcher("/refreshtoken"),
+                        antMatcher("/swagger-ui.html")
                 ));
 
     }
