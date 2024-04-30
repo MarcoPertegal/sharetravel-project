@@ -231,4 +231,30 @@ public class RatingController {
     public ResponseEntity<GetRatingBasicDataDto> editRating(@AuthenticationPrincipal User user, @PathVariable String id, @Valid @RequestBody NewRatingDto newRatingDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.editRating(UUID.fromString(id), newRatingDto));
     }
+
+    @Operation(summary = "Get rating by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Rating has been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetRatingBasicDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                              {
+                                                  "id": "d42504ee-dc7f-4025-beff-6ec4af0f567d",
+                                                  "ratingDate": "2024-05-01T22:22:00",
+                                                  "ratingValue": 4.6,
+                                                  "feedback": "An enjoyable and pleasant trip, I recommend it"
+                                              }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "Rating dont found",
+                    content = @Content)
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<GetRatingBasicDataDto> findRatingById(@PathVariable String id){
+        return ResponseEntity.ok(ratingService.findById(UUID.fromString(id)));
+    }
 }
