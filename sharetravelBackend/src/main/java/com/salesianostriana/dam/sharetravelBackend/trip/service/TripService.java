@@ -79,8 +79,7 @@ public class TripService {
 
         Optional<Driver> optionalDriver = driverRepository.findById(driverId);
         Driver driver = optionalDriver.orElseThrow(() -> new UserNotFoundException("no driver match this id"+ driverId));
-        //demomento no seteo ninguna reserva porque el viaje es nuevo comprobar si se le pueden
-        //hacer reservas a este viaje
+
         Trip newTrip = Trip.builder()
                 .departurePlace(createTripDto.departurePlace())
                 .arrivalPlace(createTripDto.arrivalPlace())
@@ -121,7 +120,6 @@ public class TripService {
         if (user.getRoles().toString().equals("[PASSENGER]")) {
             throw new UserNotAllowedException("A passenger cant edit trips");
         }
-
 
         Optional<Trip> optionalTrip = tripRepository.findById(id);
         Trip editTrip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ id));

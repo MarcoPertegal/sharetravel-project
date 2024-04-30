@@ -1,11 +1,10 @@
 package com.salesianostriana.dam.sharetravelBackend.rating.controller;
 
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.CreateRatingDto;
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingByDriverIdDto;
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.NewRatingDto;
+import com.salesianostriana.dam.sharetravelBackend.rating.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.rating.service.RatingService;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -23,6 +22,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -202,5 +203,58 @@ public class RatingController {
     @GetMapping("/driver")
     public ResponseEntity<Page<GetRatingByDriverIdDto>> findReserveByDriverId(@PageableDefault(page = 0, size = 8) Pageable p, @AuthenticationPrincipal User user){
         return ResponseEntity.ok(ratingService.getRatingByDriverIdDto(p, user));
+    }
+
+    @Operation(summary = "Edit rating by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode ="201",
+                    description = "Rating has been edited",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = CreateTripDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                 "id": "d42504ee-dc7f-4025-beff-6ec4af0f567d",
+                                                 "ratingDate": "2024-05-01T22:22:00",
+                                                 "ratingValue": 4.0,
+                                                 "feedback": "Una descripción para un viaje"
+                                             }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "Rating not found",
+                    content = @Content),
+    })
+    @CrossOrigin
+    @PutMapping("/{id}")
+    public ResponseEntity<GetRatingBasicDataDto> editRating(@AuthenticationPrincipal User user, @PathVariable String id, @Valid @RequestBody NewRatingDto newRatingDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.editRating(UUID.fromString(id), newRatingDto));
+    }
+
+    @Operation(summary = "Get rating by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Rating has been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetRatingBasicDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                              {
+                                                  "id": "d42504ee-dc7f-4025-beff-6ec4af0f567d",
+                                                  "ratingDate": "2024-05-01T22:22:00",
+                                                  "ratingValue": 4.6,
+                                                  "feedback": "An enjoyable and pleasant trip, I recommend it"
+                                              }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "Rating dont found",
+                    content = @Content)
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<GetRatingBasicDataDto> findRatingById(@PathVariable String id){
+        return ResponseEntity.ok(ratingService.findById(UUID.fromString(id)));
     }
 }

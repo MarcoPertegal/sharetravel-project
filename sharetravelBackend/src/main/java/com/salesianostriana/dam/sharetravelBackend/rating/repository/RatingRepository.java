@@ -53,4 +53,5 @@ public interface RatingRepository extends JpaRepository<Rating, UUID> {
             WHERE r.driver.id = :id
             """)
     Page<GetRatingByDriverIdDto> findRatingsWithPassengerByDriverId(@Param("id") UUID id, Pageable pageable);
+
 }

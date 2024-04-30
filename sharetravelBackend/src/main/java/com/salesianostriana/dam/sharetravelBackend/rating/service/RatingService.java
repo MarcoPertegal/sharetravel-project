@@ -1,21 +1,25 @@
 package com.salesianostriana.dam.sharetravelBackend.rating.service;
 
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.CreateRatingDto;
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingByDriverIdDto;
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.NewRatingDto;
+import com.salesianostriana.dam.sharetravelBackend.rating.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.DuplicateRatingException;
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.EmptyRatingListException;
+import com.salesianostriana.dam.sharetravelBackend.rating.exception.RatingNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.rating.repository.RatingRepository;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
+import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetDriverByTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetPassengerByTripDto;
+import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotAllowedException;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.PassengerRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -83,6 +87,35 @@ public class RatingService {
             throw new EmptyRatingListException("You dont have any ratings yet");
         }
         return result;
+    }
+
+    @Transactional
+    public GetRatingBasicDataDto editRating(UUID id,NewRatingDto newRatingDto){
+
+        Optional<Rating> optionalRating = ratingRepository.findById(id);
+        Rating editRating = optionalRating.orElseThrow(() -> new RatingNotFoundException("no nating match this id: "+ id));
+
+        editRating.setRatingValue(newRatingDto.ratingValue());
+        editRating.setFeedback(newRatingDto.feedback());
+        Rating savedRating = ratingRepository.save(editRating);
+
+        return GetRatingBasicDataDto.builder()
+                .id(savedRating.getId())
+                .ratingDate(savedRating.getRatingDate())
+                .feedback(savedRating.getFeedback())
+                .ratingValue(savedRating.getRatingValue())
+                .build();
+    }
+
+    public GetRatingBasicDataDto findById(UUID id){
+        Optional<Rating> optionalRating = ratingRepository.findById(id);
+        Rating rating = optionalRating.orElseThrow(() -> new RatingNotFoundException("no nating match this id: "+ id));
+        return GetRatingBasicDataDto.builder()
+                .id(rating.getId())
+                .ratingDate(rating.getRatingDate())
+                .ratingValue(rating.getRatingValue())
+                .feedback(rating.getFeedback())
+                .build();
     }
 
 }

@@ -56,7 +56,6 @@ export class TripPageComponent {
       },
       (error) => {
         console.error('Error retrieving trip details:', error);
-        alert('Failed to retrieve trip details. Please try again later.');
       }
     );
   }
@@ -110,7 +109,6 @@ export class TripPageComponent {
   deleteModal(deleteTrip: any, id: any) {
     this.tripId = id;
     this.modalService.open(deleteTrip);
-
   }
 
 }
