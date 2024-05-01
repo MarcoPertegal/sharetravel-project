@@ -75,4 +75,23 @@ export class RatingPageComponent {
   closeModal() {
     this.modalService.dismissAll();
   }
+
+  deleteRat() {
+    this.ratingService.deleteRatingById(this.ratingId).subscribe(
+      () => {
+        location.reload();
+      },
+      error => {
+        if (error.status === 404)
+          window.alert('No rating found with that id');
+        if (error.status === 400)
+          window.alert('Unexpected error');
+      }
+    );
+  }
+
+  deleteModal(deleteRating: any, id: any) {
+    this.ratingId = id;
+    this.modalService.open(deleteRating);
+  }
 }
