@@ -6,6 +6,7 @@ import com.salesianostriana.dam.sharetravelBackend.rating.exception.EmptyRatingL
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.RatingNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.rating.repository.RatingRepository;
+import com.salesianostriana.dam.sharetravelBackend.reserve.exception.ReserveNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
@@ -116,6 +117,13 @@ public class RatingService {
                 .ratingValue(rating.getRatingValue())
                 .feedback(rating.getFeedback())
                 .build();
+    }
+
+    public void deleteByRatingId (UUID id) {
+        if (!ratingRepository.existsById(id)){
+            throw new RatingNotFoundException("No rating found with that id");
+        }
+        ratingRepository.deleteById(id);
     }
 
 }
