@@ -1,7 +1,9 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.controller;
 
+import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
+import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveWithPassengerAndTripDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.NewReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.service.ReserveService;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
@@ -167,5 +169,28 @@ public class ReserveController {
     public ResponseEntity<?> deleteReserve(@PathVariable String id){
         reserveService.deleteByReserveId(UUID.fromString(id));
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Get all reserves")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Reserves have been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetReserveWithPassengerAndTripDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            
+                                               
+                                            
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "no reserves has been found",
+                    content = @Content),
+    })
+    @GetMapping("/")
+    public ResponseEntity<Page<GetReserveWithPassengerAndTripDto>> getAllReserves(@PageableDefault(page = 0, size = 8) Pageable p){
+        return ResponseEntity.ok(reserveService.getAllReserves(p));
     }
 }
