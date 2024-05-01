@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.repository;
 
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
+import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveWithPassengerAndTripDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
@@ -45,4 +46,25 @@ public interface ReserveRepository extends JpaRepository<Reserve, UUID> {
 
     @Query("SELECT r FROM Reserve r WHERE r.trip.id = :tripId")
     List<Reserve> findByTripId(UUID tripId);
+
+    @Query("""
+            SELECT new com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveWithPassengerAndTripDto(
+            r.id,
+            r.reserveDate,
+                new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripBasicDataDto(
+                    t.id,
+                    t.departurePlace,
+                    t.arrivalPlace,
+                    t.price
+                ),
+                new com.salesianostriana.dam.sharetravelBackend.user.dto.GetPassengerByTripDto(
+                        p.avatar,
+                        p.fullName
+                    )
+            )
+            FROM Reserve r
+                JOIN r.trip t
+                JOIN r.passenger p
+            """)
+    Page<GetReserveWithPassengerAndTripDto> findAllReserves(Pageable pageable);
 }
