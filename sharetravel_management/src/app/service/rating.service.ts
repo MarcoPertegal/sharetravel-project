@@ -57,7 +57,6 @@ export class RatingService {
           'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
         }
       });
-
   }
 
 }
