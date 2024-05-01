@@ -20,4 +20,13 @@ export class ReserveService {
         }
       });
   }
+  deleteReserveById(id: string) {
+    return this.http.delete(`${environment.HeadUrl}/reserve/${id}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
+        }
+      });
+  }
 }

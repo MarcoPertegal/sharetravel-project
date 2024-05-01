@@ -30,4 +30,27 @@ export class ReservePageComponent {
     });
   }
 
+  closeModal() {
+    this.modalService.dismissAll();
+  }
+
+  deleteRes() {
+    this.reserveService.deleteReserveById(this.reserveId).subscribe(
+      () => {
+        location.reload();
+      },
+      error => {
+        if (error.status === 404)
+          window.alert('No reserve found with that id');
+        if (error.status === 400)
+          window.alert('Unexpected error');
+      }
+    );
+  }
+
+  deleteModal(deleteReserve: any, id: any) {
+    this.reserveId = id;
+    this.modalService.open(deleteReserve);
+  }
+
 }
