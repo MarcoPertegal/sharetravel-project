@@ -49,4 +49,15 @@ export class RatingService {
     );
   }
 
+  deleteRatingById(id: string) {
+    return this.http.delete(`${environment.HeadUrl}/rating/${id}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
+        }
+      });
+
+  }
+
 }

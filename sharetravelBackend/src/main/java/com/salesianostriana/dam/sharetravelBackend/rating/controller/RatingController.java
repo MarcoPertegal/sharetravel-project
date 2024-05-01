@@ -257,4 +257,23 @@ public class RatingController {
     public ResponseEntity<GetRatingBasicDataDto> findRatingById(@PathVariable String id){
         return ResponseEntity.ok(ratingService.findById(UUID.fromString(id)));
     }
+
+    @Operation(summary = "Delete rating by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Rating delete successfully",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Rating not found",
+                    content = @Content
+            )
+    })
+    @CrossOrigin
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReserve(@PathVariable String id){
+        ratingService.deleteByRatingId(UUID.fromString(id));
+        return ResponseEntity.noContent().build();
+    }
 }
