@@ -1,8 +1,10 @@
 package com.salesianostriana.dam.sharetravelBackend.user.service;
 
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.CreateUserRequest;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.GetUserDetailsDto;
+import com.salesianostriana.dam.sharetravelBackend.user.dto.UserDataDto;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
@@ -10,12 +12,16 @@ import com.salesianostriana.dam.sharetravelBackend.user.model.UserRole;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -130,6 +136,32 @@ public class UserService {
                 .avatar(loggedUser.getAvatar())
                 .fullName(loggedUser.getFullName())
                 .averageRating(Double.toString(averageRating))
+                .build();
+    }
+
+    public Page<UserDataDto> getAllUsers(Pageable p){
+        List<User> result = userRepository.findAll();
+        if(result.isEmpty()){
+            throw new EmptyTripListException("no users has been found");
+        }
+        List<UserDataDto> userDataDtoList = result.stream()
+                .map(this::convertToUserDataDto)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(userDataDtoList, p, result.size());
+    }
+
+    private UserDataDto convertToUserDataDto(User user) {
+        return UserDataDto.builder()
+                .id(user.getId())
+                .avatar(user.getAvatar())
+                .username(user.getUsername())
+                .fullName(user.getFullName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .personalDescription(user.getPersonalDescription())
+                .roles(user.getRoles().toString())
+                .createdAt(user.getCreatedAt())
                 .build();
     }
 }

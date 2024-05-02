@@ -76,7 +76,7 @@ public class SecurityConfig {
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers(antMatcher("user/details")).hasAnyRole("PASSENGER", "DRIVER")
+                        .requestMatchers(antMatcher("/user/details")).hasAnyRole("PASSENGER", "DRIVER")
                         .requestMatchers(antMatcher("/trip/new")).hasRole("DRIVER")
                         .requestMatchers(antMatcher("/trip/")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/trip/driver")).hasRole("DRIVER")
@@ -85,6 +85,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/rating/driver")).hasRole("DRIVER")
                         .requestMatchers(antMatcher("/rating/new")).hasRole("PASSENGER")
                         .requestMatchers(antMatcher("/rating/**")).hasAnyRole("PASSENGER", "DRIVER", "ADMIN")
+                        .requestMatchers(antMatcher("/user/")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/auth/register/admin")).hasRole("ADMIN")
                         .anyRequest().authenticated());
 

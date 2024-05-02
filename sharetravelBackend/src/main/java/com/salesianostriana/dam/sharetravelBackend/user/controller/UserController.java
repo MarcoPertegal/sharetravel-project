@@ -5,6 +5,7 @@ import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshT
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenException;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenRequest;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenService;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.service.UserService;
@@ -16,6 +17,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.http.HttpStatus;
@@ -157,9 +161,114 @@ public class UserController {
                     description = "the user has not been found",
                     content = @Content),
     })
-    @GetMapping("user/details")
+    @GetMapping("/user/details")
     public ResponseEntity<GetUserDetailsDto> getLoggedUserDetails(@AuthenticationPrincipal User loggedUser) {
         return ResponseEntity.ok(userService.findLoggedById(loggedUser));
+    }
+
+    @Operation(summary = "Get all users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Users have been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "content": [
+                                                    {
+                                                        "id": "09fe7587-487a-49ba-8188-ec1a9ddc7b3f",
+                                                        "avatar": "https://previews.123rf.com/images/rawpixel/rawpixel1704/rawpixel170441704/76561515-retrato-de-personas-estudio-disparar-con-expresi%C3%B3n-de-cara-sonriente.jpg",
+                                                        "username": "marco123",
+                                                        "fullName": "Marco Pertegal Prieto",
+                                                        "email": "marco@gmail.com",
+                                                        "phoneNumber": "408452322",
+                                                        "personalDescription": "Reliable driver who values punctuality and silence during the journey. Efficient and uncomplicated routes, no room for unnecessary chatter.",
+                                                        "roles": "[DRIVER]",
+                                                        "createdAt": "2024-05-01T21:00:00"
+                                                    },
+                                                    {
+                                                        "id": "d85d42e8-5950-4b7a-9a1d-06716fa8ef47",
+                                                        "avatar": "https://www.redaccionmedica.com/images/destacados/las-personas-con-un-riesgo-genetico-bajo-de-tdah-son-mas-afortunadas--2868.jpg",
+                                                        "username": "miguel123",
+                                                        "fullName": "Miguel Campos González",
+                                                        "email": "miguel@gmail.com",
+                                                        "phoneNumber": "706424242",
+                                                        "personalDescription": "Road trip enthusiast who loves exploring new destinations. Offering a relaxed and friendly atmosphere. Ready to share road trip stories and interesting discoveries.",
+                                                        "roles": "[DRIVER]",
+                                                        "createdAt": "2024-05-01T21:00:00"
+                                                    },
+                                                    {
+                                                        "id": "0c0e22b3-92b0-413b-90bc-1fd837ba5fba",
+                                                        "avatar": "https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg",
+                                                        "username": "admin123",
+                                                        "fullName": null,
+                                                        "email": null,
+                                                        "phoneNumber": null,
+                                                        "personalDescription": null,
+                                                        "roles": "[ADMIN]",
+                                                        "createdAt": "2024-05-01T21:00:00"
+                                                    },
+                                                    {
+                                                        "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                                        "avatar": "https://f.rpp-noticias.io/2019/02/15/753300descarga-11jpg.jpg",
+                                                        "username": "fran123",
+                                                        "fullName": "Fran Ruíz Prieto",
+                                                        "email": "fran@gmail.com",
+                                                        "phoneNumber": "604234567",
+                                                        "personalDescription": "Relaxed traveler seeking peaceful experiences. Enjoying the scenery and soft music. A pleasant and calm companion for the journey.",
+                                                        "roles": "[PASSENGER]",
+                                                        "createdAt": "2024-05-01T21:00:00"
+                                                    },
+                                                    {
+                                                        "id": "ef9458e8-7834-4df8-ba48-79aadfaa42d3",
+                                                        "avatar": "https://www.laguiadelvaron.com/wp-content/uploads/2018/12/ai-image-generation-fake-faces-people-nvidia-5c18b20b472c2__700.jpg",
+                                                        "username": "fernando123",
+                                                        "fullName": "Fernando Pérez Gil",
+                                                        "email": "fernando@gmail.com",
+                                                        "phoneNumber": "606040205",
+                                                        "personalDescription": "Passionate about reading, always carrying a good book to immerse myself during the journey. Not much of a talker, but always ready to share literary recommendations.",
+                                                        "roles": "[PASSENGER]",
+                                                        "createdAt": "2024-05-01T21:00:00"
+                                                    }
+                                                ],
+                                                "pageable": {
+                                                    "pageNumber": 0,
+                                                    "pageSize": 8,
+                                                    "sort": {
+                                                        "empty": true,
+                                                        "unsorted": true,
+                                                        "sorted": false
+                                                    },
+                                                    "offset": 0,
+                                                    "paged": true,
+                                                    "unpaged": false
+                                                },
+                                                "last": true,
+                                                "totalPages": 1,
+                                                "totalElements": 5,
+                                                "size": 8,
+                                                "number": 0,
+                                                "sort": {
+                                                    "empty": true,
+                                                    "unsorted": true,
+                                                    "sorted": false
+                                                },
+                                                "first": true,
+                                                "numberOfElements": 5,
+                                                "empty": false
+                                            }
+                                            
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "no users has been found",
+                    content = @Content),
+    })
+    @GetMapping("/user/")
+    public ResponseEntity<Page<UserDataDto>> getAllUsers(@PageableDefault(page = 0, size = 8) Pageable p){
+        return ResponseEntity.ok(userService.getAllUsers(p));
     }
 
 
