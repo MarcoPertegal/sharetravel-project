@@ -3,6 +3,7 @@ package com.salesianostriana.dam.sharetravelBackend.user.dto;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +37,7 @@ public class CreateUserRequest {
 
     @NotBlank(message = "Phone number cannot be empty")
     @Digits(integer = 15, fraction = 0, message = "Phone number must contain only numeric characters")
+    @Size(max = 9, message = "The phone number cant contain more than 9 digits")
     private String phoneNumber;
 
     @NotBlank(message = "Personal description cannot be empty")

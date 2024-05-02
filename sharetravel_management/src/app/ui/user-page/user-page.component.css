@@ -1,0 +1,39 @@
+.avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 40px;
+    height: 40px;
+}
+
+.btn {
+    background-color: #00AF54;
+}
+
+.btn:hover {
+    background-color: #009648;
+}
+
+#btn-filter {
+    background-color: #FCA311;
+}
+
+#btn-filter:hover {
+    background-color: #ea9711;
+}
+
+ngb-pagination ::ng-deep .page-item.active .page-link {
+    background-color: #00AF54;
+}
+
+ngb-pagination ::ng-deep a.page-link {
+    color: black;
+}
+
+.container {
+    font-size: 10pt;
+}
+
+.modal-title {
+    color: #00AF54;
+    font-size: 30pt;
+}
