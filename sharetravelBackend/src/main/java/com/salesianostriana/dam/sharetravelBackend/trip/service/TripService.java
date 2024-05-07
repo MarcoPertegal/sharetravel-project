@@ -53,10 +53,8 @@ public class TripService {
     }
     @Transactional
     public GetTripDetailsDto getTripById(UUID id) {
-        Trip trip = tripRepository.findByIdWithDriverAndReserves(id);
-        if (trip == null) {
-            throw new EmptyTripListException("No trip matches this id");
-        }
+        Optional<Trip> optionalTrip = tripRepository.findByIdWithDriverAndReserves(id);
+        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("No trip matches this id: "+ id));
 
         return GetTripDetailsDto.builder()
                 .id(trip.getId())
@@ -160,6 +158,7 @@ public class TripService {
 
         tripReserves.forEach(reserveRepository::delete);
 
+        //si quito esta linea falla
         List<Reserve> tripReservesBorradas = reserveRepository.findByTripId(id);
 
         tripRepository.deleteById(trip.getId());

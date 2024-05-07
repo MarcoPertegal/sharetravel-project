@@ -1,11 +1,14 @@
 package com.salesianostriana.dam.sharetravelBackend.user.controller;
 
+import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingBasicDataDto;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.access.JwtProvider;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshToken;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenException;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenRequest;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenService;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.service.UserService;
@@ -16,6 +19,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +37,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -271,6 +276,57 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers(p));
     }
 
+    @Operation(summary = "Edit user by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode ="201",
+                    description = "User has been edited",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "User not found",
+                    content = @Content),
+    })
+    @CrossOrigin
+    @PutMapping("/user/{id}")
+    public ResponseEntity<UserDataDto> editUser(@PathVariable String id, @Valid @RequestBody EditUserDto editUserDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.editUser(UUID.fromString(id), editUserDto));
+    }
 
+    @Operation(summary = "Get user by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "User has been found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                              {
+                                                  "id": "09fe7587-487a-49ba-8188-ec1a9ddc7b3f",
+                                                  "avatar": "https://previews.123rf.com/images/rawpixel/rawpixel1704/rawpixel170441704/76561515-retrato-de-personas-estudio-disparar-con-expresi%C3%B3n-de-cara-sonriente.jpg",
+                                                  "username": "marco123",
+                                                  "fullName": "Marco Pertegal Prieto",
+                                                  "email": "marco@gmail.com",
+                                                  "phoneNumber": "408452322",
+                                                  "personalDescription": "Reliable driver who values punctuality and silence during the journey. Efficient and uncomplicated routes, no room for unnecessary chatter.",
+                                                  "roles": "[DRIVER]",
+                                                  "createdAt": "2024-05-01T21:00:00"
+                                              }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "User dont found",
+                    content = @Content)
+    })
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDataDto> findUserById(@PathVariable String id){
+        return ResponseEntity.ok(userService.getUserById(UUID.fromString(id)));
+    }
 
 }

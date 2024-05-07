@@ -110,7 +110,7 @@ public class RatingService {
 
     public GetRatingBasicDataDto findById(UUID id){
         Optional<Rating> optionalRating = ratingRepository.findById(id);
-        Rating rating = optionalRating.orElseThrow(() -> new RatingNotFoundException("no nating match this id: "+ id));
+        Rating rating = optionalRating.orElseThrow(() -> new RatingNotFoundException("no rating match this id: "+ id));
         return GetRatingBasicDataDto.builder()
                 .id(rating.getId())
                 .ratingDate(rating.getRatingDate())
