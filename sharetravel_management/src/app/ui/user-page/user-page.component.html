@@ -30,9 +30,9 @@
                     @for (u of userList; track $index) {
                     <tr>
                         <td class="pt-3">
-                            <img src={{u.avatar}} class="avatar" alt="Passenger avatar">
+                            <img src={{u.avatar}} class="avatar" alt="Avatar">
                         </td>
-                        <td class="pt-4">{{u.username| slice:0:10}}</td>
+                        <td class="pt-4">{{u.username| slice:0:14}}</td>
                         <td class="pt-4">{{u.fullName| slice:0:14}}</td>
                         <td class="pt-4">{{u.email| slice:0:18}}</td>
                         <td class="pt-4">{{u.phoneNumber}}</td>
@@ -57,8 +57,7 @@
                         </td>
                         <td class="pt-4">{{u.createdAt}}</td>
                         <td class="pt-3">
-                            <!-- <button type="button" class="btn" (click)="editModal(editTrip, t.id)"> -->
-                            <button type="button" class="btn">
+                            <button type="button" class="btn" (click)="editModal(editUser, u.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"
                                     class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path
@@ -92,40 +91,33 @@
         (pageChange)="loadNewPage()" aria-label="Default pagination"></ngb-pagination>
 </div>
 
-<!-- 
-    <ng-template #editTrip let-modal>
+<ng-template #editUser let-modal>
     <div>
-        <h4 class="modal-title p-3 fw-bold">Edit Trip</h4>
+        <h4 class="modal-title p-3 fw-bold">Edit User</h4>
     </div>
     <div class="modal-body">
-        <form id="modifyTrip" [formGroup]="modifyTrip" (ngSubmit)="editTr()">
+        <form id="modifyUser" [formGroup]="modifyUser" (ngSubmit)="editUs()">
             <div class="mb-3">
-                <input type="text" class="form-control" id="departurePlace" placeholder="Departure Place"
-                    formControlName="departurePlace" required>
-            </div>
-            <div class="mb-3">
-                <input type="text" class="form-control" id="arrivalPlace" placeholder="Arrival Place"
-                    formControlName="arrivalPlace" required>
+                <input type="text" class="form-control" id="avatar" placeholder="Avatar" formControlName="avatar"
+                    required>
             </div>
             <div class="mb-3">
-                <input type="text" class="form-control" id="departureTime" placeholder="YYYY-MM-DD"
-                    formControlName="departureTime" required>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <input type="number" class="form-control" id="estimatedDuration" placeholder="Estimated duration"
-                        formControlName="estimatedDuration" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <input type="number" class="form-control" id="price" placeholder="Price" formControlName="price"
-                        required>
-                </div>
+                <input type="text" class="form-control" id="fullName" placeholder="Full name" formControlName="fullName"
+                    required>
             </div>
             <div class="mb-3">
-                <textarea class="form-control" id="tripDescription" placeholder="Trip description"
-                    formControlName="tripDescription" required></textarea>
+                <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email"
+                    required>
             </div>
-            <button type="submit" class="btn w-100 mb-2" form="modifyTrip" [disabled]="!modifyTrip.valid">
+            <div class="mb-3">
+                <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number"
+                    formControlName="phoneNumber" required>
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" id="personalDescription" placeholder="Personal description"
+                    formControlName="personalDescription" required></textarea>
+            </div>
+            <button type="submit" class="btn w-100 mb-2" form="modifyUser" [disabled]="!modifyUser.valid">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-pencil-square"
                     viewBox="0 0 16 16">
                     <path
@@ -138,7 +130,6 @@
 
     </div>
 </ng-template>
- -->
 
 <!-- 
 <ng-template #deleteReserve let-modal>

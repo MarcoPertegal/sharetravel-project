@@ -1,16 +1,24 @@
 package com.salesianostriana.dam.sharetravelBackend.user.service;
 
+import com.salesianostriana.dam.sharetravelBackend.rating.exception.RatingNotFoundException;
+import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByTripDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
-import com.salesianostriana.dam.sharetravelBackend.user.dto.CreateUserRequest;
-import com.salesianostriana.dam.sharetravelBackend.user.dto.GetUserDetailsDto;
-import com.salesianostriana.dam.sharetravelBackend.user.dto.UserDataDto;
+import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
+import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
+import com.salesianostriana.dam.sharetravelBackend.user.dto.*;
+import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotAllowedException;
+import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.model.UserRole;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -152,6 +160,51 @@ public class UserService {
     }
 
     private UserDataDto convertToUserDataDto(User user) {
+        return UserDataDto.builder()
+                .id(user.getId())
+                .avatar(user.getAvatar())
+                .username(user.getUsername())
+                .fullName(user.getFullName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .personalDescription(user.getPersonalDescription())
+                .roles(user.getRoles().toString())
+                .createdAt(user.getCreatedAt())
+                .build();
+    }
+
+    @Transactional
+    public UserDataDto editUser(UUID id, EditUserDto editUserDto){
+
+        Optional<User> optionalUser = userRepository.findById(id);
+        User editUser = optionalUser.orElseThrow(() -> new UserNotFoundException("no user match this id"+ id));
+
+        editUser.setAvatar(editUserDto.avatar());
+        editUser.setFullName(editUserDto.fullName());
+        editUser.setEmail(editUserDto.email());
+        editUser.setPhoneNumber(editUserDto.phoneNumber());
+        editUser.setPersonalDescription(editUserDto.personalDescription());
+        User saverUser = userRepository.save(editUser);
+
+        return UserDataDto.builder()
+                .id(saverUser.getId())
+                .avatar(saverUser.getAvatar())
+                .username(saverUser.getUsername())
+                .fullName(saverUser.getFullName())
+                .email(saverUser.getEmail())
+                .phoneNumber(saverUser.getPhoneNumber())
+                .personalDescription(saverUser.getPersonalDescription())
+                .roles(saverUser.getRoles().toString())
+                .createdAt(saverUser.getCreatedAt())
+                .build();
+
+    }
+
+    @Transactional
+    public UserDataDto getUserById(UUID id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.orElseThrow(() -> new UserNotFoundException("no user match this id: "+ id));
+
         return UserDataDto.builder()
                 .id(user.getId())
                 .avatar(user.getAvatar())

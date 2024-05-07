@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface  TripRepository extends JpaRepository<Trip, UUID> {
@@ -82,8 +83,14 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
     """)
     Page<GetTripDto> findTripsByDriverId(@Param("id") UUID id, Pageable pageable);
 
-    @Query("SELECT t FROM Trip t LEFT JOIN FETCH t.driver LEFT JOIN FETCH t.reserves WHERE t.id = :id")
-    Trip findByIdWithDriverAndReserves(@Param("id") UUID id);
+    @Query("""
+            SELECT t 
+            FROM Trip t 
+            LEFT JOIN FETCH t.driver 
+            LEFT JOIN FETCH t.reserves 
+            WHERE t.id = :id
+            """)
+    Optional<Trip> findByIdWithDriverAndReserves(@Param("id") UUID id);
 }
 
 
