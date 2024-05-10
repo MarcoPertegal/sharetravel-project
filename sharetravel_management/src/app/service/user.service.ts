@@ -5,6 +5,7 @@ import { GetAllUsersResponse } from '../model/get-all-users-response.interface';
 import { environment } from '../../environments/environment.development';
 import { EditUserResponse } from '../model/edit-user-response.interface';
 import { GetUserByIDResponse } from '../model/get-user-by-id.interface';
+import { CreateAdminResponse } from '../model/create-admin.response';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +61,16 @@ export class UserService {
           'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
         }
       });
+  }
+
+  CreateAdmin(avatar: string, username: string, password: string, fullName: string): Observable<CreateAdminResponse> {
+    return this.http.post<CreateAdminResponse>(`${environment.HeadUrl}/auth/register/admin`,
+      {
+        "avatar": `${avatar}`,
+        "username": `${username}`,
+        "password": `${password}`,
+        "fullName": `${fullName}`
+      }
+    );
   }
 }

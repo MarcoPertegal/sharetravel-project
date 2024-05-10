@@ -106,4 +106,32 @@ export class UserPageComponent {
     this.userId = id;
     this.modalService.open(deleteUser);
   }
+
+  createModal(createAdmin: any) {
+    this.modalService.open(createAdmin);
+  }
+
+  newAdmin = new FormGroup({
+    avatar: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    fullName: new FormControl('', Validators.required),
+  })
+
+  createAd() {
+    this.userService.CreateAdmin(
+      this.newAdmin.value.avatar!,
+      this.newAdmin.value.username!,
+      this.newAdmin.value.password!,
+      this.newAdmin.value.fullName!,
+    ).subscribe(() => {
+      this.closeModal();
+      location.reload();
+    },
+      error => {
+        if (error.status === 400)
+          window.alert('Invalid data or something go wrong!!');
+      }
+    );
+  }
 }

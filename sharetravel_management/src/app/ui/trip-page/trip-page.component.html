@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<div class="container mt-5">
+<div class="container mt-5 pt-4">
     <div class="row">
         <aside class="col-md-offset-1 col-md-1 mt-5">
             <button type="button" id="btn-filter" class="btn">
@@ -30,9 +30,9 @@
                     <tr>
                         <td class="pt-4">{{t.departurePlace | slice:0:15}}</td>
                         <td class="pt-4">{{t.arrivalPlace | slice:0:15}}</td>
-                        <td class="pt-4">{{t.departureTime}}</td>
+                        <td class="pt-4">{{t.departureTime | date: 'dd/M/YYYY, hh:mm'}}</td>
                         <td class="pt-4">{{t.estimatedDuration}} min</td>
-                        <td class="pt-4">{{t.arrivalTime}}</td>
+                        <td class="pt-4">{{t.arrivalTime | date: 'dd/M/YYYY, hh:mm'}}</td>
                         <td class="pt-4">{{t.price}} €</td>
                         <td class="pt-4">{{t.description | slice:0:35}}</td>
                         <td class="pt-3">
