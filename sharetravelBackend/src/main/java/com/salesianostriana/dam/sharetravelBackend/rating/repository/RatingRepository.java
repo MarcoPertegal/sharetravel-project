@@ -58,4 +58,7 @@ public interface RatingRepository extends JpaRepository<Rating, UUID> {
 
     @Query("SELECT r FROM Rating r WHERE r.driver.id = :driverId")
     List<Rating> findByDriverId(UUID driverId);
+
+    @Query("SELECT r FROM Rating r WHERE r.passenger.id = :passengerId")
+    List<Rating> findByPassengerId(UUID passengerId);
 }

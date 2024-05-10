@@ -16,6 +16,7 @@ import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.trip.repository.TripRepository;
 import com.salesianostriana.dam.sharetravelBackend.trip.service.TripService;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.*;
+import com.salesianostriana.dam.sharetravelBackend.user.exception.UserCantBeDeleteException;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotAllowedException;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
@@ -230,12 +231,13 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteByUserId (UUID id) {
+    public void deleteByUserId (User loggedAdmin, UUID id) {
 
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElseThrow(() -> new UserNotFoundException("No user found with that id"));
 
         if (user.getRoles().toString().equals("[DRIVER]")){
+
 
             List<Rating> driverRatings = ratingRepository.findByDriverId(id);
             driverRatings.forEach(ratingRepository::delete);
@@ -245,15 +247,22 @@ public class UserService {
         }
 
         if (user.getRoles().toString().equals("[PASSENGER]")){
+
+            List<Rating> passengerRatings = ratingRepository.findByPassengerId(id);
+            passengerRatings.forEach(ratingRepository::delete);
+
             List<Reserve> passengerReserves = reserveRepository.findByPassengerId(id);
             passengerReserves.forEach(reserveRepository::delete);
+
+        }
+
+        //Comprobación para que un admin no se borre a sí mismo
+        if(loggedAdmin.getId().equals(id)){
+            throw new UserCantBeDeleteException("Logged admin cant delete himself");
         }
 
         //si el user se ha logueado hay que eliminarle el refresh token antes de borrarlo
         refreshTokenService.deleteByUser(user);
-
-        //Comprobación para que un admin no se borre a sí mismo
-
 
         userRepository.deleteById(user.getId());
     }

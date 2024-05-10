@@ -340,12 +340,17 @@ public class UserController {
                     responseCode = "404",
                     description = "User not found",
                     content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Logged admin cant delete himself",
+                    content = @Content
             )
     })
     @CrossOrigin
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable String id){
-        userService.deleteByUserId(UUID.fromString(id));
+    public ResponseEntity<?> deleteUser(@AuthenticationPrincipal User loggedAdmin,@PathVariable String id){
+        userService.deleteByUserId(loggedAdmin,UUID.fromString(id));
         return ResponseEntity.noContent().build();
     }
 

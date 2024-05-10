@@ -156,6 +156,7 @@ public class TripService {
 
         List<Reserve> tripReserves = reserveRepository.findByTripId(id);
 
+        //deleteAll? se supone que es más eficiente
         tripReserves.forEach(reserveRepository::delete);
 
         //si quito esta linea falla
