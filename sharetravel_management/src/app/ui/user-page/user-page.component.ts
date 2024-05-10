@@ -86,5 +86,24 @@ export class UserPageComponent {
     this.modalService.dismissAll();
   }
 
+  deleteUs() {
+    this.userService.deleteUserById(this.userId).subscribe(
+      () => {
+        location.reload();
+      },
+      error => {
+        if (error.status === 403)
+          window.alert('Logged admin cant delete himself!');
+        if (error.status === 404)
+          window.alert('No trip found with that id');
+        if (error.status === 400)
+          window.alert('Unexpected error');
+      }
+    );
+  }
 
+  deleteModal(deleteUser: any, id: any) {
+    this.userId = id;
+    this.modalService.open(deleteUser);
+  }
 }

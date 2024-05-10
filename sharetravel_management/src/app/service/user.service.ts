@@ -51,4 +51,14 @@ export class UserService {
       }
     );
   }
+
+  deleteUserById(id: string) {
+    return this.http.delete(`${environment.HeadUrl}/user/${id}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
+        }
+      });
+  }
 }
