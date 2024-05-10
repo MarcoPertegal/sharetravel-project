@@ -60,7 +60,6 @@ export class TripService {
           'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
         }
       });
-
   }
 
 }

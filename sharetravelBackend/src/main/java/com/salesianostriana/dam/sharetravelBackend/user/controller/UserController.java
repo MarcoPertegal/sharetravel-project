@@ -329,4 +329,29 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(UUID.fromString(id)));
     }
 
+
+    @Operation(summary = "Delete user by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "User delete successfully",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "User not found",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Logged admin cant delete himself",
+                    content = @Content
+            )
+    })
+    @CrossOrigin
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<?> deleteUser(@AuthenticationPrincipal User loggedAdmin,@PathVariable String id){
+        userService.deleteByUserId(loggedAdmin,UUID.fromString(id));
+        return ResponseEntity.noContent().build();
+    }
+
 }

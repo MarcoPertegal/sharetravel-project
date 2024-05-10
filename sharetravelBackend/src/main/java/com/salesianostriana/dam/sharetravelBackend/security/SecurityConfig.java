@@ -85,7 +85,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/rating/driver")).hasRole("DRIVER")
                         .requestMatchers(antMatcher("/rating/new")).hasRole("PASSENGER")
                         .requestMatchers(antMatcher("/rating/**")).hasAnyRole("PASSENGER", "DRIVER", "ADMIN")
-                        .requestMatchers(antMatcher("/user/")).hasRole("ADMIN")
+                        .requestMatchers(antMatcher("/user/**")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/auth/register/admin")).hasRole("ADMIN")
                         .anyRequest().authenticated());
 

@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
 @SuperBuilder
 public class Passenger extends User{
 

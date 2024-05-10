@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.repository;
 
+import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
@@ -11,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -91,6 +93,9 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
             WHERE t.id = :id
             """)
     Optional<Trip> findByIdWithDriverAndReserves(@Param("id") UUID id);
+
+    @Query("SELECT t FROM Trip t WHERE t.driver.id = :driverId")
+    List<Trip> findByDriverId(UUID driverId);
 }
 
 

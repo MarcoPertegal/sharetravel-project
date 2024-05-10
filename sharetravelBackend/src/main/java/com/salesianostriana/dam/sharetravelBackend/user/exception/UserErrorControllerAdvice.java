@@ -16,8 +16,8 @@ public class UserErrorControllerAdvice {
                 .body(ExceptionMessage.of(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI()));
     }
 
-    @ExceptionHandler({UserNotAllowedException.class})
-    public ResponseEntity<?> handleUserNotAllowedException(UserNotAllowedException ex, HttpServletRequest request){
+    @ExceptionHandler({UserNotAllowedException.class, UserCantBeDeleteException.class})
+    public ResponseEntity<?> handleUserNotAllowedException(Exception ex, HttpServletRequest request){
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(ExceptionMessage.of(HttpStatus.FORBIDDEN, ex.getMessage(), request.getRequestURI()));
     }

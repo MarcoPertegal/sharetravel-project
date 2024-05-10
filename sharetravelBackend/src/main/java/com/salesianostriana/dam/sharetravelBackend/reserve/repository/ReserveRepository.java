@@ -67,4 +67,7 @@ public interface ReserveRepository extends JpaRepository<Reserve, UUID> {
                 JOIN r.passenger p
             """)
     Page<GetReserveWithPassengerAndTripDto> findAllReserves(Pageable pageable);
+
+    @Query("SELECT r FROM Reserve r WHERE r.passenger.id = :passengerId")
+    List<Reserve> findByPassengerId(UUID passengerId);
 }
