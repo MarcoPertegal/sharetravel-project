@@ -106,7 +106,8 @@ public class SecurityConfig {
                 .requestMatchers(
                         antMatcher("/h2-console/**"),
                         antMatcher("/api-docs"),
-                        antMatcher("/auth/register/**"),
+                        antMatcher("/auth/register/driver"),
+                        antMatcher("/auth/register/passenger"),
                         antMatcher("/auth/login"),
                         antMatcher("/error"),
                         antMatcher("/refreshtoken"),

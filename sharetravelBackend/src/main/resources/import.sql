@@ -14,7 +14,7 @@ INSERT INTO user_entity (id, username, password, email, phone_number, personal_d
 INSERT INTO passenger (id) VALUES ('ef9458e8-7834-4df8-ba48-79aadfaa42d3');
 INSERT INTO user_roles (user_id, roles) VALUES ('ef9458e8-7834-4df8-ba48-79aadfaa42d3', 2);
 
-INSERT INTO user_entity (id, username, password, email, phone_number, personal_description, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, created_at) VALUES ('0c0e22b3-92b0-413b-90bc-1fd837ba5fba', 'admin123', '{bcrypt}$2a$12$XH8wT6/caAydqRgAMb1pn.B44Jby3J8b5Uz82kfqOh2QLmpJbpn1G', null, null, null, 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg', null, true, true, true, true, '2024-05-01T21:00:00');
+INSERT INTO user_entity (id, username, password, email, phone_number, personal_description, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, created_at) VALUES ('0c0e22b3-92b0-413b-90bc-1fd837ba5fba', 'admin123', '{bcrypt}$2a$12$XH8wT6/caAydqRgAMb1pn.B44Jby3J8b5Uz82kfqOh2QLmpJbpn1G', null, null, null, 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg', 'Felipe García Gómez', true, true, true, true, '2024-05-01T21:00:00');
 INSERT INTO user_roles (user_id, roles) VALUES ('0c0e22b3-92b0-413b-90bc-1fd837ba5fba', 0);
 
 INSERT INTO trip (id, departure_place, arrival_place, departure_time, estimated_duration, arrival_time, price, trip_description, driver_id) VALUES ('5d9458e8-7834-4df8-ba48-79aadfaa42d3', 'Seville', 'Sanlúcar de Barrameda', '2024-05-01T10:00:00', 120, '2024-05-01T12:00:00', 7, 'I have space for three passengers, no flexibility in the arrival place, and hand luggage only', '09fe7587-487a-49ba-8188-ec1a9ddc7b3f');
