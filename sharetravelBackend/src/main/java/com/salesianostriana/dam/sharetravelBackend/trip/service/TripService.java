@@ -120,9 +120,6 @@ public class TripService {
             throw new UserNotAllowedException("A passenger cant edit trips");
         }
 
-        LocalDateTime departureTimeString = createTripDto.departureTime();
-        //verificar
-
         Optional<Trip> optionalTrip = tripRepository.findById(id);
         Trip editTrip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ id));
 
