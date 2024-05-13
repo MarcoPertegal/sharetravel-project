@@ -67,8 +67,12 @@ export class RatingPageComponent {
       location.reload();
     },
       error => {
-        if (error.status === 400)
-          window.alert('Invalid data or something go wrong!!');
+        if (error.status === 400) {
+          const errorMessage = error.error.errors[0].defaultMessage;
+          window.alert(errorMessage);
+        } else {
+          window.alert('Something go wrong!!');
+        }
       }
     );
   }

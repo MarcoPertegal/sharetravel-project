@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -119,6 +120,9 @@ public class TripService {
             throw new UserNotAllowedException("A passenger cant edit trips");
         }
 
+        LocalDateTime departureTimeString = createTripDto.departureTime();
+        //verificar
+
         Optional<Trip> optionalTrip = tripRepository.findById(id);
         Trip editTrip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ id));
 
@@ -144,8 +148,9 @@ public class TripService {
                         ? GetDriverByTripDto.of(savedTrip.getDriver())
                         : null)
                 .build();
-
     }
+
+
     @Transactional
     public void deleteByTripId (User user, UUID id){
         if (user.getRoles().toString().equals("[PASSENGER]")) {

@@ -70,6 +70,12 @@ export class UserService {
         "username": `${username}`,
         "password": `${password}`,
         "fullName": `${fullName}`
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
+        }
       }
     );
   }
