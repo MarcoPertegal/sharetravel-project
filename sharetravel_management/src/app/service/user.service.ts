@@ -63,13 +63,16 @@ export class UserService {
       });
   }
 
-  CreateAdmin(avatar: string, username: string, password: string, fullName: string): Observable<CreateAdminResponse> {
+  CreateAdmin(avatar: string, username: string, password: string, fullName: string, email: string, phoneNumber: string, personalDescription: string): Observable<CreateAdminResponse> {
     return this.http.post<CreateAdminResponse>(`${environment.HeadUrl}/auth/register/admin`,
       {
         "avatar": `${avatar}`,
         "username": `${username}`,
         "password": `${password}`,
-        "fullName": `${fullName}`
+        "fullName": `${fullName}`,
+        "email": `${email}`,
+        "phoneNumber": `${phoneNumber}`,
+        "personalDescription": `${personalDescription}`
       },
       {
         headers: {

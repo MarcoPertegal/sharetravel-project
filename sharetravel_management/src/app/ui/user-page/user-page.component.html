@@ -180,6 +180,17 @@
                 <input type="text" class="form-control" id="fullName" placeholder="Full name" formControlName="fullName"
                     required>
             </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="email" placeholder="Email" formControlName="email" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="phoneNumber" placeholder="Phone number"
+                    formControlName="phoneNumber" required>
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" id="personalDescription" placeholder="Personal description"
+                    formControlName="personalDescription" required></textarea>
+            </div>
             <button type="submit" class="btn w-100 mb-2" form="newAdmin" [disabled]="!newAdmin.valid">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-pencil-square"
                     viewBox="0 0 16 16">
@@ -190,6 +201,5 @@
                 </svg>
             </button>
         </form>
-
     </div>
 </ng-template>

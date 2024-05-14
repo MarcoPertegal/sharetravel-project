@@ -88,7 +88,7 @@ export class TripPageComponent {
             const errorMessage = error.error.errors[0].defaultMessage;
             window.alert(errorMessage);
           } else {
-            window.alert('Invalid date time format!!');
+            window.alert('Invalid date time format');
           }
         } else {
           window.alert('Something go wrong!!');

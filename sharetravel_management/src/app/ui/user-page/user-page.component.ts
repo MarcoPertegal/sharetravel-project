@@ -124,6 +124,9 @@ export class UserPageComponent {
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     fullName: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    phoneNumber: new FormControl('', Validators.required),
+    personalDescription: new FormControl('', Validators.required)
   })
 
   createAd() {
@@ -132,14 +135,21 @@ export class UserPageComponent {
       this.newAdmin.value.username!,
       this.newAdmin.value.password!,
       this.newAdmin.value.fullName!,
+      this.newAdmin.value.email!,
+      this.newAdmin.value.phoneNumber!,
+      this.newAdmin.value.personalDescription!,
     ).subscribe(() => {
       this.closeModal();
       location.reload();
     },
       error => {
         if (error.status === 400) {
-          const errorMessage = error.error.message;
-          window.alert(errorMessage);
+          if (error.error.errors && error.error.errors.length > 0) {
+            const errorMessage = error.error.errors[0].defaultMessage;
+            window.alert(errorMessage);
+          } else {
+            window.alert(error.error.message);
+          }
         } else {
           window.alert('Something go wrong!!');
         }
