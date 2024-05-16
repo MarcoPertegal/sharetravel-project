@@ -22,7 +22,7 @@ ngb-pagination ::ng-deep a.page-link {
     color: black;
 }
 
-.container {
+.container-fluid {
     font-size: 10pt;
 }
 

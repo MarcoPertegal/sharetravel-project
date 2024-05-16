@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<div class="container mt-5">
+<div class="container-fluid mt-4 p-5">
     <div class="row">
         <aside class="col-md-offset-1 col-md-1 mt-5">
             <button type="button" id="btn-filter" class="btn">
@@ -26,7 +26,7 @@
                 <tbody>
                     @for (r of reserveList; track $index) {
                     <tr>
-                        <td class="pt-4">{{r.reserveDate}}</td>
+                        <td class="pt-4">{{r.reserveDate | date: 'dd/M/YYYY, hh:mm'}}</td>
                         <td class="pt-3">
                             <img src={{r.passenger.avatar}} class="avatar" alt="Passenger avatar">
                         </td>
@@ -52,11 +52,12 @@
             </table>
         </div>
     </div>
+    <div class="d-flex justify-content-center pt-3">
+        <ngb-pagination [collectionSize]="count" [pageSize]="8" [rotate]="true" [(page)]="pageNumber"
+            (pageChange)="loadNewPage()" aria-label="Default pagination"></ngb-pagination>
+    </div>
 </div>
-<div class="d-flex justify-content-center pt-3">
-    <ngb-pagination [collectionSize]="count" [pageSize]="8" [rotate]="true" [(page)]="pageNumber"
-        (pageChange)="loadNewPage()" aria-label="Default pagination"></ngb-pagination>
-</div>
+
 
 
 <ng-template #deleteReserve let-modal>

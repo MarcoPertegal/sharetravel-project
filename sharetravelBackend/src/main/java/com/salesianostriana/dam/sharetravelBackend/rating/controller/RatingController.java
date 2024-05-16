@@ -228,7 +228,7 @@ public class RatingController {
     })
     @CrossOrigin
     @PutMapping("/{id}")
-    public ResponseEntity<GetRatingBasicDataDto> editRating(@AuthenticationPrincipal User user, @PathVariable String id, @Valid @RequestBody NewRatingDto newRatingDto) {
+    public ResponseEntity<GetRatingBasicDataDto> editRating(@PathVariable String id, @Valid @RequestBody NewRatingDto newRatingDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ratingService.editRating(UUID.fromString(id), newRatingDto));
     }
 

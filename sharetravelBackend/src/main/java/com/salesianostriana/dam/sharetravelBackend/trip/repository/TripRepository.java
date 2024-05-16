@@ -83,19 +83,27 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
     LEFT JOIN t.driver d
     WHERE d.id = :id
     """)
-    Page<GetTripDto> findTripsByDriverId(@Param("id") UUID id, Pageable pageable);
+    Page<GetTripDto> findTripsByDriverId(UUID id, Pageable pageable);
 
     @Query("""
-            SELECT t 
-            FROM Trip t 
-            LEFT JOIN FETCH t.driver 
-            LEFT JOIN FETCH t.reserves 
+            SELECT t
+            FROM Trip t
+            LEFT JOIN FETCH t.driver
+            LEFT JOIN FETCH t.reserves
             WHERE t.id = :id
             """)
-    Optional<Trip> findByIdWithDriverAndReserves(@Param("id") UUID id);
+    Optional<Trip> findByIdWithDriverAndReserves(UUID id);
 
     @Query("SELECT t FROM Trip t WHERE t.driver.id = :driverId")
     List<Trip> findByDriverId(UUID driverId);
+
+    @Query("""
+            SELECT t
+            FROM Trip t
+            LEFT JOIN FETCH t.reserves
+            WHERE t.id = :id
+            """)
+    Optional<Trip> findByIdWithReserves(UUID id);
 }
 
 

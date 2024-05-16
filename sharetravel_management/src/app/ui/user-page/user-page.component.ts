@@ -77,8 +77,16 @@ export class UserPageComponent {
       location.reload();
     },
       error => {
-        if (error.status === 400)
-          window.alert('Invalid data or something go wrong!!');
+        if (error.status === 400) {
+          if (error.error.errors && error.error.errors.length > 0) {
+            const errorMessage = error.error.errors[0].defaultMessage;
+            window.alert(errorMessage);
+          } else {
+            window.alert('Invalid date time format!!');
+          }
+        } else {
+          window.alert('Something go wrong!!');
+        }
       }
     );
   }
@@ -105,5 +113,47 @@ export class UserPageComponent {
   deleteModal(deleteUser: any, id: any) {
     this.userId = id;
     this.modalService.open(deleteUser);
+  }
+
+  createModal(createAdmin: any) {
+    this.modalService.open(createAdmin);
+  }
+
+  newAdmin = new FormGroup({
+    avatar: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    fullName: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    phoneNumber: new FormControl('', Validators.required),
+    personalDescription: new FormControl('', Validators.required)
+  })
+
+  createAd() {
+    this.userService.CreateAdmin(
+      this.newAdmin.value.avatar!,
+      this.newAdmin.value.username!,
+      this.newAdmin.value.password!,
+      this.newAdmin.value.fullName!,
+      this.newAdmin.value.email!,
+      this.newAdmin.value.phoneNumber!,
+      this.newAdmin.value.personalDescription!,
+    ).subscribe(() => {
+      this.closeModal();
+      location.reload();
+    },
+      error => {
+        if (error.status === 400) {
+          if (error.error.errors && error.error.errors.length > 0) {
+            const errorMessage = error.error.errors[0].defaultMessage;
+            window.alert(errorMessage);
+          } else {
+            window.alert(error.error.message);
+          }
+        } else {
+          window.alert('Something go wrong!!');
+        }
+      }
+    );
   }
 }

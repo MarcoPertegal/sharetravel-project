@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -144,8 +145,8 @@ public class TripService {
                         ? GetDriverByTripDto.of(savedTrip.getDriver())
                         : null)
                 .build();
-
     }
+
     @Transactional
     public void deleteByTripId (User user, UUID id){
         if (user.getRoles().toString().equals("[PASSENGER]")) {
@@ -164,4 +165,16 @@ public class TripService {
 
         tripRepository.deleteById(trip.getId());
     }
+
+    //VER PORQUE LA AUNQUE LA CONSULTA FUNCIONE TRAYENDO LAS RESERVAS PETA
+    /*
+    @Transactional
+    public void deleteByTripId (User user, UUID id){
+        Optional <Trip> optionalTrip=tripRepository.findByIdWithReserves(id);
+        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("No trip matches this id: "+ id));
+
+        System.out.println("aaaaaaaaaaaaa "+trip.getReserves());
+        tripRepository.deleteById(trip.getId());
+    }*/
+
 }
