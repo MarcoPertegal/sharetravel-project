@@ -171,20 +171,6 @@ public class UserService {
         return new PageImpl<>(userDataDtoList, p, result.size());
     }
 
-    private UserDataDto convertToUserDataDto(User user) {
-        return UserDataDto.builder()
-                .id(user.getId())
-                .avatar(user.getAvatar())
-                .username(user.getUsername())
-                .fullName(user.getFullName())
-                .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
-                .personalDescription(user.getPersonalDescription())
-                .roles(user.getRoles().toString())
-                .createdAt(user.getCreatedAt())
-                .build();
-    }
-
     @Transactional
     public UserDataDto editUser(UUID id, EditUserDto editUserDto){
 
@@ -198,18 +184,7 @@ public class UserService {
         editUser.setPersonalDescription(editUserDto.personalDescription());
         User saverUser = userRepository.save(editUser);
 
-        return UserDataDto.builder()
-                .id(saverUser.getId())
-                .avatar(saverUser.getAvatar())
-                .username(saverUser.getUsername())
-                .fullName(saverUser.getFullName())
-                .email(saverUser.getEmail())
-                .phoneNumber(saverUser.getPhoneNumber())
-                .personalDescription(saverUser.getPersonalDescription())
-                .roles(saverUser.getRoles().toString())
-                .createdAt(saverUser.getCreatedAt())
-                .build();
-
+        return convertToUserDataDto(saverUser);
     }
 
     @Transactional
@@ -217,17 +192,7 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElseThrow(() -> new UserNotFoundException("no user match this id: "+ id));
 
-        return UserDataDto.builder()
-                .id(user.getId())
-                .avatar(user.getAvatar())
-                .username(user.getUsername())
-                .fullName(user.getFullName())
-                .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
-                .personalDescription(user.getPersonalDescription())
-                .roles(user.getRoles().toString())
-                .createdAt(user.getCreatedAt())
-                .build();
+        return convertToUserDataDto(user);
     }
 
     @Transactional
@@ -241,6 +206,8 @@ public class UserService {
 
             List<Rating> driverRatings = ratingRepository.findByDriverId(id);
             driverRatings.forEach(ratingRepository::delete);
+
+            //List<Rating> driverRatingBorrados = ratingRepository.findByDriverId(id);
 
             List<Trip> driverTrips = tripRepository.findByDriverId(id);
             driverTrips.forEach(trip -> tripService.deleteByTripId(user, trip.getId()));
@@ -265,5 +232,19 @@ public class UserService {
         refreshTokenService.deleteByUser(user);
 
         userRepository.deleteById(user.getId());
+    }
+
+    private UserDataDto convertToUserDataDto(User user) {
+        return UserDataDto.builder()
+                .id(user.getId())
+                .avatar(user.getAvatar())
+                .username(user.getUsername())
+                .fullName(user.getFullName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .personalDescription(user.getPersonalDescription())
+                .roles(user.getRoles().toString())
+                .createdAt(user.getCreatedAt())
+                .build();
     }
 }
