@@ -15,6 +15,7 @@ export class UserPageComponent {
   pageNumber: number = 0;
   count: number = 0;
   userId!: string;
+  filterRole: string = 'all';
 
   constructor(
     private userService: UserService,
@@ -26,7 +27,7 @@ export class UserPageComponent {
   }
 
   loadNewPage() {
-    this.userService.GetAll(this.pageNumber - 1).subscribe(resp => {
+    this.userService.GetAll(this.pageNumber - 1, this.filterRole).subscribe(resp => {
       this.userList = resp.content;
       this.count = resp.totalElements;
     });
@@ -155,5 +156,16 @@ export class UserPageComponent {
         }
       }
     );
+  }
+
+  filterModal(filterUser: any) {
+    this.modalService.open(filterUser);
+  }
+
+  onRoleChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    this.filterRole = target.value;
+    this.loadNewPage();
+    this.closeModal();
   }
 }

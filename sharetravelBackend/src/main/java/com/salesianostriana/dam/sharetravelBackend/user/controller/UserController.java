@@ -1,14 +1,10 @@
 package com.salesianostriana.dam.sharetravelBackend.user.controller;
 
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingBasicDataDto;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.access.JwtProvider;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshToken;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenException;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenRequest;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenService;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.service.UserService;
@@ -271,9 +267,9 @@ public class UserController {
                     description = "no users has been found",
                     content = @Content),
     })
-    @GetMapping("/user/")
-    public ResponseEntity<Page<UserDataDto>> getAllUsers(@PageableDefault(page = 0, size = 8) Pageable p){
-        return ResponseEntity.ok(userService.getAllUsers(p));
+    @GetMapping("/user/filter")
+    public ResponseEntity<Page<UserDataDto>> getAllUsers(@PageableDefault(page = 0, size = 8) Pageable p,  @RequestParam String filterRole){
+        return ResponseEntity.ok(userService.getAllUsers(p, filterRole));
     }
 
     @Operation(summary = "Edit user by id")
