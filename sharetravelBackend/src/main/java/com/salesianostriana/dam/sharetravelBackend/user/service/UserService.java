@@ -1,23 +1,15 @@
 package com.salesianostriana.dam.sharetravelBackend.user.service;
 
-import com.salesianostriana.dam.sharetravelBackend.rating.exception.RatingNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.rating.repository.RatingRepository;
-import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByTripDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
 import com.salesianostriana.dam.sharetravelBackend.reserve.repository.ReserveRepository;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.refresh.RefreshTokenService;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetAllTripsDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDetailsDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.exception.EmptyTripListException;
-import com.salesianostriana.dam.sharetravelBackend.trip.exception.TripNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.trip.model.Trip;
 import com.salesianostriana.dam.sharetravelBackend.trip.repository.TripRepository;
 import com.salesianostriana.dam.sharetravelBackend.trip.service.TripService;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserCantBeDeleteException;
-import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotAllowedException;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
@@ -159,16 +151,24 @@ public class UserService {
                 .build();
     }
 
-    public Page<UserDataDto> getAllUsers(Pageable p){
-        List<User> result = userRepository.findAll();
-        if(result.isEmpty()){
-            throw new EmptyTripListException("no users has been found");
+    public Page<UserDataDto> getAllUsers(Pageable p, String filterRole) {
+        Page<User> queryResult;
+        if (Arrays.stream(UserRole.values()).anyMatch(enumValue -> enumValue.name().equals(filterRole.toUpperCase()))) {
+            UserRole roles = UserRole.valueOf(filterRole.toUpperCase());
+            queryResult = userRepository.findByRoles(roles, p);
+        } else {
+            queryResult = userRepository.findAll(p);
         }
-        List<UserDataDto> userDataDtoList = result.stream()
+
+        if (queryResult.isEmpty()) {
+            throw new EmptyTripListException("No users have been found");
+        }
+
+        List<UserDataDto> userDataDtoList = queryResult.stream()
                 .map(this::convertToUserDataDto)
                 .collect(Collectors.toList());
 
-        return new PageImpl<>(userDataDtoList, p, result.size());
+        return new PageImpl<>(userDataDtoList, p, queryResult.getTotalElements());
     }
 
     @Transactional

@@ -2,14 +2,14 @@
 <div class="container-fluid mt-4 p-5">
     <div class="row">
         <aside class="col-md-offset-1 col-md-1 mt-5">
-            <button type="button" id="btn-filter" class="btn">
+            <button type="button" id="btn-filter" class="btn" (click)="createModal(filterUser)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-search"
                     viewBox="0 0 16 16">
                     <path
                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                 </svg>
             </button>
-            <button type="button" id="btn-admin" class="btn mt-2" (click)="createModal(createAdmin)">
+            <button type="button" id="btn-admin" class="btn mt-2" (click)="filterModal(createAdmin)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-shield-shaded"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -161,7 +161,7 @@
 
 <ng-template #createAdmin let-modal>
     <div>
-        <h1 class="modal-title p-3 fw-bold">Edit User</h1>
+        <h1 class="modal-title p-3 fw-bold">Create Admin</h1>
     </div>
     <div class="modal-body">
         <form id="newAdmin" [formGroup]="newAdmin" (ngSubmit)="createAd()">
@@ -202,5 +202,22 @@
                 </svg>
             </button>
         </form>
+    </div>
+</ng-template>
+
+<ng-template #filterUser let-modal>
+    <div>
+        <h1 class="modal-title p-3 fw-bold">Filter UseRole</h1>
+    </div>
+    <div class="modal-body mb-2">
+        <div class="form-group">
+            <select id="roleSelect" class="form-control" (change)="onRoleChange($event)">
+                <option>Select role</option>
+                <option value="all">All</option>
+                <option value="admin">Admin</option>
+                <option value="driver">Driver</option>
+                <option value="passenger">Passenger</option>
+            </select>
+        </div>
     </div>
 </ng-template>

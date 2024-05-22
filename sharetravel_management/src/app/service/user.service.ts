@@ -14,8 +14,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  GetAll(page: number): Observable<GetAllUsersResponse> {
-    return this.http.get<GetAllUsersResponse>(`${environment.HeadUrl}/user/?page=${page}`,
+  GetAll(page: number, filterRole: string): Observable<GetAllUsersResponse> {
+    return this.http.get<GetAllUsersResponse>(`${environment.HeadUrl}/user/filter?filterRole=${filterRole}&page=${page}`,
       {
         headers: {
           accept: 'application/json',
