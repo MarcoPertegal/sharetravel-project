@@ -62,4 +62,15 @@ export class TripService {
       });
   }
 
+  filterTrip(departurePlace: string, arrivalPlace: string, departureDate: string, page: number): Observable<GetAllTripsResponse> {
+    return this.http.get<GetAllTripsResponse>(`${environment.HeadUrl}/trip/filter?departurePlace=${departurePlace}&arrivalPlace=${arrivalPlace}&departureDate=${departureDate}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
+        }
+      }
+    );
+  }
+
 }
