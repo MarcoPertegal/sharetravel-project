@@ -1,6 +1,5 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.service;
 
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.EmptyRatingListException;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
@@ -35,10 +34,10 @@ public class ReserveService {
 
     public CreateReserveDto createReserve (UUID passengerId, UUID tripId){
         Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
-        Passenger passenger = optionalPassenger.orElseThrow(() -> new UserNotFoundException("no passenger match this id"+ passengerId));
+        Passenger passenger = optionalPassenger.orElseThrow(() -> new UserNotFoundException("no passenger match this id: "+ passengerId));
 
         Optional<Trip> optionalTrip = tripRepository.findById(tripId);
-        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ tripId));
+        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id: "+ tripId));
 
         boolean hasReserved = reserveRepository.existsByPassengerAndTrip(passenger, trip);
         if (hasReserved) {
@@ -78,7 +77,7 @@ public class ReserveService {
     public Page<GetReserveWithPassengerAndTripDto> getAllReserves(Pageable p){
         Page<GetReserveWithPassengerAndTripDto> result = reserveRepository.findAllReserves(p);
         if(result.isEmpty()){
-            throw new EmptyRatingListException("no reserves has been found");
+            throw new ReserveNotFoundException("no reserves has been found");
         }
         return result;
     }

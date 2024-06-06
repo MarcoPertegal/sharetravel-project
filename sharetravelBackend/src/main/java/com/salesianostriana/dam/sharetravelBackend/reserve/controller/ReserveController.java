@@ -1,6 +1,5 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.controller;
 
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveWithPassengerAndTripDto;
@@ -179,9 +178,77 @@ public class ReserveController {
                             array = @ArraySchema(schema = @Schema(implementation = GetReserveWithPassengerAndTripDto.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            
-                                               
-                                            
+                                            {
+                                                "content": [
+                                                    {
+                                                        "id": "100a570a-3b5f-4b51-ace0-44c8dd7580db",
+                                                        "reserveDate": "2024-04-29T17:15:00",
+                                                        "trip": {
+                                                            "id": "5d9458e8-7834-4df8-ba48-79aadfaa42d3",
+                                                            "departurePlace": "Seville",
+                                                            "arrivalPlace": "Sanlúcar de Barrameda",
+                                                            "price": 7.0
+                                                        },
+                                                        "passenger": {
+                                                            "avatar": "https://f.rpp-noticias.io/2019/02/15/753300descarga-11jpg.jpg",
+                                                            "fullName": "Fran Ruíz Prieto"
+                                                        }
+                                                    },
+                                                    {
+                                                        "id": "9fedff98-d9f4-46b7-809c-cce716ed6699",
+                                                        "reserveDate": "2024-05-01T17:19:00",
+                                                        "trip": {
+                                                            "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d4",
+                                                            "departurePlace": "Seville",
+                                                            "arrivalPlace": "Sanlúcar de Barrameda",
+                                                            "price": 8.0
+                                                        },
+                                                        "passenger": {
+                                                            "avatar": "https://f.rpp-noticias.io/2019/02/15/753300descarga-11jpg.jpg",
+                                                            "fullName": "Fran Ruíz Prieto"
+                                                        }
+                                                    },
+                                                    {
+                                                        "id": "ba262511-1e49-4ebf-bfba-930b86e1a092",
+                                                        "reserveDate": "2024-04-29T10:30:00",
+                                                        "trip": {
+                                                            "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d4",
+                                                            "departurePlace": "Seville",
+                                                            "arrivalPlace": "Sanlúcar de Barrameda",
+                                                            "price": 8.0
+                                                        },
+                                                        "passenger": {
+                                                            "avatar": "https://www.laguiadelvaron.com/wp-content/uploads/2018/12/ai-image-generation-fake-faces-people-nvidia-5c18b20b472c2__700.jpg",
+                                                            "fullName": "Fernando Pérez Gil"
+                                                        }
+                                                    }
+                                                ],
+                                                "pageable": {
+                                                    "pageNumber": 0,
+                                                    "pageSize": 8,
+                                                    "sort": {
+                                                        "empty": true,
+                                                        "unsorted": true,
+                                                        "sorted": false
+                                                    },
+                                                    "offset": 0,
+                                                    "unpaged": false,
+                                                    "paged": true
+                                                },
+                                                "totalPages": 1,
+                                                "totalElements": 3,
+                                                "last": true,
+                                                "size": 8,
+                                                "number": 0,
+                                                "sort": {
+                                                    "empty": true,
+                                                    "unsorted": true,
+                                                    "sorted": false
+                                                },
+                                                "numberOfElements": 3,
+                                                "first": true,
+                                                "empty": false
+                                            }
                                             """
                             )}
                     )}),

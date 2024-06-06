@@ -1,6 +1,5 @@
 package com.salesianostriana.dam.sharetravelBackend.trip.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import jakarta.persistence.*;
