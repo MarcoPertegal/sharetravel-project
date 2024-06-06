@@ -10,6 +10,10 @@ Usuario conductor:
 Usuario pasajero:
 - user: fran123
 - contraseña: 1
+
+Usuario admin:
+- user: admin123
+- contraseña: 1
   
 ## Índice:
 - Descripción del Proyecto
@@ -46,13 +50,12 @@ Desde la raíz del proyecto, realiza el comando `docker-compose up -d`.
 
 ## Tecnologías Utilizadas
 El proyecto se realizó con las siguientes tecnologías:
-Back:
+
 - Spring Boot, Java, Lombok, JWT Security, Postgres
-Front:
-- Flutter, Dart
+- Flutter, Dart, Angular
 
 ## Personas Desarrolladoras del Proyecto
-El proyecto fue realizado por Marco Pertegal Prieto.
+- Marco Pertegal Prieto.
 
 ## Licencia
 Creative Commons
