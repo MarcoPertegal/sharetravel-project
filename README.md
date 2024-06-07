@@ -66,7 +66,7 @@ Actualmente, el proyecto se encuentra finalizado.
 
 - **ANGULAR**
 
-Pantallas Rol Admin:
+### Pantallas Rol Admin:
 - Trip page**: listado con toda la información relevante de los viajes publicados de la aplicación, se podrá realizar un filtrado por lugar de salida lugar de llegada y fecha de salida, se podrán editar los viajes y eliminarlos.
 - Reserve page: listado con la información relevante de todas las reservas realizadas, se podrán buscar las reservas por el nombre del pasajero, así como eliminar cualquier reserva.
 - Rating page: listado con toda la información relevante de las valoraciones, se podrán buscar las valoraciones que tiene un conductor y las que ha realizado un pasajero, además de editarlas y eliminarlas.
