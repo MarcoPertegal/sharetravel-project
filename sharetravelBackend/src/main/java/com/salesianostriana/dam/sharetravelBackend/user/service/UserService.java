@@ -207,7 +207,7 @@ public class UserService {
             List<Rating> driverRatings = ratingRepository.findByDriverId(id);
             driverRatings.forEach(ratingRepository::delete);
 
-            //List<Rating> driverRatingBorrados = ratingRepository.findByDriverId(id);
+            List<Rating> driverRatingBorrados = ratingRepository.findByDriverId(id);
 
             List<Trip> driverTrips = tripRepository.findByDriverId(id);
             driverTrips.forEach(trip -> tripService.deleteByTripId(user, trip.getId()));
