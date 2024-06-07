@@ -26,7 +26,6 @@ class DriverRatingsRepositoryImpl extends DriverRatingsRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return DriverRatingsResponse.fromJson(response.body);
     } else {
       final jsonResponse = json.decode(response.body);

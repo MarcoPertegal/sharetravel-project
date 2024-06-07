@@ -30,7 +30,6 @@ class CreateReserveRepositoryImpl extends CreateReserveRepository {
       body: jsonBody,
     );
     if (response.statusCode == 201) {
-      print(response.body);
       return CreateReserveResponse.fromJson(response.body);
     } else {
       final jsonResponse = json.decode(response.body);

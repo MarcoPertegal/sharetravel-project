@@ -89,7 +89,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
                           MaterialPageRoute(
                               builder: (context) => ErrorPage(
                                   errorMessage: errorMessage +
-                                      "solo hay viajes para el 1 de mayo")),
+                                      " (solo hay viajes para el 1 de septiembre)")),
                         );
                       });
                     } else if (state is DoFilterTripsLoading) {

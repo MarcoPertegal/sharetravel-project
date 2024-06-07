@@ -22,7 +22,6 @@ class DeleteReserveRepositoryImpl extends DeleteReserveRepository {
       },
     );
     if (response.statusCode == 204) {
-      print("BORRAO");
     } else {
       throw Exception('Failed to delete the reserve');
     }

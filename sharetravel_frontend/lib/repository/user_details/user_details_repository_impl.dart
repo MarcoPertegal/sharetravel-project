@@ -24,7 +24,6 @@ class UserDetailsRepositoryImpl extends UserDetailsRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return UserDetailsResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to do user details request');

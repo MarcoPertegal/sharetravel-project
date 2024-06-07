@@ -29,7 +29,6 @@ class CreateTripRepositoryImpl extends CreateTripRepository {
       body: jsonBody,
     );
     if (response.statusCode == 201) {
-      print(response.body);
       return CreateTripResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to create a new trip');

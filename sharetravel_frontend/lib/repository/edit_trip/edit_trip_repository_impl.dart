@@ -29,7 +29,6 @@ class EditTripRepositoryImpl extends EditTripRepository {
       body: jsonBody,
     );
     if (response.statusCode == 201) {
-      print(response.body);
       return EditTripResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to edit trip');

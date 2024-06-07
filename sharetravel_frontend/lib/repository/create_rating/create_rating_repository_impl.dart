@@ -32,7 +32,6 @@ class CreateRatingRepositoryImpl extends CreateRatingRepository {
     //de el status code si esto funciona significaria que los if no harían falta y con poner un else
     //y un thow exception valdria pq el mensaje iria cambiando desde la api
     if (response.statusCode == 201) {
-      print(response.body);
       return CreateRatingResponse.fromJson(response.body);
     } else {
       final jsonResponse = json.decode(response.body);

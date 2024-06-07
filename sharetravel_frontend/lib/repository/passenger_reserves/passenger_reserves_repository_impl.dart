@@ -26,7 +26,6 @@ class PassengerReservesRepositoryImpl extends PassengerReservesRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return PassengerReservesResponse.fromJson(response.body);
     } else {
       final jsonResponse = json.decode(response.body);

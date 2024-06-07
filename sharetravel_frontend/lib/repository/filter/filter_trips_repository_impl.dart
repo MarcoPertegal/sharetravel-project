@@ -28,7 +28,6 @@ class FilterTripsRepositoryImpl extends FilterTripsRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return FilterTripsListResponse.fromJson(response.body);
     } else {
       final jsonResponse = json.decode(response.body);
