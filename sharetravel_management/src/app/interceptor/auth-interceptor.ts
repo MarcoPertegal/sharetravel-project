@@ -19,20 +19,13 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) { }
 
 
-  //comprueba todas las peticiones http si devuelve un 403 comprueba si la ruta incluye /refreshtoken
-  //si es así redirije al usuario a la login page para que se loguee de nuevo y reciba una nueva 
-  //pareja de tokens, si el error es 403 pero no inclye refrshToken llama al otro metodo
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error) => {
         if (error instanceof HttpErrorResponse && error.status === 403) {
-          //EL error mensaje de delete admin pq al ser un 403 tmb y al gestionar el json de respuesta 
-          //se setea a undefined por lo que la unica forma de pasarle el mensaje de error para mostrarlo
-          //si el delete da errror es asi pq al llamarlo desde el mismo archivo donde se hace la peticion
-          //de delete peta
+
           localStorage.setItem('ERROR_MESSAGE', error.error.message);
 
-          //si dan 403 he incluyen refreshToken se ejecutará este codigo
           if (req.url.includes('/refreshtoken')) {
             this.router.navigate(['/login-page']);
             window.alert('Refresh token expired, please login again');

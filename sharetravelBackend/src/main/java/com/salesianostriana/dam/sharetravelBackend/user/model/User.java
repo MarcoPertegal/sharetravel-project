@@ -111,7 +111,6 @@ public class User implements UserDetails {
     }
 
     private static final long PASSWORD_EXPIRATION_TIME = 60L * 1000L;
-    //= 30L * 24L * 60L * 60L * 1000L;    // 30 days
 
     @Column(name = "password_changed_time")
     private Date passwordChangedTime;
