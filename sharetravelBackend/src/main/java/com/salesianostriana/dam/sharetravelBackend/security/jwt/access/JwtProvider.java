@@ -30,7 +30,6 @@ public class JwtProvider {
 
     @Value("${jwt.duration}")
     private int jwtLifeInMinutes;
-    //private int jwtLifeInDays;
 
     private JwtParser jwtParser;
 
@@ -41,9 +40,7 @@ public class JwtProvider {
 
         secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
 
-        //jwtParser = Jwts.parserBuilder()
         jwtParser = Jwts.parser()
-                //.setSigningKey(secretKey)
                 .verifyWith(secretKey)
                 .build();
     }

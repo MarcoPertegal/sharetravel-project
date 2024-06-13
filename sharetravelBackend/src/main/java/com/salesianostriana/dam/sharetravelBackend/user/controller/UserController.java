@@ -81,19 +81,12 @@ public class UserController {
     @PutMapping("/user/changePassword")
     public ResponseEntity<UserResponse> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest,
                                                        @AuthenticationPrincipal User loggedUser) {
-
-        // Este código es mejorable.
-        // La validación de la contraseña nueva se puede hacer con un validador.
-        // La gestión de errores se puede hacer con excepciones propias
         try {
             if (userService.passwordMatch(loggedUser, changePasswordRequest.getOldPassword())) {
                 Optional<User> modified = userService.editPassword(loggedUser.getId(), changePasswordRequest.getNewPassword());
                 if (modified.isPresent())
                     return ResponseEntity.ok(UserResponse.fromUser(modified.get()));
             } else {
-                // Lo ideal es que esto se gestionara de forma centralizada
-                // Se puede ver cómo hacerlo en la formación sobre Validación con Spring Boot
-                // y la formación sobre Gestión de Errores con Spring Boot
                 throw new RuntimeException();
             }
         } catch (RuntimeException ex) {
@@ -112,20 +105,13 @@ public class UserController {
 
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest){
-        //recibimos token de refresco
+
         String refreshToken = refreshTokenRequest.getRefreshToken();
 
-        //buscar entidad a partir del string verificarla si la conseguimos verificar obtener el usuario
-        //y generar nueva pareja de token y devolverlos
-        //buscamos el token de refresco, si no lo encontramos devolvemos excepcion
-        //si lo encontramos lo verificamos del token verificado obtenemos el usuario a partir
-        //del user generamos el token de acceso, eliminamos token de refresco antiguo, generamos uno nuevo
-        //y devolvemos la nueva pareja
         return refreshTokenService.findByToken(refreshToken)
                 .map(refreshTokenService::verify)
                 .map(RefreshToken::getUser)
                 .map(user -> {
-                    //vamos a devolver la respuesta de la pareja de token
                     String token = jwtProvider.generateToken(user);
                     refreshTokenService.deleteByUser(user);
                     RefreshToken refreshToken2 = refreshTokenService.createRefreshToken(user.getId());
