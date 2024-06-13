@@ -16,16 +16,15 @@ import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,10 +35,21 @@ public class TripService {
     private final DriverRepository driverRepository;
     private final ReserveRepository reserveRepository;
 
+    @Value("${trip.not.found}")
+    private String tripNotFoundMessage;
+    @Value("${trip.not.match.id}")
+    private String tripNotMatchIdMessage;
+    @Value("${driver.not.found}")
+    private String driverNotFoundMessage;
+    @Value("${not.publish.trip}")
+    private String notPublishTripMessage;
+    @Value("${passenger.cant.edit.trip}")
+    private String passengerCantEditTripMessage;
+
     public Page<GetAllTripsDto> getAllTrips(Pageable p){
         Page<GetAllTripsDto> result = tripRepository.findAllTrips(p);
         if(result.isEmpty()){
-            throw new EmptyTripListException("no trips has been found");
+            throw new EmptyTripListException(tripNotFoundMessage);
         }
         return result;
 
@@ -48,14 +58,14 @@ public class TripService {
     public Page<GetTripDto> getTripsByDeparturePlaceArrivalPlaceAndDepartureTime(Pageable p, String departurePlace, String arrivalPlace, LocalDate departureDate){
         Page<GetTripDto> result = tripRepository.filterTripsByDeparturePlaceArrivalPlaceAndDepartureTime(p, departurePlace, arrivalPlace, departureDate);
         if (result.isEmpty()){
-            throw new EmptyTripListException("no trips match your credentials");
+            throw new EmptyTripListException(tripNotFoundMessage);
         }
         return result;
     }
     @Transactional
     public GetTripDetailsDto getTripById(UUID id) {
         Optional<Trip> optionalTrip = tripRepository.findByIdWithDriverAndReserves(id);
-        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("No trip matches this id: "+ id));
+        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException(tripNotMatchIdMessage));
 
         return GetTripDetailsDto.builder()
                 .id(trip.getId())
@@ -77,7 +87,7 @@ public class TripService {
     public GetTripDetailsDto createtrip (UUID driverId, CreateTripDto createTripDto){
 
         Optional<Driver> optionalDriver = driverRepository.findById(driverId);
-        Driver driver = optionalDriver.orElseThrow(() -> new UserNotFoundException("no driver match this id"+ driverId));
+        Driver driver = optionalDriver.orElseThrow(() -> new UserNotFoundException(driverNotFoundMessage));
 
         Trip newTrip = Trip.builder()
                 .departurePlace(createTripDto.departurePlace())
@@ -109,7 +119,7 @@ public class TripService {
     public Page<GetTripDto> getTripsByDriverId(Pageable p, User user){
         Page<GetTripDto> result = tripRepository.findTripsByDriverId(user.getId(), p);
         if (result.isEmpty()){
-            throw new EmptyTripListException("You have not publish any trip");
+            throw new EmptyTripListException(notPublishTripMessage);
         }
         return result;
     }
@@ -117,11 +127,11 @@ public class TripService {
     public GetTripDto editTrip(User user, UUID id, CreateTripDto createTripDto){
 
         if (user.getRoles().toString().equals("[PASSENGER]")) {
-            throw new UserNotAllowedException("A passenger cant edit trips");
+            throw new UserNotAllowedException(passengerCantEditTripMessage);
         }
 
         Optional<Trip> optionalTrip = tripRepository.findById(id);
-        Trip editTrip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ id));
+        Trip editTrip = optionalTrip.orElseThrow(() -> new TripNotFoundException(tripNotMatchIdMessage));
 
         editTrip.setDeparturePlace(createTripDto.departurePlace());
         editTrip.setArrivalPlace(createTripDto.arrivalPlace());
@@ -150,10 +160,10 @@ public class TripService {
     @Transactional
     public void deleteByTripId (User user, UUID id){
         if (user.getRoles().toString().equals("[PASSENGER]")) {
-            throw new UserNotAllowedException("A passenger cant delete trips");
+            throw new UserNotAllowedException(passengerCantEditTripMessage);
         }
         Optional<Trip> optionalTrip = tripRepository.findById(id);
-        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("No trip found with that id"));
+        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException(tripNotMatchIdMessage));
 
         List<Reserve> tripReserves = reserveRepository.findByTripId(id);
 

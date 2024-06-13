@@ -3,7 +3,6 @@ package com.salesianostriana.dam.sharetravelBackend.rating.repository;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingByDriverIdDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
-import com.salesianostriana.dam.sharetravelBackend.reserve.model.Reserve;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
 import org.springframework.data.domain.Page;

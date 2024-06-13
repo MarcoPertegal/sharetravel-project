@@ -148,12 +148,13 @@ public class UserController {
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                "id": "744ae11c-3332-42ec-bb45-f2839eb06e21",
-                                                "name": "Maria",
-                                                "lastName": "Rodriguez",
-                                                "birthDate": "1985-08-22",
-                                                "dni": "987654321",
-                                                "email": "maria@gmail.com"
+                                                "id": "09fe7587-487a-49ba-8188-ec1a9ddc7b3f",
+                                                "email": "marco@gmail.com",
+                                                "phoneNumber": "408452322",
+                                                "personalDescription": "Reliable driver who values punctuality and silence during the journey. Efficient and uncomplicated routes, no room for unnecessary chatter.",
+                                                "avatar": "https://previews.123rf.com/images/rawpixel/rawpixel1704/rawpixel170441704/76561515-retrato-de-personas-estudio-disparar-con-expresi%C3%B3n-de-cara-sonriente.jpg",
+                                                "fullName": "Marco Pertegal Prieto",
+                                                "averageRating": "4.8"
                                             }
                                             """
                             )}

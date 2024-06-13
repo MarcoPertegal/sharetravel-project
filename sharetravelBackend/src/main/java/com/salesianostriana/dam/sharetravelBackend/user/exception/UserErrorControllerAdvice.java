@@ -21,4 +21,9 @@ public class UserErrorControllerAdvice {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(ExceptionMessage.of(HttpStatus.FORBIDDEN, ex.getMessage(), request.getRequestURI()));
     }
+    @ExceptionHandler({UsernameAlreadyExistsException.class})
+    public ResponseEntity<?> handleUserBadRequestException(Exception ex, HttpServletRequest request){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ExceptionMessage.of(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getRequestURI()));
+    }
 }

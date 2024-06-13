@@ -11,6 +11,7 @@ import com.salesianostriana.dam.sharetravelBackend.trip.service.TripService;
 import com.salesianostriana.dam.sharetravelBackend.user.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserCantBeDeleteException;
 import com.salesianostriana.dam.sharetravelBackend.user.exception.UserNotFoundException;
+import com.salesianostriana.dam.sharetravelBackend.user.exception.UsernameAlreadyExistsException;
 import com.salesianostriana.dam.sharetravelBackend.user.model.Driver;
 import com.salesianostriana.dam.sharetravelBackend.rating.model.Rating;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
@@ -19,6 +20,7 @@ import com.salesianostriana.dam.sharetravelBackend.user.repository.DriverReposit
 import com.salesianostriana.dam.sharetravelBackend.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -42,10 +44,19 @@ public class UserService {
     private final RefreshTokenService refreshTokenService;
     private final ReserveRepository reserveRepository;
 
+    @Value("${driver.not.found}")
+    private String driverNotFoundMessage;
+    @Value("${users.not.found}")
+    private String usersNotfoundMessage;
+    @Value("${admin.cant.delete}")
+    private String adminCantDeleteMessage;
+    @Value("${username.already.exists}")
+    private String usernameAlreadyExistsMessage;
+
     public User createUser(CreateUserRequest createUserRequest, EnumSet<UserRole> roles) {
 
         if (userRepository.existsByUsernameIgnoreCase(createUserRequest.getUsername()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre de usuario ya existe");
+            throw new UsernameAlreadyExistsException(usernameAlreadyExistsMessage);
 
         User user =  User.builder()
                 .username(createUserRequest.getUsername())
@@ -130,7 +141,7 @@ public class UserService {
         if (Objects.equals(loggedUser.getRoles().toString(), "[DRIVER]")){
             Driver driver = (Driver) loggedUser;
             Optional<Driver> result = driverRepository.findByIdWithRatings(driver.getId());
-            Driver driverWithRating = result.orElseThrow(() -> new EmptyTripListException("no driver match this id"));
+            Driver driverWithRating = result.orElseThrow(() -> new UserNotFoundException(driverNotFoundMessage));
             averageRating = driverWithRating.getRatings().stream()
                     .mapToDouble(Rating::getRatingValue)
                     .average()
@@ -152,30 +163,30 @@ public class UserService {
     }
 
     public Page<UserDataDto> getAllUsers(Pageable p, String filterRole) {
-        Page<User> queryResult;
+        Page<User> result;
         if (Arrays.stream(UserRole.values()).anyMatch(enumValue -> enumValue.name().equals(filterRole.toUpperCase()))) {
             UserRole roles = UserRole.valueOf(filterRole.toUpperCase());
-            queryResult = userRepository.findByRoles(roles, p);
+            result = userRepository.findByRoles(roles, p);
         } else {
-            queryResult = userRepository.findAll(p);
+            result = userRepository.findAll(p);
         }
 
-        if (queryResult.isEmpty()) {
-            throw new EmptyTripListException("No users have been found");
+        if (result.isEmpty()) {
+            throw new EmptyTripListException(usersNotfoundMessage);
         }
 
-        List<UserDataDto> userDataDtoList = queryResult.stream()
+        List<UserDataDto> userDataDtoList = result.stream()
                 .map(this::convertToUserDataDto)
                 .collect(Collectors.toList());
 
-        return new PageImpl<>(userDataDtoList, p, queryResult.getTotalElements());
+        return new PageImpl<>(userDataDtoList, p, result.getTotalElements());
     }
 
     @Transactional
     public UserDataDto editUser(UUID id, EditUserDto editUserDto){
 
         Optional<User> optionalUser = userRepository.findById(id);
-        User editUser = optionalUser.orElseThrow(() -> new UserNotFoundException("no user match this id"+ id));
+        User editUser = optionalUser.orElseThrow(() -> new UserNotFoundException(usersNotfoundMessage));
 
         editUser.setAvatar(editUserDto.avatar());
         editUser.setFullName(editUserDto.fullName());
@@ -190,7 +201,7 @@ public class UserService {
     @Transactional
     public UserDataDto getUserById(UUID id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        User user = optionalUser.orElseThrow(() -> new UserNotFoundException("no user match this id: "+ id));
+        User user = optionalUser.orElseThrow(() -> new UserNotFoundException(usersNotfoundMessage));
 
         return convertToUserDataDto(user);
     }
@@ -199,7 +210,7 @@ public class UserService {
     public void deleteByUserId (User loggedAdmin, UUID id) {
 
         Optional<User> optionalUser = userRepository.findById(id);
-        User user = optionalUser.orElseThrow(() -> new UserNotFoundException("No user found with that id"));
+        User user = optionalUser.orElseThrow(() -> new UserNotFoundException(usersNotfoundMessage));
 
         if (user.getRoles().toString().equals("[DRIVER]")){
 
@@ -207,7 +218,7 @@ public class UserService {
             List<Rating> driverRatings = ratingRepository.findByDriverId(id);
             driverRatings.forEach(ratingRepository::delete);
 
-            //List<Rating> driverRatingBorrados = ratingRepository.findByDriverId(id);
+            List<Rating> driverRatingBorrados = ratingRepository.findByDriverId(id);
 
             List<Trip> driverTrips = tripRepository.findByDriverId(id);
             driverTrips.forEach(trip -> tripService.deleteByTripId(user, trip.getId()));
@@ -225,7 +236,7 @@ public class UserService {
 
         //Comprobación para que un admin no se borre a sí mismo
         if(loggedAdmin.getId().equals(id)){
-            throw new UserCantBeDeleteException("Logged admin cant delete himself");
+            throw new UserCantBeDeleteException(adminCantDeleteMessage);
         }
 
         //si el user se ha logueado hay que eliminarle el refresh token antes de borrarlo

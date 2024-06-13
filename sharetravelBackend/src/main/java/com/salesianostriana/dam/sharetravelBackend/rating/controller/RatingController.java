@@ -4,7 +4,6 @@ import com.salesianostriana.dam.sharetravelBackend.rating.dto.*;
 import com.salesianostriana.dam.sharetravelBackend.rating.service.RatingService;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
 import com.salesianostriana.dam.sharetravelBackend.trip.dto.CreateTripDto;
-import com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -201,7 +200,7 @@ public class RatingController {
                     content = @Content)
     })
     @GetMapping("/driver")
-    public ResponseEntity<Page<GetRatingByDriverIdDto>> findReserveByDriverId(@PageableDefault(page = 0, size = 8) Pageable p, @AuthenticationPrincipal User user){
+    public ResponseEntity<Page<GetRatingByDriverIdDto>> findRatingByDriverId(@PageableDefault(page = 0, size = 8) Pageable p, @AuthenticationPrincipal User user){
         return ResponseEntity.ok(ratingService.getRatingByDriverIdDto(p, user));
     }
 
@@ -272,7 +271,7 @@ public class RatingController {
     })
     @CrossOrigin
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteReserve(@PathVariable String id){
+    public ResponseEntity<?> deleteRating(@PathVariable String id){
         ratingService.deleteByRatingId(UUID.fromString(id));
         return ResponseEntity.noContent().build();
     }

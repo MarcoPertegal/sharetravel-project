@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.sharetravelBackend.security;
 
+import com.salesianostriana.dam.sharetravelBackend.security.errorhandling.JwtAccessDeniedHandler;
+import com.salesianostriana.dam.sharetravelBackend.security.errorhandling.JwtAuthenticationEntryPoint;
 import com.salesianostriana.dam.sharetravelBackend.security.jwt.access.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -31,8 +31,8 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
-    private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final AccessDeniedHandler jwtAccessDeniedHandler;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -81,10 +81,15 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/trip/")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/trip/driver")).hasRole("DRIVER")
                         .requestMatchers(antMatcher("/trip/**")).hasAnyRole("PASSENGER", "DRIVER", "ADMIN")
+                        .requestMatchers(antMatcher("/reserve/new")).hasRole("PASSENGER")
+                        .requestMatchers(antMatcher("/reserve/passenger")).hasRole("PASSENGER")
+                        .requestMatchers(antMatcher("/reserve/")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/reserve/**")).hasAnyRole("PASSENGER", "ADMIN")
                         .requestMatchers(antMatcher("/rating/driver")).hasRole("DRIVER")
                         .requestMatchers(antMatcher("/rating/new")).hasRole("PASSENGER")
-                        .requestMatchers(antMatcher("/rating/**")).hasAnyRole("PASSENGER", "DRIVER", "ADMIN")
+                        .requestMatchers(antMatcher("/rating/")).hasRole("ADMIN")
+                        .requestMatchers(antMatcher("/rating/driver")).hasRole("DRIVER")
+                        .requestMatchers(antMatcher("/rating/**")).hasAnyRole("PASSENGER", "ADMIN")
                         .requestMatchers(antMatcher("/user/**")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/auth/register/admin")).hasRole("ADMIN")
                         .anyRequest().authenticated());
@@ -111,7 +116,7 @@ public class SecurityConfig {
                         antMatcher("/auth/login"),
                         antMatcher("/error"),
                         antMatcher("/refreshtoken"),
-                        antMatcher("/swagger-ui.html")
+                        antMatcher("/api-docs/**")
                 ));
 
     }

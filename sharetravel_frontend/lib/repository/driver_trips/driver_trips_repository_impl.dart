@@ -26,7 +26,6 @@ class DriverTripsRepositoryImpl extends DriverTripsRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return DriverTripsResponse.fromJson(response.body);
     } else {
       final jsonResponse = json.decode(response.body);

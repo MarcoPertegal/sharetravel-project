@@ -24,7 +24,6 @@ class TripDetailsRepositoryImpl extends TripDetailsRepository {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return TripDetailsResponse.fromJson(response.body);
     } else {
       throw Exception('Failed to find by id');

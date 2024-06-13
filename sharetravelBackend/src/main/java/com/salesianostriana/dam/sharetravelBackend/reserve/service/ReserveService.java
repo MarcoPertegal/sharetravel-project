@@ -1,6 +1,5 @@
 package com.salesianostriana.dam.sharetravelBackend.reserve.service;
 
-import com.salesianostriana.dam.sharetravelBackend.rating.dto.GetRatingDto;
 import com.salesianostriana.dam.sharetravelBackend.rating.exception.EmptyRatingListException;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.CreateReserveDto;
 import com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveByPassengerIdDto;
@@ -17,6 +16,7 @@ import com.salesianostriana.dam.sharetravelBackend.user.model.Passenger;
 import com.salesianostriana.dam.sharetravelBackend.user.model.User;
 import com.salesianostriana.dam.sharetravelBackend.user.repository.PassengerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,16 +33,29 @@ public class ReserveService {
     private final PassengerRepository passengerRepository;
     private final TripRepository tripRepository;
 
+    @Value("${passenger.not.found}")
+    private String passengerNotFoundMessage;
+    @Value("${trip.not.match.id}")
+    private String tripNotMatchIdMessage;
+    @Value("${duplicate.reserve}")
+    private String duplicateReserveMessage;
+    @Value("${no.reserve.trip}")
+    private String noReserveTripMessage;
+    @Value("${reserve.not.match.id}")
+    private String reserveNotMatchIdMessage;
+    @Value("${reserve.not.found}")
+    private String reserveNotFoundMessage;
+
     public CreateReserveDto createReserve (UUID passengerId, UUID tripId){
         Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
-        Passenger passenger = optionalPassenger.orElseThrow(() -> new UserNotFoundException("no passenger match this id"+ passengerId));
+        Passenger passenger = optionalPassenger.orElseThrow(() -> new UserNotFoundException(passengerNotFoundMessage));
 
         Optional<Trip> optionalTrip = tripRepository.findById(tripId);
-        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException("no trip match this id"+ tripId));
+        Trip trip = optionalTrip.orElseThrow(() -> new TripNotFoundException(tripNotMatchIdMessage));
 
         boolean hasReserved = reserveRepository.existsByPassengerAndTrip(passenger, trip);
         if (hasReserved) {
-            throw new DuplicateReserveException("A passenger cannot reserve the same trip twice.");
+            throw new DuplicateReserveException(duplicateReserveMessage);
         }
 
         Reserve newReserve = Reserve.builder()
@@ -63,14 +76,14 @@ public class ReserveService {
     public Page<GetReserveByPassengerIdDto> getReservesByPassengerId(Pageable p, User user){
         Page<GetReserveByPassengerIdDto> result = reserveRepository.findReservesWithTripByPassengerId(user.getId(), p);
         if (result.isEmpty()){
-            throw new ReserveNotFoundException("You dont booked any trips yet");
+            throw new ReserveNotFoundException(noReserveTripMessage);
         }
         return result;
     }
 
     public void deleteByReserveId (UUID id) {
         if (!reserveRepository.existsById(id)){
-            throw new ReserveNotFoundException("No reserve found with that id");
+            throw new ReserveNotFoundException(reserveNotMatchIdMessage);
         }
         reserveRepository.deleteById(id);
     }
@@ -78,7 +91,7 @@ public class ReserveService {
     public Page<GetReserveWithPassengerAndTripDto> getAllReserves(Pageable p){
         Page<GetReserveWithPassengerAndTripDto> result = reserveRepository.findAllReserves(p);
         if(result.isEmpty()){
-            throw new EmptyRatingListException("no reserves has been found");
+            throw new ReserveNotFoundException(reserveNotFoundMessage);
         }
         return result;
     }

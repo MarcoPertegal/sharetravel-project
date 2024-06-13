@@ -10,7 +10,7 @@
 			"name": "Trip",
 			"item": [
 				{
-					"name": "GET Todos",
+					"name": "GET All",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -19,7 +19,7 @@
 					"response": []
 				},
 				{
-					"name": "GET byId Details",
+					"name": "GET By id",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -28,7 +28,16 @@
 					"response": []
 				},
 				{
-					"name": "GET ByPlaceAndDate",
+					"name": "GET By logued driver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/trip/driver"
+					},
+					"response": []
+				},
+				{
+					"name": "GET By place and date",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -45,7 +54,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/trip/filter?departurePlace=Seville&arrivalPlace=Sanlúcar de Barrameda&departureDate=2024-05-01",
+							"raw": "{{baseUrl}}/trip/filter?departurePlace=Seville&arrivalPlace=Sanlúcar de Barrameda&departureDate=2024-09-01",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -64,7 +73,7 @@
 								},
 								{
 									"key": "departureDate",
-									"value": "2024-05-01"
+									"value": "2024-09-01"
 								}
 							]
 						}
@@ -72,47 +81,47 @@
 					"response": []
 				},
 				{
-					"name": "POST ejemplo",
+					"name": "POST New trip",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"First note\",\n    \"content\": \"Lorem Ipsum Dolor Sit Amet....\",\n    \"important\": false\n}",
+							"raw": "{\r\n    \"departurePlace\": \"Cádiz\",\r\n    \"arrivalPlace\": \"Jeréz\",\r\n    \"departureTime\": \"2024-05-02T10:30:00\",\r\n    \"estimatedDuration\": 10,\r\n    \"price\": 8,\r\n    \"tripDescription\": \"El coche es un Seat León Azul, tengo flexibilidad en el lugar de recogida\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{baseUrl}}/note/"
+						"url": "{{baseUrl}}/trip/new"
 					},
 					"response": []
 				},
 				{
-					"name": "PUT ejemplo",
+					"name": "PUT By id",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Bello Gallico\",\n    \"content\": \"Gallia est omnis divisa in partes tres...\",\n    \"important\": true\n}",
+							"raw": "{\n    \"departurePlace\": \"Madrid\",\n    \"arrivalPlace\": \"Barcelona\",\n    \"departureTime\": \"2024-04-03T18:30:00\",\n    \"estimatedDuration\": 100,\n    \"price\": 9,\n    \"tripDescription\": \"El coche es un Seat León Azul, tengo flexibilidad en el lugar de recogida\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{baseUrl}}/note/1"
+						"url": "{{baseUrl}}/trip/6f9458e8-7834-4df8-ba48-79aadfaa42d4"
 					},
 					"response": []
 				},
 				{
-					"name": "DELETE ejemplo",
+					"name": "DELETE By id",
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{baseUrl}}/note/1"
+						"url": "{{baseUrl}}/trip/6f9458e8-7834-4df8-ba48-79aadfaa42d4"
 					},
 					"response": []
 				}
@@ -145,46 +154,10 @@
 			]
 		},
 		{
-			"name": "Users",
+			"name": "User",
 			"item": [
 				{
-					"name": "POST Nuevo pasajero",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"passenger2\",\r\n    \"password\": \"2\",\r\n    \"fullName\": \"passenger passenger\",\r\n    \"email\": \"passenger2@gmail.com\",\r\n    \"phoneNumber\": \"606 09 56 49\",\r\n    \"personalDescription\": \"viajo por motivos de trabajo si hola\",\r\n    \"avatar\": \"https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/auth/register/passenger"
-					},
-					"response": []
-				},
-				{
-					"name": "POST  Nuevo conductor",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"driver2\",\r\n    \"password\": \"2\",\r\n    \"fullName\": \"driver driver\",\r\n    \"email\": \"driver@gmail.com\",\r\n    \"phoneNumber\": \"606 09 56 49\",\r\n    \"personalDescription\": \"viajo por motivos de trabajo si hola\",\r\n    \"avatar\": \"https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/auth/register/driver"
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Modificar contraseña",
+					"name": "Get All",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -192,18 +165,28 @@
 								"token": "{{token}}"
 							}
 						},
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"oldPassword\": \"12345678\",\n    \"newPassword\": \"asdfg\",\n    \"verifyPassword\": \"asdfg\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						"url": {
+							"raw": "{{baseUrl}}/user/filter?filterRole=admin&page=0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "filterRole",
+									"value": "admin"
+								},
+								{
+									"key": "page",
+									"value": "0"
 								}
-							}
-						},
-						"url": "{{baseUrl}}/user/changePassword"
+							]
+						}
 					},
 					"response": []
 				},
@@ -221,27 +204,118 @@
 						"url": "{{baseUrl}}/user/details"
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Admin",
-			"item": [
+				},
 				{
-					"name": "POST Nuevo Admin",
+					"name": "Get User byId",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/user/09fe7587-487a-49ba-8188-ec1a9ddc7b3f"
+					},
+					"response": []
+				},
+				{
+					"name": "POST  New driver",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"12345678\",\n    \"fullName\": \"Admin admin\"\n}",
+							"raw": "{\r\n    \"username\": \"driver2\",\r\n    \"password\": \"2\",\r\n    \"fullName\": \"driver driver\",\r\n    \"email\": \"driver@gmail.com\",\r\n    \"phoneNumber\": \"606095649\",\r\n    \"personalDescription\": \"viajo por motivos de trabajo si hola\",\r\n    \"avatar\": \"https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{baseUrl}}/auth/register/admin"
+						"url": "{{baseUrl}}/auth/register/driver"
+					},
+					"response": []
+				},
+				{
+					"name": "POST New passenger",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"passenger2\",\r\n    \"password\": \"2\",\r\n    \"fullName\": \"passenger passenger\",\r\n    \"email\": \"passenger2@gmail.com\",\r\n    \"phoneNumber\": \"606095649\",\r\n    \"personalDescription\": \"viajo por motivos de trabajo si hola\",\r\n    \"avatar\": \"https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/register/passenger"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Change password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"1\",\n    \"newPassword\": \"2\",\n    \"verifyPassword\": \"2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/user/changePassword"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT By id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"passenger passenger\",\n    \"email\": \"passenger2@gmail.com\",\n    \"phoneNumber\": \"606095649\",\n    \"personalDescription\": \"viajo por motivos de trabajo si hola\",\n    \"avatar\": \"https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/user/09fe7587-487a-49ba-8188-ec1a9ddc7b3f"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE By id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/user/09fe7587-487a-49ba-8188-ec1a9ddc7b3f"
 					},
 					"response": []
 				}
@@ -251,6 +325,94 @@
 				"bearer": {
 					"token": "{{token}}"
 				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "POST New admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"avatar\": \"https://img.freepik.com/foto-gratis/alegre-mujer-mediana-edad-cabello-rizado_1262-20859.jpg?size=626&ext=jpg\",\n    \"username\": \"admin1\",\n    \"password\": \"12345678\",\n    \"fullName\": \"Admin admin\",\n    \"email\": \"passenger2@gmail.com\",\n    \"phoneNumber\": \"606095649\",\n    \"personalDescription\": \"viajo por motivos de trabajo si hola\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/register/admin"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", json.token);",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin123\",\n    \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/login"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
 			},
 			"event": [
 				{
@@ -275,136 +437,349 @@
 		},
 		{
 			"name": "reserve",
-			"item": []
-		},
-		{
-			"name": "POST Login conductor",
+			"item": [
+				{
+					"name": "GET All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/reserve/"
+					},
+					"response": []
+				},
+				{
+					"name": "GET By loggued passenger",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/reserve/passenger"
+					},
+					"response": []
+				},
+				{
+					"name": "POST New reserve",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tripId\": \"af9458e8-7834-4df8-ba48-79aadfaa42d7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/reserve/new"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE By id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/reserve/9fedff98-d9f4-46b7-809c-cce716ed6699"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
+						"type": "text/javascript",
 						"exec": [
-							"var json = pm.response.json();",
-							"pm.collectionVariables.set(\"token\", json.token);",
-							"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
-							"",
 							""
-						],
-						"type": "text/javascript"
+						]
 					}
 				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"marco123\",\n    \"password\": \"1\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/auth/login"
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "POST Login pasajero",
+			"name": "rating",
+			"item": [
+				{
+					"name": "GET All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/rating/"
+					},
+					"response": []
+				},
+				{
+					"name": "GET By loggued driver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/rating/driver"
+					},
+					"response": []
+				},
+				{
+					"name": "GET By id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/rating/d42504ee-dc7f-4025-beff-6ec4af0f567d"
+					},
+					"response": []
+				},
+				{
+					"name": "POST New rating",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ratingValue\": 3.0,\r\n    \"feedback\": \"very good driver\",\r\n    \"driverId\": \"09fe7587-487a-49ba-8188-ec1a9ddc7b3f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/rating/new"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT By id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ratingValue\": \"1.0\",\n    \"feedback\": \"si no si no si no\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/rating/8007b140-753e-40a9-8912-877e36058e99"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE By id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/rating/d42504ee-dc7f-4025-beff-6ec4af0f567d"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
+						"type": "text/javascript",
+						"packages": {},
 						"exec": [
-							"var json = pm.response.json();",
-							"pm.collectionVariables.set(\"token\", json.token);",
-							"",
 							""
-						],
-						"type": "text/javascript"
+						]
 					}
 				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"fran123\",\n    \"password\": \"1\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/auth/login"
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "POST Login nuevo conductor",
+			"name": "login",
+			"item": [
+				{
+					"name": "POST Login passenger",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", json.token);",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"fran123\",\n    \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login driver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", json.token);",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"marco123\",\n    \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login new driver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", json.token);",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"driver2\",\n    \"password\": \"2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login new passenger",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"pm.collectionVariables.set(\"token\", json.token);",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"passenger2\",\n    \"password\": \"2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/login"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
+						"type": "text/javascript",
+						"packages": {},
 						"exec": [
-							"var json = pm.response.json();",
-							"pm.collectionVariables.set(\"token\", json.token);",
-							"",
 							""
-						],
-						"type": "text/javascript"
+						]
 					}
 				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"driver2\",\n    \"password\": \"2\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/auth/login"
-			},
-			"response": []
-		},
-		{
-			"name": "POST Login nuevo pasajero",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var json = pm.response.json();",
-							"pm.collectionVariables.set(\"token\", json.token);",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"passenger2\",\n    \"password\": \"2\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/auth/login"
-			},
-			"response": []
+			]
 		},
 		{
 			"name": "POST refreshtoken",
@@ -419,11 +794,15 @@
 							"",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {

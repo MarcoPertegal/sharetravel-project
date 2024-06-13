@@ -10,6 +10,10 @@ Usuario conductor:
 Usuario pasajero:
 - user: fran123
 - contraseña: 1
+
+Usuario admin:
+- user: admin123
+- contraseña: 1
   
 ## Índice:
 - Descripción del Proyecto
@@ -23,36 +27,63 @@ Usuario pasajero:
 
 ![portada](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/b142cae7-8e4a-4c5b-b028-86a1b5387b9d)
 ## Descripción del Proyecto
-SHARETRAVEL es una aplicación móvil que conecta a personas que quieren realizar el mismo trayecto en coche para ahorrar costes y reducir emisiones.
+ShareTravel es una aplicación móvil que conecta a personas que quieren realizar el mismo trayecto en coche para ahorrar costes y reducir emisiones, en esta memoria abordaremos los puntos más importantes en relación al proyecto sobre la misma.
+
 La aplicación constará de tres roles:
 - Admin: podrá gestionar todas las entidades de la aplicación.
-- Conductor: podrá consultar viajes, publicar nuevos viajes, gestionar su perfil y realizar operaciones CRUD con los viajes que ha publicado.
-- Pasajero: podrá consultar viajes, realizar una reserva de un viaje, valorar a los conductores con los que ha viajado, ver los viajes que ha reservado y gestionar su perfil.
+- Conductor: podrá consultar viajes, publicar nuevos viajes, consultar la información del perfil, consultar las valoraciones que le han realizado y gestionar los viajes que ha publicado.
+- Pasajero: podrá consultar viajes, realizar una reserva de un viaje, ver los viajes que ha reservado, valorar a los conductores con los que ha viajado, cancelar sus reservas y ver la información de su perfil.
 
 ## Estado del Proyecto
-Actualmente, el proyecto cuenta con un login y dos registros para cada rol, una pantalla que filtra por lugar de salida, lugar de llegada y fecha de salida. Tras realizar el filtrado, se mostrará un listado de los viajes que coincidan con las credenciales. Si no se encuentran viajes que coincidan, deberá aparecer un mensaje de que no hay viajes disponibles con esas credenciales. Cuando se pulsa en un viaje, se pueden ver los detalles del mismo y ver el perfil del usuario logueado. Faltaría realizar la creación de un nuevo viaje si el usuario registrado es conductor, la gestión de los viajes publicados o reservados, gestionar el perfil del usuario, poder reservar un viaje, pulsar en el lugar de salida o llegada en el detalle de un viaje y ver en maps la ubicación, valorar conductores.
+Actualmente, el proyecto se encuentra finalizado.
 
 ## Demostración de Funciones y Aplicaciones
 ![figma_screens](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/9f128798-5d32-4f46-934e-dd80da96f205)
 ![diagrama_uml](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/5d0cd220-9c2c-46e6-a26d-16fb4643b442)
 
-Al iniciar la aplicación, si el usuario tiene una cuenta, podrá loguearse. Si no, deberá registrarse en la aplicación eligiendo entre tener un rol de pasajero o conductor. De esta manera, al crear una cuenta, podrá realizar las funcionalidades asignadas al rol que ha elegido. Ambos roles de usuario podrán filtrar por lugar de salida, lugar de llegada y fecha de salida. Tras realizar el filtrado, se mostrará un listado de los viajes que coincidan con las credenciales. Si no se encuentran viajes que coincidan, deberá aparecer un mensaje de que no hay viajes disponibles con esas credenciales. Cuando se pulsa en un viaje, se pueden ver los detalles del mismo y si el usuario tiene rol pasajero dará la opción de reservar. Se podrá pulsar en el lugar de salida o llegada y ver la ubicación en Google Maps. Una vez reservado, aparecerá una pantalla de confirmación de la reserva. 
-Si el usuario es conductor, podrá crear un nuevo viaje rellenando un formulario. 
-En el apartado 'My trips' un usuario conductor podrá readlizar operaciones CRUD con los viajes que ha creado y un pasajero podrá ver los viajes que ha realizado y valorar al conductor del mismo. 
-Ambos usuarios podrán ver su perfil y realizar opereciones CRUD .
+- **FLUTTER**
+
+### Pantallas de login:
+- Login Page: Al iniciar la aplicación, si el usuario tiene una cuenta, podrá loguearse. Si no, deberá registrarse en la aplicación.
+- Register Page: Al pulsar en registrarse se le dará la opción de registrarse como pasajero o conductor. De esta manera, al crear una cuenta, podrá realizar las funcionalidades asignadas al rol que ha elegido. 
+    Ambas pantallas redirigirán a un menú con las páginas principales de la aplicación.
+
+### Pantallas Rol Conductor:
+- Filer Page: primera opción del menú, esta pantalla podrá realizar un filtrado de los viajes por lugar de salida, lugar de llegada y fecha de salida, si se encuentran viajes aparecerá un listado, si no, se mostrará una pantalla de error en la que informa de que no se han encontrado viajes.
+- List Trip Page: Mostrará el listado de viajes devuelto por el método de filtrado estos tendrán la información básica de un viaje y se podrá pulsar en ellos para ver el detalle de los mismos.
+- Detail trip page: Se puede consultar toda la información relevante de un viaje tanto lugar de salida y llegada, horario, duración, conductor y un listado de los pasajeros(si tiene), un conductor no podrá reservar un viaje por lo que si pulsa el botón de resarvar aparecerá un dialog informando de esto.
+- Publish trip page: segunda opción del menú, un conductor podrá publicar un nuevo viaje introduciendo los datos necesarios, si la publicación es realizada con éxito aparecerá una pantalla de confirmación que informará al usuario.
+- Your Trips page: tercera opción del menú, un conductor podrá ver los viajes que tiene publicados, si todavía no tiene ningún viaje publicado aparecerá una pantalla que le informa de esto, podrá editar sus viajes publicados mediante un formulario y podrá borrarlos, estos desaparecerán del listado de viajes reservados de los pasajeros.
+- Profile page: cuarta opción del menú, aparecerá la información del usuario logueado, su foto de perfil, descripción, nombre, etc, además aparecerá la media de puntuación de sus valoraciones y un listado con las opiniones de los pasajeros que lo han valorado, si aún no tiene valoraciones aparecerá un texto informativo.
+
+### Pantallas Rol Pasajero:
+- Filer Page: primera opción del menú, esta pantalla podrá realizar un filtrado de los viajes por lugar de salida, lugar de llegada y fecha de salida, si se encuentran viajes aparecerá un listado, si no, se mostrará una pantalla de error en la que informa de que no se han encontrado viajes.
+- List Trip Page: Mostrará el listado de viajes devuelto por el método de filtrado estos tendrán la información básica de un viaje y se podrá pulsar en ellos para ver el detalle de los mismos.
+- Detail trip page: Se puede consultar toda la información relevante de un viaje tanto lugar de salida y llegada, horario, duración, conductor y un listado de los pasajeros(si tiene), un pasajero podrá reservar un viaje por lo que si pulsa el botón de reservar aparecerá una pantalla de confirmación de su reserva, en el caso de que el pasajero y haya reservado ese viaje aparecerá un dialog informativo.
+- Publish trip page: segunda opción del menú, un pasajero no podrá publicar viajes.
+- Your Reserves page: tercera opción del menú, aparecerá un listado con  las reservas realizadas por el pasajero, podrá cancelarlas o valorar al conductor que ha publicado el viaje reservado, si el pasajero no tiene reservas aparecerá un mensaje informativo.
+- Your Profile Page:  cuarta opción del menú, aparecerá la información del usuario logueado, su foto de perfil, descripción, nombre, etc, debido a que los pasajeros no pueden tener valoraciones aparecerá un texto informativo.
+
+- **ANGULAR**
+
+### Pantallas Rol Admin:
+- Trip page: listado con toda la información relevante de los viajes publicados de la aplicación, se podrá realizar un filtrado por lugar de salida lugar de llegada y fecha de salida, se podrán editar los viajes y eliminarlos.
+- Reserve page: listado con la información relevante de todas las reservas realizadas, se podrán buscar las reservas por el nombre del pasajero, así como eliminar cualquier reserva.
+- Rating page: listado con toda la información relevante de las valoraciones, se podrán buscar las valoraciones que tiene un conductor y las que ha realizado un pasajero, además de editarlas y eliminarlas.
+- User page: en este listado aparecerán todos los usuarios de la aplicación junto a toda su información relevante, dependiendo del rol que poseen tendrán un icono en específico, se podrá realizar una búsqueda por username, editar la información de cada uno, eliminarlos y crear un nuevo administrador.
+
 
 ## Despliegue del Proyecto
 Desde la raíz del proyecto, realiza el comando `docker-compose up -d`.
 
 ## Tecnologías Utilizadas
 El proyecto se realizó con las siguientes tecnologías:
-Back:
+
 - Spring Boot, Java, Lombok, JWT Security, Postgres
-Front:
-- Flutter, Dart
+- Flutter, Dart, Angular
 
 ## Personas Desarrolladoras del Proyecto
-El proyecto fue realizado por Marco Pertegal Prieto.
+- Marco Pertegal Prieto.
 
 ## Licencia
 Creative Commons
