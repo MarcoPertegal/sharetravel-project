@@ -3,89 +3,88 @@
 
 # SHARETRAVEL
 
-Usuario conductor: 
+Driver User: 
 - user: marco123
-- contraseña: 1
+- password: 1
   
-Usuario pasajero:
+Passenger User:
 - user: fran123
-- contraseña: 1
+- password: 1
 
-Usuario admin:
+Admin User:
 - user: admin123
-- contraseña: 1
+- password: 1
   
-## Índice:
-- Descripción del Proyecto
-- Estado del Proyecto
-- Demostración de Funciones y Aplicaciones
-- Despliegue del Proyecto: tanto de la app Flutter como de la API
-- Tecnologías Utilizadas
-- Personas Desarrolladoras del Proyecto
-- Licencia
+## Index:
+- Project Description
+- Project Status
+- Features and Applications Demonstration
+- Project Deployment: Both the Flutter App and the API
+- Technologies Used
+- Project Developers
+- License
 
+![cover](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/b142cae7-8e4a-4c5b-b028-86a1b5387b9d)
 
-![portada](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/b142cae7-8e4a-4c5b-b028-86a1b5387b9d)
-## Descripción del Proyecto
-ShareTravel es una aplicación móvil que conecta a personas que quieren realizar el mismo trayecto en coche para ahorrar costes y reducir emisiones, en esta memoria abordaremos los puntos más importantes en relación al proyecto sobre la misma.
+## Project Description
+ShareTravel is a mobile application that connects people who want to travel the same route by car to save costs and reduce emissions. This document outlines the key points related to the project.
 
-La aplicación constará de tres roles:
-- Admin: podrá gestionar todas las entidades de la aplicación.
-- Conductor: podrá consultar viajes, publicar nuevos viajes, consultar la información del perfil, consultar las valoraciones que le han realizado y gestionar los viajes que ha publicado.
-- Pasajero: podrá consultar viajes, realizar una reserva de un viaje, ver los viajes que ha reservado, valorar a los conductores con los que ha viajado, cancelar sus reservas y ver la información de su perfil.
+The application has three roles:
+- Admin: Can manage all entities within the application.
+- Driver: Can view trips, post new trips, check profile information, view ratings received, and manage posted trips.
+- Passenger: Can view trips, book trips, see booked trips, rate the drivers they've traveled with, cancel bookings, and view profile information.
 
-## Estado del Proyecto
-Actualmente, el proyecto se encuentra finalizado.
+## Project Status
+The project is currently complete.
 
-## Demostración de Funciones y Aplicaciones
+## Features and Applications Demonstration
 ![figma_screens](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/9f128798-5d32-4f46-934e-dd80da96f205)
-![diagrama_uml](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/5d0cd220-9c2c-46e6-a26d-16fb4643b442)
+![uml_diagram](https://github.com/MarcoPertegal/sharetravel-project/assets/122262025/5d0cd220-9c2c-46e6-a26d-16fb4643b442)
 
-- **FLUTTER**
+### FLUTTER
 
-### Pantallas de login:
-- Login Page: Al iniciar la aplicación, si el usuario tiene una cuenta, podrá loguearse. Si no, deberá registrarse en la aplicación.
-- Register Page: Al pulsar en registrarse se le dará la opción de registrarse como pasajero o conductor. De esta manera, al crear una cuenta, podrá realizar las funcionalidades asignadas al rol que ha elegido. 
-    Ambas pantallas redirigirán a un menú con las páginas principales de la aplicación.
+#### Login Screens:
+- **Login Page:** When the application starts, users with an account can log in. New users must register first.
+- **Register Page:** By selecting register, users can choose to sign up as a passenger or a driver. Upon creating an account, they can access functionalities assigned to their chosen role. Both screens redirect to a menu with the main pages of the application.
 
-### Pantallas Rol Conductor:
-- Filer Page: primera opción del menú, esta pantalla podrá realizar un filtrado de los viajes por lugar de salida, lugar de llegada y fecha de salida, si se encuentran viajes aparecerá un listado, si no, se mostrará una pantalla de error en la que informa de que no se han encontrado viajes.
-- List Trip Page: Mostrará el listado de viajes devuelto por el método de filtrado estos tendrán la información básica de un viaje y se podrá pulsar en ellos para ver el detalle de los mismos.
-- Detail trip page: Se puede consultar toda la información relevante de un viaje tanto lugar de salida y llegada, horario, duración, conductor y un listado de los pasajeros(si tiene), un conductor no podrá reservar un viaje por lo que si pulsa el botón de resarvar aparecerá un dialog informando de esto.
-- Publish trip page: segunda opción del menú, un conductor podrá publicar un nuevo viaje introduciendo los datos necesarios, si la publicación es realizada con éxito aparecerá una pantalla de confirmación que informará al usuario.
-- Your Trips page: tercera opción del menú, un conductor podrá ver los viajes que tiene publicados, si todavía no tiene ningún viaje publicado aparecerá una pantalla que le informa de esto, podrá editar sus viajes publicados mediante un formulario y podrá borrarlos, estos desaparecerán del listado de viajes reservados de los pasajeros.
-- Profile page: cuarta opción del menú, aparecerá la información del usuario logueado, su foto de perfil, descripción, nombre, etc, además aparecerá la media de puntuación de sus valoraciones y un listado con las opiniones de los pasajeros que lo han valorado, si aún no tiene valoraciones aparecerá un texto informativo.
+#### Driver Role Screens:
+- **Filter Page:** The first menu option allows filtering trips by departure location, arrival location, and departure date. If trips are found, a list is displayed; otherwise, an error screen indicates no trips found.
+- **List Trip Page:** Shows the list of trips returned by the filter method, displaying basic trip information. Users can tap on trips to view details.
+- **Detail Trip Page:** Displays all relevant trip information, including departure and arrival locations, schedule, duration, driver, and a list of passengers (if any). Drivers cannot book trips, and if they try, a dialog informs them of this.
+- **Publish Trip Page:** The second menu option allows drivers to post a new trip by entering the necessary data. A success screen confirms the trip's publication.
+- **Your Trips Page:** The third menu option lets drivers view their posted trips. If no trips are posted, an informational screen appears. Drivers can edit or delete their trips, which also removes them from passengers' reserved trips lists.
+- **Profile Page:** The fourth menu option displays the logged-in user's profile information, including profile picture, description, name, average rating, and passenger reviews. If there are no reviews, an informational text appears.
 
-### Pantallas Rol Pasajero:
-- Filer Page: primera opción del menú, esta pantalla podrá realizar un filtrado de los viajes por lugar de salida, lugar de llegada y fecha de salida, si se encuentran viajes aparecerá un listado, si no, se mostrará una pantalla de error en la que informa de que no se han encontrado viajes.
-- List Trip Page: Mostrará el listado de viajes devuelto por el método de filtrado estos tendrán la información básica de un viaje y se podrá pulsar en ellos para ver el detalle de los mismos.
-- Detail trip page: Se puede consultar toda la información relevante de un viaje tanto lugar de salida y llegada, horario, duración, conductor y un listado de los pasajeros(si tiene), un pasajero podrá reservar un viaje por lo que si pulsa el botón de reservar aparecerá una pantalla de confirmación de su reserva, en el caso de que el pasajero y haya reservado ese viaje aparecerá un dialog informativo.
-- Publish trip page: segunda opción del menú, un pasajero no podrá publicar viajes.
-- Your Reserves page: tercera opción del menú, aparecerá un listado con  las reservas realizadas por el pasajero, podrá cancelarlas o valorar al conductor que ha publicado el viaje reservado, si el pasajero no tiene reservas aparecerá un mensaje informativo.
-- Your Profile Page:  cuarta opción del menú, aparecerá la información del usuario logueado, su foto de perfil, descripción, nombre, etc, debido a que los pasajeros no pueden tener valoraciones aparecerá un texto informativo.
+#### Passenger Role Screens:
+- **Filter Page:** The first menu option allows filtering trips by departure location, arrival location, and departure date. If trips are found, a list is displayed; otherwise, an error screen indicates no trips found.
+- **List Trip Page:** Shows the list of trips returned by the filter method, displaying basic trip information. Users can tap on trips to view details.
+- **Detail Trip Page:** Displays all relevant trip information, including departure and arrival locations, schedule, duration, driver, and a list of passengers (if any). Passengers can book trips, and upon booking, a confirmation screen appears. If the trip is already booked by the passenger, an informative dialog appears.
+- **Your Reserves Page:** The third menu option shows a list of reservations made by the passenger, allowing cancellations or driver ratings. If no reservations are made, an informational message appears.
+- **Your Profile Page:** The fourth menu option displays the logged-in user's profile information, including profile picture, description, name, etc. Since passengers cannot receive ratings, an informational text appears.
 
-- **ANGULAR**
+### ANGULAR
 
-### Pantallas Rol Admin:
-- Trip page: listado con toda la información relevante de los viajes publicados de la aplicación, se podrá realizar un filtrado por lugar de salida lugar de llegada y fecha de salida, se podrán editar los viajes y eliminarlos.
-- Reserve page: listado con la información relevante de todas las reservas realizadas, se podrán buscar las reservas por el nombre del pasajero, así como eliminar cualquier reserva.
-- Rating page: listado con toda la información relevante de las valoraciones, se podrán buscar las valoraciones que tiene un conductor y las que ha realizado un pasajero, además de editarlas y eliminarlas.
-- User page: en este listado aparecerán todos los usuarios de la aplicación junto a toda su información relevante, dependiendo del rol que poseen tendrán un icono en específico, se podrá realizar una búsqueda por username, editar la información de cada uno, eliminarlos y crear un nuevo administrador.
+#### Admin Role Screens:
+- **Trip Page:** A list of all published trips' relevant information. Trips can be filtered by departure location, arrival location, and departure date, and can be edited or deleted.
+- **Reserve Page:** A list of all reservations' relevant information. Reservations can be searched by the passenger's name and deleted.
+- **Rating Page:** A list of all ratings' relevant information. Ratings can be searched by the driver's ratings and the passenger's ratings. They can be edited or deleted.
+- **User Page:** Displays all users with their relevant information. Depending on their role, they will have a specific icon. Users can be searched by username, edited, deleted, and new admins can be created.
 
+## Project Deployment
+- From the sharetravelBackend directory, run the command `docker-compose up -d` to start server.
+- Navigate to sharetravel_management directory and run the command `npm i` and then `npm start` to run administator web app.
+- Navigate to sharetravel_frontend directory and run the command `flutter pub get` and then `flutter run` to run user movile-app.
 
-## Despliegue del Proyecto
-Desde la raíz del proyecto, realiza el comando `docker-compose up -d`.
-
-## Tecnologías Utilizadas
-El proyecto se realizó con las siguientes tecnologías:
+## Technologies Used
+The project was developed using the following technologies:
 
 - Spring Boot, Java, Lombok, JWT Security, Postgres
 - Flutter, Dart, Angular
 
-## Personas Desarrolladoras del Proyecto
-- Marco Pertegal Prieto.
+## Project Developers
+- Marco Pertegal Prieto
 
-## Licencia
+## License
 Creative Commons
 
 
