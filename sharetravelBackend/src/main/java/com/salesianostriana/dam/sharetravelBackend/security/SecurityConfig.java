@@ -116,7 +116,7 @@ public class SecurityConfig {
                         antMatcher("/auth/login"),
                         antMatcher("/error"),
                         antMatcher("/refreshtoken"),
-                        antMatcher("/swagger-ui.html")
+                        antMatcher("/api-docs/**")
                 ));
 
     }

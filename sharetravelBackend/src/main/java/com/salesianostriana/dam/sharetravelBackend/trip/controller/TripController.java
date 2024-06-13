@@ -39,106 +39,114 @@ public class TripController {
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                 "content": [
-                                                     {
-                                                         "id": "5d9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                         "departurePlace": "Seville",
-                                                         "arrivalPlace": "Sanlúcar de Barrameda",
-                                                         "departureTime": "2024-02-22T10:00:00",
-                                                         "estimatedDuration": 120,
-                                                         "arrivalTime": "2024-02-22T12:00:00",
-                                                         "price": 7.99
-                                                     },
-                                                     {
-                                                         "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                         "departurePlace": "Madrid",
-                                                         "arrivalPlace": "Barcelona",
-                                                         "departureTime": "2024-02-23T08:30:00",
-                                                         "estimatedDuration": 180,
-                                                         "arrivalTime": "2024-02-23T11:30:00",
-                                                         "price": 15.5
-                                                     },
-                                                     {
-                                                         "id": "7a9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                         "departurePlace": "Valencia",
-                                                         "arrivalPlace": "Alicante",
-                                                         "departureTime": "2024-02-24T14:45:00",
-                                                         "estimatedDuration": 90,
-                                                         "arrivalTime": "2024-02-24T16:15:00",
-                                                         "price": 9.99
-                                                     },
-                                                     {
-                                                         "id": "8b9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                         "departurePlace": "Barcelona",
-                                                         "arrivalPlace": "Madrid",
-                                                         "departureTime": "2024-02-25T11:00:00",
-                                                         "estimatedDuration": 150,
-                                                         "arrivalTime": "2024-02-25T13:30:00",
-                                                         "price": 12.75
-                                                     },
-                                                     {
-                                                         "id": "9a9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                         "departurePlace": "Granada",
-                                                         "arrivalPlace": "Málaga",
-                                                         "departureTime": "2024-02-26T12:30:00",
-                                                         "estimatedDuration": 120,
-                                                         "arrivalTime": "2024-02-26T14:30:00",
-                                                         "price": 12.75
-                                                     },
-                                                     {
-                                                         "id": "ab9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                         "departurePlace": "Seville",
-                                                         "arrivalPlace": "Cordoba",
-                                                         "departureTime": "2024-02-27T09:15:00",
-                                                         "estimatedDuration": 60,
-                                                         "arrivalTime": "2024-02-27T10:15:00",
-                                                         "price": 5.99
-                                                     },
-                                                     {
-                                                         "id": "bc9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                         "departurePlace": "Valencia",
-                                                         "arrivalPlace": "Barcelona",
-                                                         "departureTime": "2024-02-28T16:30:00",
-                                                         "estimatedDuration": 120,
-                                                         "arrivalTime": "2024-02-28T18:30:00",
-                                                         "price": 11.5
-                                                     },
-                                                     {
-                                                         "id": "cd9458e8-7834-4df8-ba48-79aadfaa42d3",
-                                                         "departurePlace": "Seville",
-                                                         "arrivalPlace": "Granada",
-                                                         "departureTime": "2024-03-01T14:00:00",
-                                                         "estimatedDuration": 90,
-                                                         "arrivalTime": "2024-03-01T15:30:00",
-                                                         "price": 8.5
-                                                     }
-                                                 ],
-                                                 "pageable": {
-                                                     "pageNumber": 0,
-                                                     "pageSize": 8,
-                                                     "sort": {
-                                                         "empty": true,
-                                                         "sorted": false,
-                                                         "unsorted": true
-                                                     },
-                                                     "offset": 0,
-                                                     "paged": true,
-                                                     "unpaged": false
-                                                 },
-                                                 "last": false,
-                                                 "totalPages": 2,
-                                                 "totalElements": 10,
-                                                 "first": true,
-                                                 "size": 8,
-                                                 "number": 0,
-                                                 "sort": {
-                                                     "empty": true,
-                                                     "sorted": false,
-                                                     "unsorted": true
-                                                 },
-                                                 "numberOfElements": 8,
-                                                 "empty": false
-                                             }
+                                                "content": [
+                                                    {
+                                                        "id": "5d9458e8-7834-4df8-ba48-79aadfaa42d3",
+                                                        "departurePlace": "Seville",
+                                                        "arrivalPlace": "Sanlúcar de Barrameda",
+                                                        "departureTime": "2024-09-01T10:00:00",
+                                                        "estimatedDuration": 120,
+                                                        "arrivalTime": "2024-09-01T12:00:00",
+                                                        "price": 7.0,
+                                                        "tripDescription": "I have space for three passengers, no flexibility in the arrival place, and hand luggage only"
+                                                    },
+                                                    {
+                                                        "id": "6f9458e8-7834-4df8-ba48-79aadfaa42d4",
+                                                        "departurePlace": "Seville",
+                                                        "arrivalPlace": "Sanlúcar de Barrameda",
+                                                        "departureTime": "2024-09-01T17:15:00",
+                                                        "estimatedDuration": 110,
+                                                        "arrivalTime": "2024-09-01T18:30:00",
+                                                        "price": 8.0,
+                                                        "tripDescription": "I can drop off in nearby places in Sanlúcar, two passengers with hand luggage only"
+                                                    },
+                                                    {
+                                                        "id": "cf9458e8-7834-4df8-ba48-79aadfaa42d5",
+                                                        "departurePlace": "Madrid",
+                                                        "arrivalPlace": "Barcelona",
+                                                        "departureTime": "2024-09-23T08:30:00",
+                                                        "estimatedDuration": 180,
+                                                        "arrivalTime": "2024-09-01T11:30:00",
+                                                        "price": 15.0,
+                                                        "tripDescription": "Trip to Barcelona"
+                                                    },
+                                                    {
+                                                        "id": "df9458e8-7834-4df8-ba48-79aadfaa42d6",
+                                                        "departurePlace": "Seville",
+                                                        "arrivalPlace": "Sanlúcar de Barrameda",
+                                                        "departureTime": "2024-09-01T15:00:00",
+                                                        "estimatedDuration": 90,
+                                                        "arrivalTime": "2024-09-01T16:15:00",
+                                                        "price": 5.0,
+                                                        "tripDescription": "Trip to Cádiz with space for two passengers"
+                                                    },
+                                                    {
+                                                        "id": "af9458e8-7834-4df8-ba48-79aadfaa42d7",
+                                                        "departurePlace": "Seville",
+                                                        "arrivalPlace": "Sanlúcar de Barrameda",
+                                                        "departureTime": "2024-09-01T18:15:00",
+                                                        "estimatedDuration": 50,
+                                                        "arrivalTime": "2024-09-01T19:30:00",
+                                                        "price": 12.0,
+                                                        "tripDescription": "Trip to Valencia with stops in intermediate cities"
+                                                    },
+                                                    {
+                                                        "id": "af9458e8-7834-4df8-ba48-79aadfaa42d8",
+                                                        "departurePlace": "Madrid",
+                                                        "arrivalPlace": "Barcelona",
+                                                        "departureTime": "2024-09-01T18:15:00",
+                                                        "estimatedDuration": 70,
+                                                        "arrivalTime": "2024-09-01T19:30:00",
+                                                        "price": 9.0,
+                                                        "tripDescription": "Trip to Valencia with stops in intermediate cities"
+                                                    },
+                                                    {
+                                                        "id": "af9458e8-7834-4df8-ba48-79aadfaa42d9",
+                                                        "departurePlace": "Seville",
+                                                        "arrivalPlace": "Sanlúcar de Barrameda",
+                                                        "departureTime": "2024-09-01T18:15:00",
+                                                        "estimatedDuration": 60,
+                                                        "arrivalTime": "2024-09-01T19:30:00",
+                                                        "price": 14.0,
+                                                        "tripDescription": "Trip to Madrid with stops in intermediate cities"
+                                                    },
+                                                    {
+                                                        "id": "4c82f2ed-33cd-44af-ac4d-db802e9df1b8",
+                                                        "departurePlace": "Seville",
+                                                        "arrivalPlace": "Sanlúcar de Barrameda",
+                                                        "departureTime": "2024-09-01T18:15:00",
+                                                        "estimatedDuration": 40,
+                                                        "arrivalTime": "2024-09-01T19:30:00",
+                                                        "price": 6.0,
+                                                        "tripDescription": "Trip to Madrid with stops in intermediate cities"
+                                                    }
+                                                ],
+                                                "pageable": {
+                                                    "pageNumber": 0,
+                                                    "pageSize": 8,
+                                                    "sort": {
+                                                        "empty": true,
+                                                        "sorted": false,
+                                                        "unsorted": true
+                                                    },
+                                                    "offset": 0,
+                                                    "paged": true,
+                                                    "unpaged": false
+                                                },
+                                                "last": false,
+                                                "totalPages": 2,
+                                                "totalElements": 9,
+                                                "size": 8,
+                                                "number": 0,
+                                                "sort": {
+                                                    "empty": true,
+                                                    "sorted": false,
+                                                    "unsorted": true
+                                                },
+                                                "first": true,
+                                                "numberOfElements": 8,
+                                                "empty": false
+                                            }
                                             """
                             )}
                     )}),
