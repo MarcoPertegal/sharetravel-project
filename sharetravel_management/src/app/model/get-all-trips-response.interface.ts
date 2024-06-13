@@ -22,7 +22,7 @@ export interface Trip {
     estimatedDuration: number;
     arrivalTime: string;
     price: number;
-    description: string;
+    tripDescription: string;
 }
 
 export interface Pageable {

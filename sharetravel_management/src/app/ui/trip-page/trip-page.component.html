@@ -34,7 +34,7 @@
                         <td class="pt-4">{{t.estimatedDuration}} min</td>
                         <td class="pt-4">{{t.arrivalTime | date: 'dd/M/YYYY, hh:mm'}}</td>
                         <td class="pt-4">{{t.price}} €</td>
-                        <td class="pt-4">{{t.description | slice:0:35}}</td>
+                        <td class="pt-4">{{t.tripDescription | slice:0:35}}</td>
                         <td class="pt-3">
                             <button type="button" class="btn" (click)="editModal(editTrip, t.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white"

@@ -101,12 +101,8 @@ export class UserPageComponent {
         location.reload();
       },
       error => {
-        if (error.status === 403)
-          window.alert('Logged admin cant delete himself!');
-        if (error.status === 404)
-          window.alert('No trip found with that id');
-        if (error.status === 400)
-          window.alert('Unexpected error');
+        let errorMessage = localStorage.getItem('ERROR_MESSAGE');
+        window.alert(errorMessage);
       }
     );
   }
