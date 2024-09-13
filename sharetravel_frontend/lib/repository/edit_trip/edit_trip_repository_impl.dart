@@ -31,7 +31,8 @@ class EditTripRepositoryImpl extends EditTripRepository {
     if (response.statusCode == 201) {
       return EditTripResponse.fromJson(response.body);
     } else {
-      throw Exception('Failed to edit trip');
+      throw Exception(
+          'Failed to edit trip(revisa los caracteres como: Ã, debido a que estos se cambian por las letras con tilde))');
     }
   }
 }

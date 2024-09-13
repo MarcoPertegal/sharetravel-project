@@ -28,10 +28,12 @@ public class Trip {
 
     private String arrivalPlace;
 
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime departureTime;
 
     private int estimatedDuration;//EN MINUTOS
 
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime arrivalTime;
 
     private double price;

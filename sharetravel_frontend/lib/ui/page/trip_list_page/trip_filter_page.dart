@@ -89,7 +89,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
                           MaterialPageRoute(
                               builder: (context) => ErrorPage(
                                   errorMessage: errorMessage +
-                                      " (solo hay viajes para el 1 de septiembre)")),
+                                      " (mira la fecha de los viajes en el import)")),
                         );
                       });
                     } else if (state is DoFilterTripsLoading) {
@@ -173,7 +173,7 @@ class _TripFilterPageState extends State<TripFilterPage> {
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime.now(),
-                  lastDate: DateTime(DateTime.now().year + 1),
+                  lastDate: DateTime(DateTime.now().year + 2),
                   builder: (BuildContext context, Widget? child) {
                     return Theme(
                       data: ThemeData.light().copyWith(

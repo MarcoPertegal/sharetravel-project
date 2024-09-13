@@ -89,7 +89,8 @@ public class UserService {
     }
 
     public Optional<User> edit(User user) {
-
+        // El username no se puede editar
+        // La contraseña se edita en otro método
         return userRepository.findById(user.getId())
                 .map(u -> {
                     u.setAvatar(user.getAvatar());
@@ -100,7 +101,7 @@ public class UserService {
     }
 
     public Optional<User> editPassword(UUID userId, String newPassword) {
-
+        // Aquí no se realizan comprobaciones de seguridad. Tan solo se modifica
         return userRepository.findById(userId)
                 .map(u -> {
                     u.setPassword(passwordEncoder.encode(newPassword));
@@ -114,7 +115,7 @@ public class UserService {
     }
 
     public void deleteById(UUID id) {
-
+        // Prevenimos errores al intentar borrar algo que no existe
         if (userRepository.existsById(id))
             userRepository.deleteById(id);
     }
@@ -124,7 +125,14 @@ public class UserService {
     }
 
     public GetUserDetailsDto findLoggedById(User loggedUser){
-
+        //Se hace un casteo a driver para poder llamar a la lista de ratings
+        //Como da el error de lazy al sacar los ratings de un driver
+        //Hay que hacer una consulta con left join a tabla rating para extraer la lista
+        //Como da un error de casteo si el usuario logueado es un passenger que no tiene ratings
+        //hay que realizar una comprobación
+        //Si averageRating esta ha cero significa que el driver no tiene valoraciones
+        //Si esta en negativo significa que el usuario es passenger(mejorar mas adelante para que
+        // pueda tener valoraciones tambien)
         double averageRating;
         if (Objects.equals(loggedUser.getRoles().toString(), "[DRIVER]")){
             Driver driver = (Driver) loggedUser;
@@ -202,7 +210,6 @@ public class UserService {
 
         if (user.getRoles().toString().equals("[DRIVER]")){
 
-
             List<Rating> driverRatings = ratingRepository.findByDriverId(id);
             driverRatings.forEach(ratingRepository::delete);
 
@@ -219,13 +226,13 @@ public class UserService {
 
             List<Reserve> passengerReserves = reserveRepository.findByPassengerId(id);
             passengerReserves.forEach(reserveRepository::delete);
-
         }
-
+        //Comprobación para que un admin no se borre a sí mismo
         if(loggedAdmin.getId().equals(id)){
             throw new UserCantBeDeleteException(adminCantDeleteMessage);
         }
 
+        //si el user se ha logueado hay que eliminarle el refresh token antes de borrarlo
         refreshTokenService.deleteByUser(user);
 
         userRepository.deleteById(user.getId());
