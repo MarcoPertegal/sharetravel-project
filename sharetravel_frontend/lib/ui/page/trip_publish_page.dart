@@ -127,6 +127,11 @@ class _TripPublishPageState extends State<TripPublishPage> {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
               }
+
+              if (!RegExp(r"^[a-zA-ZÀ-ÿ\s]+$").hasMatch(value)) {
+                return 'Only letters, spaces and accents are allowed';
+              }
+
               return null;
             },
           ),
@@ -152,6 +157,11 @@ class _TripPublishPageState extends State<TripPublishPage> {
               if (value == null || value.isEmpty) {
                 return 'Please enter some text';
               }
+
+              if (!RegExp(r"^[a-zA-ZÀ-ÿ\s]+$").hasMatch(value)) {
+                return 'Only letters, spaces and accents are allowed';
+              }
+
               return null;
             },
           ),
