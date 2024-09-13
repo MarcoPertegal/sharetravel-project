@@ -30,7 +30,8 @@ public interface  TripRepository extends JpaRepository<Trip, UUID> {
     Page<GetAllTripsDto> findAllTrips(Pageable pageable);
 
 
-
+    //La fecha entrante es un LocalDate como la fecha de la BBDD es un LocalDateTime hace falta
+    //hacer un casteo de LocalDate a LocalDateTime para que la consulta no pete
     @Query("""
     SELECT new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripDto(
         t.id,

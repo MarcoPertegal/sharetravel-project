@@ -22,6 +22,11 @@ public class RefreshToken {
     @Id
     private UUID id;
 
+    //Cada usuario solo puede tener un refresh token
+    //MapsId sirve para sincronizar el valor del id de esta clase
+    //con el valor de la asociacion con user
+    //para que el valor de las dos claves primarias
+    //sea el mismo
     @MapsId
     @OneToOne
     @JoinColumn(name = "user_id", columnDefinition = "uuid")

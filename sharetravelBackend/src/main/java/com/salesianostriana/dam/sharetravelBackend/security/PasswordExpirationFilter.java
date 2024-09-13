@@ -40,6 +40,7 @@ public class PasswordExpirationFilter implements Filter {
         System.out.println("User"+principal);
         if (principal != null && principal instanceof UserDetails){
             User user = (User) principal;
+            //Nose porque siempre devuelve no expired
             if (user.isPasswordExpired()){
                 System.out.println("PAsword expired");
             }else {
