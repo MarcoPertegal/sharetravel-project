@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ReserveService } from '../../service/reserve.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Reserve } from '../../model/get-all-reserves-response.interface';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reserve-page',
@@ -13,6 +14,7 @@ export class ReservePageComponent {
   pageNumber: number = 0;
   count: number = 0;
   reserveId!: string;
+  fullName: string = '';
 
   constructor(
     private reserveService: ReserveService,
@@ -24,11 +26,28 @@ export class ReservePageComponent {
   }
 
   loadNewPage() {
-    this.reserveService.GetAll(this.pageNumber - 1).subscribe(resp => {
+    this.reserveService.GetAll(this.fullName, this.pageNumber - 1).subscribe(resp => {
       this.reserveList = resp.content;
       this.count = resp.totalElements;
     });
   }
+
+  ///Filtro por nombre del propietario de la reserva
+  findReserve = new FormGroup({
+    fullName: new FormControl('')
+  });
+
+  filterModal(filterReserve: any) {
+    this.modalService.open(filterReserve);
+  }
+
+  findRes() {
+    this.fullName = this.findReserve.value.fullName ?? '';
+    this.pageNumber = 1;
+    this.loadNewPage();
+    this.closeModal();
+  }
+////////////////////
 
   closeModal() {
     this.modalService.dismissAll();

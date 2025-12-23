@@ -11,8 +11,8 @@ export class ReserveService {
 
   constructor(private http: HttpClient) { }
 
-  GetAll(page: number): Observable<GetAllReservesResponse> {
-    return this.http.get<GetAllReservesResponse>(`${environment.HeadUrl}/reserve/?page=${page}`,
+  GetAll(fullname: String, page: number): Observable<GetAllReservesResponse> {
+    return this.http.get<GetAllReservesResponse>(`${environment.HeadUrl}/reserve/?fullName=${fullname}&page=${page}`,
       {
         headers: {
           accept: 'application/json',
