@@ -158,6 +158,10 @@ public class UserService {
                 .build();
     }
 
+    //aqui se hace este lio de mapear a dto porque como se usan los metodos simples que genera Spring data JPA al
+    //extender de JPA repository devuelve la entidad sin mapear, si hubiese hecho mi metodo de find all y find by role
+    //en el repo y ya me lo sacase de la consulta transformado a dto este metodo seria mucho más sencillo
+    //como el de findAllReserves
     public Page<UserDataDto> getAllUsers(Pageable p, String filterRole) {
         Page<User> result;
         if (Arrays.stream(UserRole.values()).anyMatch(enumValue -> enumValue.name().equals(filterRole.toUpperCase()))) {

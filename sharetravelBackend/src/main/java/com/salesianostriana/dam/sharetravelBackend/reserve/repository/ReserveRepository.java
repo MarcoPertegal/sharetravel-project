@@ -70,4 +70,26 @@ public interface ReserveRepository extends JpaRepository<Reserve, UUID> {
 
     @Query("SELECT r FROM Reserve r WHERE r.passenger.id = :passengerId")
     List<Reserve> findByPassengerId(UUID passengerId);
+
+    @Query("""
+        SELECT new com.salesianostriana.dam.sharetravelBackend.reserve.dto.GetReserveWithPassengerAndTripDto(
+                        r.id,
+                        r.reserveDate,
+                        new com.salesianostriana.dam.sharetravelBackend.trip.dto.GetTripBasicDataDto(
+                            t.id,
+                            t.departurePlace,
+                            t.arrivalPlace,
+                            t.price
+                        ),
+                        new com.salesianostriana.dam.sharetravelBackend.user.dto.GetPassengerByTripDto(
+                            p.avatar,
+                            p.fullName
+                        )
+                    )
+                    FROM Reserve r
+                        JOIN r.trip t
+                        JOIN r.passenger p
+                    WHERE (:fullName IS NULL OR :fullName = '' OR LOWER(p.fullName) LIKE LOWER(CONCAT(:fullName, '%')))
+    """)
+    Page<GetReserveWithPassengerAndTripDto> findReserveByPassengerName(Pageable pageable, @Param("fullName") String fullName);
 }

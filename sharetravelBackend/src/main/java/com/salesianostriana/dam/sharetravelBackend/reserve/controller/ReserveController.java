@@ -257,7 +257,7 @@ public class ReserveController {
                     content = @Content),
     })
     @GetMapping("/")
-    public ResponseEntity<Page<GetReserveWithPassengerAndTripDto>> getAllReserves(@PageableDefault(page = 0, size = 8) Pageable p){
-        return ResponseEntity.ok(reserveService.getAllReserves(p));
+    public ResponseEntity<Page<GetReserveWithPassengerAndTripDto>> getAllReserves(@PageableDefault(page = 0, size = 8) Pageable p, @RequestParam String fullName){
+        return ResponseEntity.ok(reserveService.getAllReserves(p, fullName));
     }
 }
