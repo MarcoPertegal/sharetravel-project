@@ -88,11 +88,21 @@ public class ReserveService {
         reserveRepository.deleteById(id);
     }
 
+    public Page<GetReserveWithPassengerAndTripDto> getAllReserves(Pageable p, String filterFullName){
+        Page<GetReserveWithPassengerAndTripDto> result = reserveRepository.findReserveByPassengerName(p,filterFullName);
+
+        if(result.isEmpty()){
+            throw new ReserveNotFoundException(reserveNotFoundMessage);
+        }
+        return result;
+    }
+
+    /*
     public Page<GetReserveWithPassengerAndTripDto> getAllReserves(Pageable p){
         Page<GetReserveWithPassengerAndTripDto> result = reserveRepository.findAllReserves(p);
         if(result.isEmpty()){
             throw new ReserveNotFoundException(reserveNotFoundMessage);
         }
         return result;
-    }
+    }*/
 }
